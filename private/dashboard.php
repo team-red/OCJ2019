@@ -2,10 +2,9 @@
 session_name("peanutbutterandjelly");
 session_start();
 // this is just the template
-var_dump($_SESSION);
 if (!isset($_SESSION["logged_in"])){
   // AGAIN, EXIT always after header()
-  header("./index.php");
+  header("location: ../index.php");
   exit();
 }
 require_once("../utils/helper.php");
