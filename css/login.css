@@ -45,3 +45,11 @@ body {
 .btn{
   margin-bottom: 10px;
 }
+
+a{
+  display: block;
+}
+
+.alert{
+  margin-top: 10px;
+}

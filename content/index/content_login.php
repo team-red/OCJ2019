@@ -18,9 +18,21 @@ if (isset($_SESSION["logged_in"])) {
         } else {
           generate_registration_form(true, "");
         }
+    } else if ($_GET["action"] == "forgot") {
+
+      if (isset($_POST["email"])){
+        $attempt = (array) attempt_send_reset_link($_POST["email"]);
+        generate_forgot_password_form($attempt["success"], $attempt["message"]);
+      }
+
+      else{
+        generate_forgot_password_form(true, "");
+      }
+
     } else {
         // either $_GET["action"] = "login"
-        // or $_GET["action"] is something else that is not "login" or "register", for which we redirect to login section
+        // or $_GET["action"] is something else that is not "login" or "register" or "forgot",
+        // for which we redirect to login section
         if (isset($_POST["email"], $_POST["pwd"])) {
             if (attempt_login($dbh, $_POST["email"], $_POST["pwd"])) {
               // conditional attemps login and decides if it was successful
