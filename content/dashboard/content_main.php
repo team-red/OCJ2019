@@ -1,2 +1,2 @@
 <!-- just an empty page to test log out function -->
-<a href="../utils/logout.php">Log out</a>
+<a href="dashboard.php?page=logout">Log out</a>

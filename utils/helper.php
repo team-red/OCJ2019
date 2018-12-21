@@ -15,6 +15,10 @@ $dashboard_pages = array(
   array(
     "name"=> "main",
     "title"=> "Dashboard"
+  ),
+  array(
+    "name" => "logout",
+    "title" => ""
   )
 );
 
