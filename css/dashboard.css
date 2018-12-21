@@ -2,6 +2,7 @@
 */
 
 body, html{
+    font-family: -apple-system,BlinkMacSystemFont,Fira Sans,Helvetica Neue,Apple Color Emoji,sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -69,11 +70,13 @@ body, html{
     visibility: hidden;
 }
 .app-aside-expand-md+.app-main {
-    padding-left: 15rem;
-    padding-top: 56px;
+    padding: 5rem 2rem 2rem 17rem;
 }
 }
 @media (max-width: 767.98px){
+  .app-aside-expand-md+.app-main {
+      padding: 5rem 2rem 2rem 2rem;
+  }
 #dark{
     display: none;
     position: fixed;
@@ -120,17 +123,24 @@ body, html{
 /* sidebar css */
 .sidebar_pages{
   padding: 0;
-  margin: 0;
+  margin-top: 1rem;
 }
 .sidebar_page{
-  padding: 1rem 2rem 0rem 2rem;
-}
-.sidebar_page_selected{
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  color: #363642;
+  font-size: .875rem;
+line-height: 1.25rem;
 
 }
+.sidebar_page_selected{
+color: #0062cc !important;
+}
 .sidebar_icons{
-  font-size: 25px;
-  color: #0062cc;
+  width: 1.25em;
+margin-right: .5em;
+text-align: center;
+font-size: 1.125rem;
+color: #a6abbd;
 }
 
 

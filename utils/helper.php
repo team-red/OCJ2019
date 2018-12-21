@@ -91,8 +91,12 @@ function generate_sidebar_dashboard($page, $valid_pages){
 flag;
 foreach ($valid_pages as $valid_page){
   echo "<a href='dashboard.php?page=".$valid_page["name"]."'><li class='sidebar_page ";
-  if($valid_page == $page) echo "sidebar_page_selected";
-  echo "' id='sidebar_".$valid_page["name"]."'><span class='sidebar_icons''> <i class='fas fa-".$valid_page["icon_name"]."'></i> </span>".$valid_page["title"]."</li></a>";
+  if($valid_page["name"] == $page) echo "sidebar_page_selected";
+  echo "' id='sidebar_".$valid_page["name"]."'><span class='sidebar_icons ";
+  if($valid_page["name"] == $page) echo "sidebar_page_selected";
+  echo "''> <i class='fas fa-".$valid_page["icon_name"]."'></i></span>".$valid_page["title"]."<i class='fas fa-angle-right ";
+  if($valid_page["name"] == $page) echo "sidebar_page_selected";
+  echo "' style='float: right; color: #6c757d; margin-top: 4px;'></i></li></a>";
 }
 echo <<<flag
     </ul>
