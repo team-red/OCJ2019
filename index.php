@@ -1,9 +1,6 @@
 <?php
 session_name("peanutbutterandjelly");
 session_start();
-if (isset($_SESSION["initiated"])) {
-    $_SESSION["initiated"] = true;
-}
 require_once("utils/helper.php");
 require_once("utils/database.php");
 

@@ -3,7 +3,7 @@ require_once("utils/access.php");
 if (isset($_SESSION["logged_in"])) {
     // if the user is logged in, redirect him to the dashboard
     // always call exit() after header() (to avoid php logic to execute after it)
-    header("location: private/dashboard.php");
+    header("location: dashboard.php");
     exit();
 } else {
     if (!isset($_GET["action"])) {
@@ -28,7 +28,6 @@ if (isset($_SESSION["logged_in"])) {
       else{
         generate_forgot_password_form(true, "");
       }
-
     } else {
         // either $_GET["action"] = "login"
         // or $_GET["action"] is something else that is not "login" or "register" or "forgot",
@@ -38,7 +37,7 @@ if (isset($_SESSION["logged_in"])) {
               // conditional attemps login and decides if it was successful
                 $_SESSION["logged_in"] = true;
                 // again, EXIT always after header()
-                header("location: private/dashboard.php");
+                header("location: dashboard.php");
                 exit();
             } else {
                 generate_login(true);

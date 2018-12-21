@@ -1,0 +1,137 @@
+/* tkhwar lwlani
+*/
+
+body, html{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.app-main{
+    height : 100%;
+}
+.side-header{
+    float: left;
+    width: 15rem;
+    height : 100%;
+    background-color: rgba(20,20,31,.12);
+}
+.app {
+    width: 100%;
+    min-height: 100%;
+    background-color: #f6f7f9;
+}
+.app-header{
+    border-bottom: solid 1px lightgray;
+    background-color: #346cb0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: 3.5rem;
+}
+.app-aside {
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+.closebtn{
+    font-size: 30px;
+    cursor: pointer;
+    position: relative;
+    top: -9px;
+    right: 6px;
+    float: right;
+}
+@media (min-width: 768px){
+.logo{
+    height: inherit;
+    margin: 0 auto;
+    padding: 6px 0;
+    display: flex;
+}
+.main{
+        padding-left: 15rem;
+}
+.app-aside-expand-md {
+    top: 3.5rem;
+    width: 15rem !important;
+    border-right: 1px solid rgba(20,20,31,.05);
+
+}
+.pointer{
+    visibility: hidden;
+}
+.closebtn{
+    visibility: hidden;
+}
+.app-aside-expand-md+.app-main {
+    padding-left: 15rem;
+    padding-top: 56px;
+}
+}
+@media (max-width: 767.98px){
+#dark{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(20,20,31,.8);
+    z-index: 2;
+    -webkit-animation: fadeInBackdrop .26s ease forwards;
+    animation: fadeInBackdrop .26s ease forwards;
+}
+@keyframes fadeInBackdrop{
+    from{opacity:0.4}to{opacity:1}
+    }
+.logo{
+    visibility: hidden;
+}
+.side-header{
+    width :0px !important;
+}
+.pointer{
+    font-size: 30px;
+    position: relative;
+    cursor: pointer;
+    left: 13px;
+    top: 2px;
+    color: #07376b;
+    float: left;
+}
+.app-aside-expand-md {
+    width :0;
+    z-index: 3;
+    background-color: #f6f7f9;
+}
+}
+.app-aside-expand-md {
+    height : 100%;
+
+}
+
+/* header css */
+
+/* sidebar css */
+.sidebar_pages{
+  padding: 0;
+  margin: 0;
+}
+.sidebar_page{
+  padding: 1rem 2rem 0rem 2rem;
+}
+.sidebar_page_selected{
+
+}
+.sidebar_icons{
+  font-size: 25px;
+  color: #0062cc;
+}
+
+
+/* main css */
