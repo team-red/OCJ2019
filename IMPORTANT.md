@@ -10,7 +10,10 @@ Also feel free to add new users, and experiment with possibilities of email/logi
 
 Also, the JavaScript scripts should work properly. If you your form is invalid (different passwords, invalid email, empty item), the form won't be submitted directly to the server side php code. Instead, the user will be presented with the form and the correct/incorrect fields will be highlighted. Moreover, at every key stroke, the JavaScript code will verify the new input and update the highlighted items.
 
-You can test that as well. Just one note, I had included a check for different passwords in the php code. That would seem redondant now, but if the JavaScript code fails for some reason. The php code should normally catch the inconsistency.
+You can test that as well. Just one note, I had included a check for different passwords in the php code. That would seem redundant now, but if the JavaScript code fails for some reason. The php code should normally catch the inconsistency.
 
 ## Documenting Issues or Notes
 I propose that we keep using this file to write commit notes or suggestions.
+
+## Added .gitignore
+I put in it the Database.php file.

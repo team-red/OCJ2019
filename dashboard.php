@@ -9,7 +9,6 @@ if (!isset($_SESSION["logged_in"])){
 }
 require_once("utils/helper.php");
 require_once("utils/database.php");
-require_once("utils/access.php");
 
 // this part can be ignored, for the moment there is one page for Dashboard
 // this would be useful to make it more interactive later
