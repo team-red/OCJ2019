@@ -37,34 +37,66 @@ registration.birthday.oninput = (event) => {
   }
 };
 
-registration.email.onkeyup = (event) => {
+
+
+function isValidEmail(email){
+  return /\S+@\S+/.test(email.toLowerCase());
+}
+
+function isValidLogin(login){
+  return true;
+}
+
+function emailExists(email){
   let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      if (/\S+@\S+/.test(registration.email.value.toLowerCase()) && this.responseText == "Not Found") {
-        registration.email.setCustomValidity("");
-      } else {
-        registration.email.setCustomValidity("Invalid Email.");
+  xhttp.onreadystatechange = function (){
+    if (this.readyState == 4 && this.status == 200){
+      if (this.responseText == "Not Found"){
+        return false;
+      } else if (this.responseText == "Found"){
+        return true;
+      } else{
+        throw new Exception("Ajax call returning with invalid response text.");
       }
     }
   };
-  xhttp.open("POST", "utils/ajax/user_exists.php", true);
+  xhttp.open("POST", "ajax/user_exists.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("auth=email&value=" + registration.email.value);
-};
+  xhttp.send("auth=email&value" + email);
+}
+
+function loginExists(login){
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function (){
+    if (this.readyState == 4 && this.status == 200){
+      if (this.responseText == "Not Found"){
+        return false;
+      } else if (this.responseText == "Found"){
+        return true;
+      } else{
+        throw new Exception("Ajax call returning with invalid response text.");
+      }
+    }
+  };
+  xhttp.open("POST", "ajax/user_exists.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("auth=login&value" + login);
+}
 
 registration.login.onkeyup = (event) => {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      if (registration.login.value !== "" && this.responseText == "Not Found") {
-        registration.login.setCustomValidity("");
-      } else {
-        registration.login.setCustomValidity("Invalid Login.");
-      }
+  login.
+};
+
+
+registration.email.onkeyup = (event) => {
+  email = registration.email;
+  if (!isValidEmail(email.value)){
+    email.setCustomValidity("Invalid Email adress.");
+  } else{
+    if (emailExists(email.value)){
+      email.setCustomValidity("Email already used.");
+    } else{
+      email.setCustomValidity("");
     }
-  };
-  xhttp.open("POST", "utils/ajax/user_exists.php", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("auth=login&value=" + registration.login.value);
+  }
 };
