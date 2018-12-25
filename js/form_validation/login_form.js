@@ -11,11 +11,24 @@ for (let element of login.elements){
   };
 }
 
-login.addEventListener('input', (event) => {
+login.pwd.addEventListener('input', (event) => {
   if (login.pwd === ""){
     login.pwd.setCustomValidity("Empty field.");
   }
   else{
     login.pwd.setCustomValidity("");
+  }
+});
+
+function isValidEmail(email) {
+  return /\S+@\S+/.test(email.toLowerCase());
+}
+
+login.email.addEventListener('input', (event) => {
+  let email = login.email;
+  if (!isValidEmail(email.value)){
+    email.setCustomValidity("Invalid email adress.");
+  } else {
+    email.setCustomValidity("");
   }
 });
