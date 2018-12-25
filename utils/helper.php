@@ -16,51 +16,51 @@ $dashboard_pages = array(
   array(
     "name"=> "main",
     "title"=> "Acceuil",
-    "icon_name" => "home",
+    "icon_name" => "uni5A",
     "category" => "General"
   ),
   array(
     "name"=> "profil",
     "title"=> "Profil",
-    "icon_name" => "user-circle",
+    "icon_name" => "uniE011",
     "category" => "General"
   ),
   array(
     "name"=> "questionnaires",
     "title"=> "Questionnaires",
-    "icon_name" => "question-circle",
+    "icon_name" => "uniE049",
     "category" => "General"
   ),
   // Admin
   array(
     "name" => "stats",
     "title" => "Statistiques",
-    "icon_name" => "poll",
+    "icon_name" => "uniE002",
     "category" => "Admin"
   ),
   array(
     "name" => "creer_questionnaire",
     "title" => "Creer Questionnaire",
-    "icon_name" => "pencil-alt",
+    "icon_name" => "uni2E",
     "category" => "Admin"
   ),
   array(
     "name" => "gestionnaire_eleves",
     "title" => "Gestionnaire d'éleves",
-    "icon_name" => "users-cog",
+    "icon_name" => "uni50",
     "category" => "Admin"
   ),
   // User Account
   array(
     "name"=> "setting",
     "title"=> "Paramettres",
-    "icon_name" => "sliders-h",
+    "icon_name" => "uniE005",
     "category" => "User account"
   ),
   array(
     "name" => "logout",
     "title" => "Logout",
-    "icon_name" => "sign-out-alt",
+    "icon_name" => "uniE003",
     "category" => "User account"
   )
 );
@@ -97,7 +97,7 @@ function generate_header($page_name, $sheet_path, $valid_pages)
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Font Awesom for page icons -->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+      <link rel="stylesheet" href="media/icons/style.css">
       <!-- Bootstrap CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
@@ -120,38 +120,36 @@ $html = "
     <!-- The actual sidebar -->
     <aside id='side-bar' class='app-aside'>
     <header class='logo_header'>
-    <img class='logo' src='media/mathmaroc-white.png' alt='logo'>
+    <img class='logo' src='media/mathmaroc-dashboard.png' alt='logo'>
     </header>
-    <main>
+    <main class='sidebar_main'>
     <ul class='sidebar_pages'>";
 
-$category = "General";
+$category = "";
 foreach ($valid_pages as $valid_page){
   // Adding category if a new one is selected in the loop and skiping General
   if($valid_page["category"] != "Admin" || ($valid_page["category"] == "Admin" && $admin)){
     if($valid_page["category"] != $category){
         $category = $valid_page["category"];
-        $html = $html."<li class='sidebar_category'>".$category."</li>";
+        $html = $html."<li class='sidebar_category'> &nbsp; --- ".$category."</li>";
     }
 
   // Adding pages and verifying wheter the page is active or not (if so adding it to the class sidebar_page_selected)
   $selected = ($valid_page["name"] == $page) ? " sidebar_page_selected" : "";
   $html = $html."
-  <a onmouseover='page_hovered(sidebar_".$valid_page["name"].")' onmouseout='page_mouseout(sidebar_".$valid_page["name"].")' href='dashboard.php?page=".$valid_page["name"]."'>
-    <li class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."'>
-      <span class='sidebar_icons".$selected."'>
-        <i class='fas fa-".$valid_page["icon_name"]."'></i>
-      </span>
-      ".$valid_page["title"]."
-      <i class='fas fa-angle-right sidebar_arrow".$selected."'></i>
-    </li>
-  </a>";
+  <li>
+    <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' onmouseover='page_hovered(sidebar_".$valid_page["name"].")' onmouseout='page_mouseout(sidebar_".$valid_page["name"].")' href='dashboard.php?page=".$valid_page["name"]."'>
+        <i class='icon-".$valid_page["icon_name"]." sidebar_icon'></i>
+        ".$valid_page["title"]."
+        <i class='icon-uniE04B sidebar_arrow'></i>
+    </a>
+  </li>";
   }
 }
 $html = $html."
 </ul></main>
 <footer class='sidebar_help'>
-<div class='need_help'><a href='#' style='text-decoration: none; color:unset;'><i class='fas fa-info-circle'></i> Besoin d'aide? </a></div>
+<div class='need_help'><a href='#' style='text-decoration: none; color:unset;'><i class='icon-uni36'></i> Besoin d'aide? </a></div>
 </footer>
 </aside>";
 

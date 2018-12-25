@@ -18,11 +18,7 @@ nombre de qcms restants, dernieres activités...
       Here is your account status :
     </div>
   </div>
-  <div class="row stats">
-    <div class="col-md-4 done"></div>
-    <div class="col-md-4 mark"></div>
-    <div class="col-md-4 left"></div>
-  </div>
+  
 
 </main>
 
