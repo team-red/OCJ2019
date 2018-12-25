@@ -17,3 +17,6 @@ I propose that we keep using this file to write commit notes or suggestions.
 
 ## Added .gitignore
 I put in it the Database.php file.
+
+## sidebar icons
+Note that icons are not saved localy ! 

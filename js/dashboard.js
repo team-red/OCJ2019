@@ -11,3 +11,25 @@ function closeNav(){
           document.getElementById("dark").style.display = "none";
           document.body.style.backgroundColor = "white";
         }
+
+//Automaticly lighter or darken the color of the pages in the sidebar starting from the color set on css : no need to put any rgbs on javascript
+
+function LightenDarkenColor(r,g,b,ratio){
+    return "rgb("+ parseInt(r*ratio) +", "+ parseInt(g*ratio) +", "+ parseInt(b*ratio) +")";
+}
+
+function page_hovered(element){
+  style = window.getComputedStyle(element),
+  color = style.getPropertyValue('color');
+  var rgb = color.slice(4,-1).split(", ");
+  var newColor = LightenDarkenColor(parseInt(rgb[0]),parseInt(rgb[1]),parseInt(rgb[2]),0.8);
+  element.style.color = newColor;
+}
+
+function page_mouseout(element){
+  style = window.getComputedStyle(element),
+  color = style.getPropertyValue('color');
+  var rgb = color.slice(4,-1).split(", ");
+  var newColor = LightenDarkenColor(parseInt(rgb[0]),parseInt(rgb[1]),parseInt(rgb[2]),1.25);
+  element.style.color = newColor;
+}

@@ -30,7 +30,14 @@ $dbh = Database::connect();
   <!-- Header-->
   <?php generate_header_dashboard(); ?>
   <!-- SideBar -->
-  <?php generate_sidebar_dashboard($page, $dashboard_pages); ?>
+  <?php
+
+  //POURTEST
+  $isAdmin = (isset($_GET["admin"]) && $_GET["admin"] == "true") ? true : false;
+  //POURTEST
+
+  generate_sidebar_dashboard($page, $dashboard_pages, $isAdmin);
+  ?>
   <!-- Main -->
   <main class="app-main">
     <?php require_once("content/dashboard/content_".$page.".php"); ?>

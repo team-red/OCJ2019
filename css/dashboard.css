@@ -2,29 +2,48 @@
 */
 
 body, html{
-    font-family: -apple-system,BlinkMacSystemFont,Fira Sans,Helvetica Neue,Apple Color Emoji,sans-serif;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-.app-main{
-    height : 100%;
-}
-.side-header{
-    float: left;
-    width: 15rem;
-    height : 100%;
-    background-color: rgba(20,20,31,.12);
+  font-family: -apple-system,BlinkMacSystemFont,Fira Sans,Helvetica Neue,Apple Color Emoji,sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 .app {
-    width: 100%;
-    min-height: 100%;
-    background-color: #f6f7f9;
+  width: 100%;
+  min-height: 100%;
+  background-color: #edeff3;
 }
+
+/********************* header css **********************/
+
+/* large screen */
+@media (min-width: 768px){
+  .app-header{
+    visibility: hidden;
+  }
+  .pointer{
+    visibility: hidden;
+  }
+}
+/* small screen */
+@media (max-width: 767.98px){
+  .side-header{
+    width :0px !important;
+  }
+.pointer{
+    font-size: 30px;
+    position: relative;
+    cursor: pointer;
+    left: 13px;
+    top: 2px;
+    color: #136bc9;
+    float: left;
+  }
+}
+
 .app-header{
     border-bottom: solid 1px lightgray;
-    background-color: #346cb0;
+    background-color: #ffffff;
     position: fixed;
     top: 0;
     right: 0;
@@ -32,52 +51,29 @@ body, html{
     z-index: 1;
     height: 3.5rem;
 }
-.app-aside {
-    overflow-x: hidden;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+.side-header{
+    float: left;
+    width: 15rem;
+    height : 100%;
+    background-color: rgba(20,20,31,.12);
 }
-.closebtn{
-    font-size: 30px;
-    cursor: pointer;
-    position: relative;
-    top: -9px;
-    right: 6px;
-    float: right;
-}
+
+/******************** sidebar css **********************/
+
+/* large screen */
 @media (min-width: 768px){
-.logo{
-    height: inherit;
-    margin: 0 auto;
-    padding: 6px 0;
-    display: flex;
-}
-.main{
-        padding-left: 15rem;
-}
-.app-aside-expand-md {
+  .app-aside {
     top: 3.5rem;
     width: 15rem !important;
-    border-right: 1px solid rgba(20,20,31,.05);
-
-}
-.pointer{
-    visibility: hidden;
-}
-.closebtn{
-    visibility: hidden;
-}
-.app-aside-expand-md+.app-main {
-    padding: 5rem 2rem 2rem 17rem;
-}
-}
-@media (max-width: 767.98px){
-  .app-aside-expand-md+.app-main {
-      padding: 5rem 2rem 2rem 2rem;
+    box-shadow: 0px 0px 7px #d2d7dc;
   }
-#dark{
+}
+/* small screen */
+@media (max-width: 767.98px){
+  .app-main {
+    padding: 5rem 2rem 2rem 2rem;
+  }
+  #dark{
     display: none;
     position: fixed;
     top: 0;
@@ -88,60 +84,137 @@ body, html{
     z-index: 2;
     -webkit-animation: fadeInBackdrop .26s ease forwards;
     animation: fadeInBackdrop .26s ease forwards;
-}
-@keyframes fadeInBackdrop{
+  }
+  @keyframes fadeInBackdrop{
     from{opacity:0.4}to{opacity:1}
-    }
-.logo{
-    visibility: hidden;
-}
-.side-header{
-    width :0px !important;
-}
-.pointer{
-    font-size: 30px;
-    position: relative;
-    cursor: pointer;
-    left: 13px;
-    top: 2px;
-    color: #07376b;
-    float: left;
-}
-.app-aside-expand-md {
+  }
+  .app-aside {
     width :0;
     z-index: 3;
     background-color: #f6f7f9;
-}
-}
-.app-aside-expand-md {
-    height : 100%;
-
+  }
 }
 
-/* header css */
-
-/* sidebar css */
+.app-aside {
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background-color: white;
+}
+.logo_header{}
+.logo{
+  height: 4rem;
+  margin: 2rem auto;
+  padding: 6px 0;
+  display: flex;
+  }
 .sidebar_pages{
   padding: 0;
   margin-top: 1rem;
 }
+.sidebar_pages>a{
+  text-decoration: none;
+}
 .sidebar_page{
   padding: 0.5rem 1rem 0.5rem 1rem;
-  color: #363642;
+  color: #acbfd8;
   font-size: .875rem;
-line-height: 1.25rem;
-
+  line-height: 1.25rem;
 }
 .sidebar_page_selected{
-color: #0062cc !important;
+  color: #3783e2 !important;
 }
 .sidebar_icons{
   width: 1.25em;
-margin-right: .5em;
-text-align: center;
-font-size: 1.125rem;
-color: #a6abbd;
+  margin-right: .5em;
+  text-align: center;
+  font-size: 1.125rem;
+}
+.sidebar_category{
+  font-size: .625rem;
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+  color: #95aac9;
+  padding-bottom: .5rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.sidebar_arrow{
+  float: right;
+  margin-top: 4px;
+}
+.sidebar_help{
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  text-align: center;
+  color: #7b8a9e;
+  font-size: smaller;
+}
+.need_help{
+}
+.my-3{
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
+/********************** main css ***********************/
 
-/* main css */
+/* large screen */
+@media (min-width: 768px){
+  .app-main {
+    padding: 2rem 2rem 2rem 17rem;
+  }
+  .main{
+    padding-left: 15rem;
+  }
+}
+
+/* Main */
+.app-main{
+  height : 100%;
+}
+.main_header{
+}
+.main_main{
+  height: 100rem;
+  padding: 1rem;
+  border: solid 1px #8080802e;
+  background-color: #dae0e536;
+}
+.main_footer{
+}
+
+/* Questionnaire*/
+.questionnaires_main .questionnaire{
+  padding: 0rem;
+  border: solid 1px #e3ebf6;
+  margin-bottom: 0.5rem;
+  background-color: #ffffff;
+}
+.questionnaires_main .questionnaire .head{
+  text-align: center;
+  font-size: 3rem;
+  padding: 1rem;
+  color: white;
+  background-color: #3783e2;
+}
+.questionnaires_main .questionnaire .body{
+  padding: 2rem;
+  color: #545b62;
+}
+.questionnaires_main .questionnaire .options{
+  padding: 1rem;
+  color: #3783e2;
+  text-align: center;
+  margin: auto;
+}
+.questionnaires_footer{
+  text-align: center;
+  padding-top: 4rem;
+  color: #7d8a9d;
+  font-size: small;
+}
