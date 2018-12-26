@@ -96,8 +96,8 @@ function generate_header($page_name, $sheet_path, $valid_pages)
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- Font Awesom for page icons -->
-      <link rel="stylesheet" href="media/icons/style.css">
+      <!-- icons stylesheet -->
+      <link rel="stylesheet" href="css/icons.css">
       <!-- Bootstrap CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
@@ -136,9 +136,10 @@ foreach ($valid_pages as $valid_page){
 
   // Adding pages and verifying wheter the page is active or not (if so adding it to the class sidebar_page_selected)
   $selected = ($valid_page["name"] == $page) ? " sidebar_page_selected" : "";
+
   $html = $html."
   <li>
-    <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' onmouseover='page_hovered(sidebar_".$valid_page["name"].")' onmouseout='page_mouseout(sidebar_".$valid_page["name"].")' href='dashboard.php?page=".$valid_page["name"]."'>
+    <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
         <i class='icon-".$valid_page["icon_name"]." sidebar_icon'></i>
         ".$valid_page["title"]."
         <i class='icon-uniE04B sidebar_arrow'></i>
