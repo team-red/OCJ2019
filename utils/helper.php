@@ -10,58 +10,65 @@ $index_pages = array(
     "title"=> "Contactez nous"
   )
 );
-// When adding new page add it with its category
+
+// When adding new page add it with its category and let the main page always in the top of the array
 $dashboard_pages = array(
-  // General
+  // Menu principal
   array(
-    "name"=> "main",
+    "name"=> "home_page",
     "title"=> "Acceuil",
     "icon_name" => "uni5A",
-    "category" => "General"
+    "category" => "Menu principal"
   ),
   array(
     "name"=> "profil",
-    "title"=> "Profil",
+    "title"=> "Profile",
     "icon_name" => "uniE011",
-    "category" => "General"
+    "category" => "Menu principal"
   ),
   array(
-    "name"=> "questionnaires",
+    "name"=> "quiz",
     "title"=> "Questionnaires",
     "icon_name" => "uniE049",
-    "category" => "General"
+    "category" => "Menu principal"
+  ),
+  array(
+    "name"=> "chat",
+    "title"=> "Messagerie",
+    "icon_name" => "uni2D",
+    "category" => "Menu principal"
   ),
   // Admin
   array(
-    "name" => "stats",
+    "name" => "statistics",
     "title" => "Statistiques",
     "icon_name" => "uniE002",
-    "category" => "Admin"
+    "category" => "Administrateur"
   ),
   array(
-    "name" => "creer_questionnaire",
+    "name" => "create_quiz",
     "title" => "Creer Questionnaire",
     "icon_name" => "uni2E",
-    "category" => "Admin"
+    "category" => "Administrateur"
   ),
   array(
-    "name" => "gestionnaire_eleves",
+    "name" => "manage_students",
     "title" => "Gestionnaire d'éleves",
     "icon_name" => "uni50",
-    "category" => "Admin"
+    "category" => "Administrateur"
   ),
   // User Account
   array(
-    "name"=> "setting",
+    "name"=> "settings",
     "title"=> "Paramettres",
     "icon_name" => "uniE005",
-    "category" => "User account"
+    "category" => "Compte d'utilisateur"
   ),
   array(
     "name" => "logout",
-    "title" => "Logout",
+    "title" => "Déconnexion",
     "icon_name" => "uniE003",
-    "category" => "User account"
+    "category" => "Compte d'utilisateur"
   )
 );
 
@@ -104,15 +111,14 @@ function generate_header($page_name, $sheet_path, $valid_pages)
   </head>
 flag;
 }
-function generate_header_dashboard(){
+function generate_header_dashboard($active_page){
   echo <<<flag
   <header class="app-header">
-    <div class="side-header"></div>
     <span style="font-size:30px;cursor:pointer" class="pointer" onclick="openNav()">  &#9776;</span>
   </header>
 flag;
 }
-function generate_sidebar_dashboard($page, $valid_pages, $admin){
+function generate_sidebar_dashboard($active_page, $valid_pages, $admin){
 // Adding first stuff
 $html = "
     <!-- The dark window when the sidebar is open on small devices -->
@@ -128,14 +134,14 @@ $html = "
 $category = "";
 foreach ($valid_pages as $valid_page){
   // Adding category if a new one is selected in the loop and skiping General
-  if($valid_page["category"] != "Admin" || ($valid_page["category"] == "Admin" && $admin)){
+  if($valid_page["category"] != "Administrateur" || ($valid_page["category"] == "Administrateur" && $admin)){
     if($valid_page["category"] != $category){
         $category = $valid_page["category"];
         $html = $html."<li class='sidebar_category'> &nbsp; --- ".$category."</li>";
     }
 
   // Adding pages and verifying wheter the page is active or not (if so adding it to the class sidebar_page_selected)
-  $selected = ($valid_page["name"] == $page) ? " sidebar_page_selected" : "";
+  $selected = ($valid_page["name"] == $active_page) ? " sidebar_page_selected" : "";
 
   $html = $html."
   <li>
@@ -159,25 +165,25 @@ echo $html;
 
 }
 
-function generate_questionnaires(){
+function generate_quiz(){
   for($i=1 ; $i<10 ;$i++){
   echo <<<flag
-  <div class="row questionnaire">
+  <a href="#" class="row quiz">
     <div class="col-md-2 head">Q
 flag;
 echo $i;
 echo <<<flag
     </div>
     <div class="col-md-9 body">Questionnaire sur les combinaisons et le triangle de pascal à faire avant 12 decembre 2018</div>
-    <div class="col-md-1 options"><i class="fas fa-question-circle"></i></br><i class="fas fa-arrow-circle-right"></i></br><i class="far fa-star"></i></div>
-  </div>
+    <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
+  </a>
 flag;
 }
 }
 
 function generate_dashboard_footer(){
   echo <<<flag
-  <footer class="questionnaires_footer">
+  <footer class="dashboard_footer">
   Copyright © 2018. All rights reserved
   </footer>
 flag;

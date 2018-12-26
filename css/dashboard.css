@@ -7,6 +7,7 @@
   --sidebar_tertiary_color : #4f5467;
   --sidebar_category_color : #a6afbb;
   --main_color : #f4f6f8;
+  --questionnaire_secondary_color : #f7fafc;
 }
 
 /* General */
@@ -32,18 +33,19 @@ body, html{
 /* large screen */
 @media (min-width: 768px){
   .app-header{
-    visibility: hidden;
+    z-index: 0;
+    background-color: var(--sidebar_tertiary_color);
+    height: 4rem;
+    padding-left: Calc(var(--sidebar_size) + 1rem);
+    display: block;
   }
   .pointer{
-    visibility: hidden;
+    display: none;
   }
 }
 
 /* small screen */
 @media (max-width: 767.98px){
-  .side-header{
-    width :0px !important;
-  }
 
 .pointer{
     font-size: 30px;
@@ -51,25 +53,18 @@ body, html{
     cursor: pointer;
     left: 13px;
     top: 2px;
-    color: var(--sidebar_secondary_color);
+    color: white;
     float: left;
   }
-}
-.app-header{
-  border-bottom: solid 1px lightgray;
-  background-color: #ffffff;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-  height: 3.5rem;
-}
-.side-header{
-  float: left;
-  width: 15rem;
-  height : 100%;
-  background-color: rgba(20,20,31,.12);
+  .app-header{
+    position: fixed;
+    background-color: var(--sidebar_tertiary_color);
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: 3.5rem;
+  }
 }
 
 /******************** sidebar css **********************/
@@ -193,9 +188,6 @@ body, html{
   .app-main {
     padding: 2rem 2rem 2rem Calc(var(--sidebar_size) + 2rem);
   }
-  .main{
-    padding-left: 15rem;
-  }
 }
 
 /* small screen */
@@ -205,10 +197,12 @@ body, html{
   }
 }
 
-/* Main */
+/* General */
 .app-main{
   height : 100%;
 }
+
+/* Main */
 .main_header{
 }
 .main_main{
@@ -217,31 +211,35 @@ body, html{
 .main_footer{
 }
 
-/* Questionnaire*/
-.questionnaires_main .questionnaire{
+/* Quiz */
+.quiz_main .quiz{
+  text-decoration: none;
   padding: 0rem;
-  border: solid 1px #e3ebf6;
   margin-bottom: 0.5rem;
   background-color: #ffffff;
+  box-shadow: 0px 0px 1px #c5c5c5;
+  border-left: solid 5px var(--sidebar_main_color);
 }
-.questionnaires_main .questionnaire .head{
+.quiz_main .quiz:hover{
+  border-left: solid 10px var(--sidebar_main_color);
+}
+.quiz_main .quiz .head{
   text-align: center;
   font-size: 3rem;
   padding: 1rem;
-  color: white;
-  background-color: #3783e2;
+  color: var(--sidebar_main_color);
 }
-.questionnaires_main .questionnaire .body{
+.quiz_main .quiz .body{
   padding: 2rem;
   color: #545b62;
 }
-.questionnaires_main .questionnaire .options{
+.quiz_main .quiz .options{
   padding: 1rem;
-  color: #3783e2;
+  color: var(--sidebar_main_color);
   text-align: center;
   margin: auto;
 }
-.questionnaires_footer{
+.dashboard_footer{
   text-align: center;
   padding-top: 4rem;
   color: #7d8a9d;
