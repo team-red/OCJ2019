@@ -8,7 +8,6 @@ if (!isset($_SESSION["logged_in"])){
   exit();
 }
 require_once("utils/helper.php");
-require_once("utils/database.php");
 
 // this part can be ignored, for the moment there is one page for Dashboard
 // this would be useful to make it more interactive later
@@ -18,7 +17,6 @@ if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
     $active_page = $dashboard_pages[0]["name"];
 }
 
-$dbh = Database::connect();
  ?>
 
 <!DOCTYPE html>

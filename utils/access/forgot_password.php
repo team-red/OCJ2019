@@ -37,10 +37,8 @@ class ResetPassword
 
     public static function attempt($dbh, $email)
     {
-        $test = rand(0, 3);
-        if ($test == 0) {
-            return ResetPassword::$FEEDBACK["no_feedback"];
-        } elseif ($test == 1) {
+        $test = rand(1, 3);
+        if ($test == 1) {
             return ResetPassword::$FEEDBACK["email_not_found"];
         } elseif ($test == 2) {
             return ResetPassword::$FEEDBACK["success"];
@@ -63,7 +61,7 @@ class ResetPassword
       <img class="mb-4" src="media/mathmaroc.png" alt="" width="100"="image/svg+xml">
 
       <label for="inputEmail" class="sr-only">Adresse mail</label>
-      <input type="email" id="inputEmail" class="form-control last-element" name="email" placeholder="Adresse mail" required>
+      <input type="email" id="inputEmail" class="form-control last-element" name="email" placeholder="Adresse mail" value="$default_email" required>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Réinitialisation</button>
 

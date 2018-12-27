@@ -53,3 +53,13 @@ a{
 .alert{
   margin-top: 10px;
 }
+
+.valid-feedback, .invalid-feedback{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.last-feedback{
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
