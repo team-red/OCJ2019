@@ -8,27 +8,25 @@ if (!isset($_SESSION["logged_in"])){
   exit();
 }
 require_once("utils/helper.php");
-require_once("utils/database.php");
 
 // this part can be ignored, for the moment there is one page for Dashboard
 // this would be useful to make it more interactive later
 if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
-    $page = $_GET["page"];
+    $active_page = $_GET["page"];
 } else {
-    $page = "main";
+    $active_page = $dashboard_pages[0]["name"];
 }
 
-$dbh = Database::connect();
  ?>
 
 <!DOCTYPE html>
 <html lang="fr-FR">
-<?php generate_header($page, "css/dashboard.css", $dashboard_pages); ?>
+<?php generate_header($active_page, "css/dashboard.css", $dashboard_pages); ?>
 
 <body>
 <div class="app">
   <!-- Header-->
-  <?php generate_header_dashboard(); ?>
+  <?php generate_header_dashboard($active_page); ?>
   <!-- SideBar -->
   <?php
 
@@ -36,11 +34,11 @@ $dbh = Database::connect();
   $isAdmin = (isset($_GET["admin"]) && $_GET["admin"] == "true") ? true : false;
   //POURTEST
 
-  generate_sidebar_dashboard($page, $dashboard_pages, $isAdmin);
+  generate_sidebar_dashboard($active_page, $dashboard_pages, $isAdmin);
   ?>
   <!-- Main -->
   <main class="app-main">
-    <?php require_once("content/dashboard/content_".$page.".php"); ?>
+    <?php require_once("content/dashboard/content_".$active_page.".php"); ?>
   </main>
 </div>
 

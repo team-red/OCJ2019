@@ -1,0 +1,185 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../media/icons/icomoon.eot?fj8ny3');
+  src:  url('../media/icons/icomoon.eot?fj8ny3#iefix') format('embedded-opentype'),
+    url('../media/icons/icomoon.ttf?fj8ny3') format('truetype'),
+    url('../media/icons/icomoon.woff?fj8ny3') format('woff'),
+    url('../media/icons/icomoon.svg?fj8ny3#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-uni6D:before {
+  content: "\6d";
+}
+.icon-uniE000:before {
+  content: "\e000";
+}
+.icon-uniE003:before {
+  content: "\e003";
+}
+.icon-uniE006:before {
+  content: "\e006";
+}
+.icon-uniE00B:before {
+  content: "\e00b";
+}
+.icon-uniE016:before {
+  content: "\e016";
+}
+.icon-uniE034:before {
+  content: "\e034";
+}
+.icon-uniE049:before {
+  content: "\e049";
+}
+.icon-uniE04A:before {
+  content: "\e04a";
+}
+.icon-uniE04B:before {
+  content: "\e04b";
+}
+.icon-uni67:before {
+  content: "\67";
+}
+.icon-uni6E:before {
+  content: "\6e";
+}
+.icon-uni6F:before {
+  content: "\6f";
+}
+.icon-uni71:before {
+  content: "\71";
+}
+.icon-uni47:before {
+  content: "\47";
+}
+.icon-uni4D:before {
+  content: "\4d";
+}
+.icon-uni4F:before {
+  content: "\4f";
+}
+.icon-uni50:before {
+  content: "\50";
+}
+.icon-uni57:before {
+  content: "\57";
+}
+.icon-uni5A:before {
+  content: "\5a";
+}
+.icon-uni30:before {
+  content: "\30";
+}
+.icon-uni36:before {
+  content: "\36";
+}
+.icon-uni38:before {
+  content: "\38";
+}
+.icon-uni39:before {
+  content: "\39";
+}
+.icon-uni21:before {
+  content: "\21";
+}
+.icon-uni23:before {
+  content: "\23";
+}
+.icon-uni24:before {
+  content: "\24";
+}
+.icon-uni25:before {
+  content: "\25";
+}
+.icon-uni26:before {
+  content: "\26";
+}
+.icon-uni29:before {
+  content: "\29";
+}
+.icon-uni2D:before {
+  content: "\2d";
+}
+.icon-uni2F:before {
+  content: "\2f";
+}
+.icon-uni3B:before {
+  content: "\3b";
+}
+.icon-uni3D:before {
+  content: "\3d";
+}
+.icon-uni3E:before {
+  content: "\3e";
+}
+.icon-uni60:before {
+  content: "\60";
+}
+.icon-uni7D:before {
+  content: "\7d";
+}
+.icon-uni7E:before {
+  content: "\7e";
+}
+.icon-uniE001:before {
+  content: "\e001";
+}
+.icon-uniE005:before {
+  content: "\e005";
+}
+.icon-uniE007:before {
+  content: "\e007";
+}
+.icon-uniE008:before {
+  content: "\e008";
+}
+.icon-uniE00C:before {
+  content: "\e00c";
+}
+.icon-uniE011:before {
+  content: "\e011";
+}
+.icon-uniE013:before {
+  content: "\e013";
+}
+.icon-uniE01C:before {
+  content: "\e01c";
+}
+.icon-uniE00D:before {
+  content: "\e00d";
+}
+.icon-uni77:before {
+  content: "\77";
+}
+.icon-uni78:before {
+  content: "\78";
+}
+.icon-uni34:before {
+  content: "\34";
+}
+.icon-uni2A:before {
+  content: "\2a";
+}
+.icon-uni2E:before {
+  content: "\2e";
+}
+.icon-uniE002:before {
+  content: "\e002";
+}
