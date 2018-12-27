@@ -23,6 +23,7 @@ body, html{
   height : 100%;
 }
 .app {
+  height: fit-content;
   width: 100%;
   min-height: 100%;
   background-color: var(--main_color);
@@ -33,7 +34,7 @@ body, html{
 /* large screen */
 @media (min-width: 768px){
   .app-header{
-    z-index: 0;
+    z-index: 1;
     background-color: var(--sidebar_tertiary_color);
     height: 4rem;
     padding-left: Calc(var(--sidebar_size) + 1rem);
@@ -56,7 +57,7 @@ body, html{
     color: white;
     float: left;
   }
-  .app-header{
+.app-header{
     position: fixed;
     background-color: var(--sidebar_tertiary_color);
     top: 0;
@@ -97,7 +98,6 @@ body, html{
   }
   .app-aside {
     width :0;
-    z-index: 3;
     background-color: #f6f7f9;
   }
 }
@@ -108,6 +108,7 @@ body, html{
 .app-aside {
   overflow-x: hidden;
   position: fixed;
+  z-index: 2;
   top: 0;
   bottom: 0;
   left: 0;
@@ -199,16 +200,29 @@ body, html{
 
 /* General */
 .app-main{
-  height : 100%;
+  position: relative;
+  z-index: 0;
+}
+.dashboard_footer{
+  text-align: center;
+  padding-top: 4rem;
+  color: #7d8a9d;
+  font-size: small;
+  position: absolute;
+  bottom: 3rem;
 }
 
 /* Main */
-.main_header{
+.home_page_header{
 }
-.main_main{
-
+.home_page_main{
+  margin-bottom: 4rem;
+  padding-bottom: 15px;
 }
-.main_footer{
+.cover_photo{
+  width: 100%;
+}
+.home_page_footer{
 }
 
 /* Quiz */
@@ -238,10 +252,4 @@ body, html{
   color: var(--sidebar_main_color);
   text-align: center;
   margin: auto;
-}
-.dashboard_footer{
-  text-align: center;
-  padding-top: 4rem;
-  color: #7d8a9d;
-  font-size: small;
 }

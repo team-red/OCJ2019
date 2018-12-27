@@ -72,8 +72,8 @@ $dashboard_pages = array(
   )
 );
 
-function check_page($page_name, $valid_pages)
-{
+// ************* For all *****************
+function check_page($page_name, $valid_pages){
     foreach ($valid_pages as $page) {
         if ($page["name"] == $page_name) {
             return true;
@@ -82,8 +82,7 @@ function check_page($page_name, $valid_pages)
     return false;
 }
 
-function get_page_title($page_name, $valid_pages)
-{
+function get_page_title($page_name, $valid_pages){
     // called only if page exists in valid_pages
     foreach ($valid_pages as $current_page) {
         if ($current_page["name"] == $page_name) {
@@ -92,8 +91,7 @@ function get_page_title($page_name, $valid_pages)
     }
 }
 
-function generate_header($page_name, $sheet_path, $valid_pages)
-{
+function generate_header($page_name, $sheet_path, $valid_pages){
     $title = get_page_title($page_name, $valid_pages);
     echo <<<flag
   <head>
@@ -111,6 +109,10 @@ function generate_header($page_name, $sheet_path, $valid_pages)
   </head>
 flag;
 }
+
+// ************* For dashboard *****************
+
+// --------- General ------------
 function generate_header_dashboard($active_page){
   echo <<<flag
   <header class="app-header">
@@ -119,8 +121,8 @@ function generate_header_dashboard($active_page){
 flag;
 }
 function generate_sidebar_dashboard($active_page, $valid_pages, $admin){
-// Adding first stuff
-$html = "
+  // Adding first stuff
+  $html = "
     <!-- The dark window when the sidebar is open on small devices -->
     <div id='dark' onclick='closeNav()'></div>
     <!-- The actual sidebar -->
@@ -131,48 +133,55 @@ $html = "
     <main class='sidebar_main'>
     <ul class='sidebar_pages'>";
 
-$category = "";
-foreach ($valid_pages as $valid_page){
-  // Adding category if a new one is selected in the loop and skiping General
-  if($valid_page["category"] != "Administrateur" || ($valid_page["category"] == "Administrateur" && $admin)){
-    if($valid_page["category"] != $category){
+    $category = "";
+  foreach ($valid_pages as $valid_page){
+    // Adding category if a new one is selected in the loop and skiping General
+    if($valid_page["category"] != "Administrateur" || ($valid_page["category"] == "Administrateur" && $admin)){
+      if($valid_page["category"] != $category){
         $category = $valid_page["category"];
         $html = $html."<li class='sidebar_category'> &nbsp; --- ".$category."</li>";
-    }
+      }
 
-  // Adding pages and verifying wheter the page is active or not (if so adding it to the class sidebar_page_selected)
-  $selected = ($valid_page["name"] == $active_page) ? " sidebar_page_selected" : "";
+    // Adding pages and verifying wheter the page is active or not (if so adding it to the class sidebar_page_selected)
+    $selected = ($valid_page["name"] == $active_page) ? " sidebar_page_selected" : "";
 
-  $html = $html."
-  <li>
-    <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
+    $html = $html."
+    <li>
+      <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
         <i class='icon-".$valid_page["icon_name"]." sidebar_icon'></i>
         ".$valid_page["title"]."
         <i class='icon-uniE04B sidebar_arrow'></i>
-    </a>
-  </li>";
+      </a>
+    </li>";
+    }
   }
+  $html = $html."
+    </ul>
+  </main>
+  <footer class='sidebar_help'>
+  <div class='need_help'><a href='#' style='text-decoration: none; color:unset;'><i class='icon-uni36'></i> Besoin d'aide? </a></div>
+  </footer>
+  </aside>";
+  // printing the html code
+  echo $html;
 }
-$html = $html."
-</ul></main>
-<footer class='sidebar_help'>
-<div class='need_help'><a href='#' style='text-decoration: none; color:unset;'><i class='icon-uni36'></i> Besoin d'aide? </a></div>
-</footer>
-</aside>";
-
-// printing the html code
-echo $html;
-
+function generate_dashboard_footer(){
+  echo <<<flag
+  <footer class="dash_footer">
+  Copyright © 2018. All rights reserved
+  </footer>
+flag;
 }
 
+//---------- Quiz ------------
 function generate_quiz(){
   for($i=1 ; $i<10 ;$i++){
   echo <<<flag
   <a href="#" class="row quiz">
     <div class="col-md-2 head">Q
 flag;
-echo $i;
-echo <<<flag
+  echo $i;
+  echo <<<flag
     </div>
     <div class="col-md-9 body">Questionnaire sur les combinaisons et le triangle de pascal à faire avant 12 decembre 2018</div>
     <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
@@ -181,10 +190,63 @@ flag;
 }
 }
 
-function generate_dashboard_footer(){
-  echo <<<flag
-  <footer class="dashboard_footer">
-  Copyright © 2018. All rights reserved
-  </footer>
+//---------- Home page ----------
+function home_page_get_profil_photo(){
+  //variables to get from sql
+  $profil_photo = "media/profil.jpg";
+
+  // A refaire en utilisant des vignettes!?
+  echo<<<flag
+  <img src="$profil_photo" alt="Photo de profil" style="width: 20rem;"/>
 flag;
+}
+function home_page_get_information(){
+  //variables to get from sql
+  $last_name= "foussoul";
+  $first_name="ayoub";
+  $email="ayoub.foussoul@polytechnique.edu";
+  $age="21";
+  $school="Ecole Polytechnique";
+  $account_status="active";
+
+  echo<<<flag
+  <span>$first_name $last_name</span>
+  <table>
+    <tr>
+      <th>Email: </th>
+      <td>$email</td>
+    </tr>
+    <tr>
+      <th>Age: </th>
+      <td>$age</td>
+    </tr>
+    <tr>
+      <th>Ecole: </th>
+      <td>$school</td>
+    </tr>
+    <tr>
+      <th>Statut du compte: </th>
+      <td>$account_status</td>
+    </tr>
+  </table>
+  <a href="#">Voir le profil complet</a>
+flag;
+}
+function home_page_get_done(){
+
+}
+function home_page_get_undone(){
+
+}
+function home_page_get_results(){
+
+}
+function home_page_generate_chat_sidebar(){
+
+}
+function home_page_generate_chat_main(){
+
+}
+function home_page_generate_about(){
+
 }
