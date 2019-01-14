@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST["auth"], $_POST["value"])) {
-    require_once("../utils/database.php");
+    require_once("../database.php");
     $dbh = Database::connect();
     if ($_POST["auth"] === "email") {
         $query = "SELECT * FROM users WHERE email=?;";

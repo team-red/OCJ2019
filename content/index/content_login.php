@@ -14,7 +14,6 @@ if (isset($_SESSION["logged_in"])) {
         if (isset($_POST["email"], $_POST["pwd"], $_POST["login"], $_POST["name"], $_POST["surname"], $_POST["birthday"], $_POST["conf"])) {
             $feedback = Registration::attempt($dbh, $_POST);
             Registration::generate_form($feedback, $_POST);
-
         } else {
           Registration::generate_form(Registration::$FEEDBACK["no_feedback"], array());
         }

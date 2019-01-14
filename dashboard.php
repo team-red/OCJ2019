@@ -42,8 +42,8 @@ if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
   </main>
 </div>
 
-<script src="js/popper.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/dashboard.js"></script>
+
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 </html>
