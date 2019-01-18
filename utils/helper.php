@@ -232,6 +232,16 @@ function home_page_generate_left(){
 flag;
 }
 function home_page_generate_right(){
+  $min_chat = "";
+  for($i = 0 ; $i < 15; $i++){
+      $min_chat = $min_chat . "<tr>
+      <th scope='row'>$i</th>
+      <td>test</td>
+      <td>test_objet</td>
+      <td>$i:00</td>
+    </tr>";
+  }
+
   echo<<<flag
   <div class="row">
   <span class="col-md-4 chart_container">
@@ -251,7 +261,31 @@ function home_page_generate_right(){
   <hr></hr>
 
   <div class="row">
+  <div>
+  <header>
+  <h>Inbox</h>
+  </header>
+  <main>
 
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">De</th>
+        <th scope="col">Objet</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      $min_chat
+    </tbody>
+  </table>
+
+
+
+  </main>
+  </div>
   </div>
 
 flag;
