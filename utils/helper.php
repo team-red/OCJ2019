@@ -11,9 +11,9 @@ $index_pages = array(
   )
 );
 
-// When adding new page add it with its category and let the main page always in the top of the array
+// When adding new page add it with its category. 
 $dashboard_pages = array(
-  // Menu principal
+  // Main menu
   array(
     "name"=> "home_page",
     "title"=> "Acceuil",
@@ -106,10 +106,7 @@ function generate_header($page_name, $sheet_path, $valid_pages){
       <!-- Bootstrap CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
-      <script type="text/javascript" src="js/jquery.min.js"></script>
-      <script type="text/javascript" src="js/chart.js"></script>
-      <script type="text/javascript" src="js/chart.min.js"></script>
-      <script type="text/javascript" src="js/dashboard.js"></script>
+      <script src="js/jquery.min.js"></script>
   </head>
 flag;
 }

@@ -71,10 +71,12 @@ class Login
         } else {
             $default_email = Login::$DEFAULT_EMAIL;
         }
+        $js_src = $feedback["script"];
+        $js_tag = $js_src !== "" ? "<script src='$js_src'></script>" : "";
 
         echo<<<flag
   <form class="form-signin needs-validation" id="login-form" method="post" novalidate>
-    <img class="mb-4" src="media/mathmaroc.png" alt="" width="100"="image/svg+xml">
+    <img class="mb-4" src="media/mathmaroc.png" alt="logo Math&Maroc" width="100">
 
     <label for="inputEmail" class="sr-only">Adresse mail</label>
     <input type="email" id="inputEmail" class="form-control not-last-element" name="email" placeholder="Adresse mail" value="$default_email" required>
@@ -91,8 +93,7 @@ class Login
   </form>
   <script src="js/form_validation/block_invalid_forms.js"></script>
   <script src="js/form_validation/login_form.js"></script>
-  <script src="{$feedback["script"]}"></script>
-
+  $js_tag;
 flag;
     }
 }

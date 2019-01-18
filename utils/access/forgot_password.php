@@ -1,9 +1,7 @@
 <?php
-
 class ResetPassword
 {
     public static $DEFAULT_EMAIL = "";
-
     public static $FEEDBACK = array(
     "no_feedback" => array(
       "message" => "",
@@ -34,13 +32,10 @@ class ResetPassword
       "show_defaults" => true
     )
   );
-
     public static function attempt($dbh, $email)
     {
-        $test = rand(0, 3);
-        if ($test == 0) {
-            return ResetPassword::$FEEDBACK["no_feedback"];
-        } elseif ($test == 1) {
+        $test = rand(1, 3);
+        if ($test == 1) {
             return ResetPassword::$FEEDBACK["email_not_found"];
         } elseif ($test == 2) {
             return ResetPassword::$FEEDBACK["success"];
@@ -48,7 +43,6 @@ class ResetPassword
             return ResetPassword::$FEEDBACK["unknown_error"];
         }
     }
-
     public static function generate_form($feedback, $default_email)
     {
         if ($feedback["show_defaults"]) {
@@ -56,26 +50,21 @@ class ResetPassword
         } else {
             $default_email = ResetPassword::$DEFAULT_EMAIL;
         }
-
+        $js_src = $feedback["script"];
+        $js_tag = $js_src !== "" ? "<script src='$js_src'></script>" : "";
         echo<<<flag
-
     <form class="form-signin needs-validation" method="post" id="forgot-form" novalidate>
-      <img class="mb-4" src="media/mathmaroc.png" alt="" width="100"="image/svg+xml">
-
+      <img class="mb-4" src="media/mathmaroc.png" alt="logo Math&Maroc" width="100">
       <label for="inputEmail" class="sr-only">Adresse mail</label>
-      <input type="email" id="inputEmail" class="form-control last-element" name="email" placeholder="Adresse mail" required>
-
+      <input type="email" id="inputEmail" class="form-control last-element" name="email" placeholder="Adresse mail" value="$default_email" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Réinitialisation</button>
-
       <a href="index.php?action=register" style="margin: 0px; padding: 0px;">Première visite sur ce site ?</a>
       <a href="index.php?action=login" style="margin-top: 0px; padding-top: 0px;">Connexion ?</a>
-
       <div class='alert alert-{$feedback["alert_status"]}' role='alert' style='visibility: {$feedback["visibility"]};'> {$feedback["message"]} </div>
     </form>
     <script src=js/form_validation/forgot_password_form.js></script>
     <script src="js/form_validation/block_invalid_forms.js"></script>
-    <script src="{$feedback["script"]}"></script>
-
+    $js_tag
 flag;
     }
 }

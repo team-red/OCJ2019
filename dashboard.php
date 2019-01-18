@@ -17,6 +17,9 @@ if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
     $active_page = $dashboard_pages[0]["name"];
 }
 
+require_once("utils/database.php");
+$dbh = Database::connect();
+
  ?>
 
 <!DOCTYPE html>
@@ -45,5 +48,9 @@ if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
 
 <script type="text/javascript" src="js/popper.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<?php
+$dbh = null;
+?>
 
 </html>
