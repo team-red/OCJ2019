@@ -20,3 +20,13 @@ I put in it the Database.php file.
 
 ## sidebar icons
 Note that icons are not saved localy ! 
+
+# New proposed Layout for layouts
+Instead of having all helper functions in one big "helper.php" file, I created a folder called helper that contains
+    * a file called "utils.php" contaning the functions used by both pages (dashboard and index)
+    * a file called "index_utils.php" contaning the functions used exclusively by index
+    * a file called "dashboard_utils.php" contaning the functions used exclusively by dashboard
+I think this is easier to maintain and will also allow for better function names.
+If a function is defined in a file exclusive to one page, we don't have to specify the conerned page
+Instead of "generate_home_header" and "generate_dashboard_header" FOR EXAMPLE we could have
+two functions called "generate_header" each in the file used by its page.

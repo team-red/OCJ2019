@@ -36,6 +36,8 @@ if (isset($_SESSION["logged_in"])) {
           if ($feedback["success"]){
               // successful login
               $_SESSION["logged_in"] = true;
+              $_SESSION["email"] = $_POST["email"];
+              // store login in the session info
               // again, EXIT always after header()
               header("location: dashboard.php");
               exit();

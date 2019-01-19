@@ -1,10 +1,11 @@
 <?php
 session_name("peanutbutterandjelly");
 session_start();
-require_once("utils/helper.php");
+require_once("utils/helper/utils.php");
+require_once("utils/helper/index_utils.php");
 require_once("utils/database.php");
 
-if (isset($_GET["page"]) && check_page($_GET["page"], $index_pages)) {
+if (isset($_GET["page"]) && check_page($_GET["page"], $pages)) {
     $page = $_GET["page"];
 } else {
     $page = "login";
@@ -15,7 +16,7 @@ $dbh = Database::connect();
 
  <!DOCTYPE html>
  <html lang="fr-FR">
- <?php generate_header($page, "css/login.css", $index_pages); ?>
+ <?php generate_header($page, "css/login.css", $pages); ?>
  <body class="text-center">
    <!--<div class="container-fluid">-->
 

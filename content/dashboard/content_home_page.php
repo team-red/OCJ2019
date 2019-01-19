@@ -7,11 +7,26 @@ new qcms ouverts
 
  -->
 
+
+<?php
+  require_once("utils/profile/user.php");
+  if (isset($_SESSION["email"])){
+    $user = User::fromEmail($dbh, $_SESSION["email"]);
+  } else {
+    // _SESSION information corrupted
+    // logging out
+    session_unset();
+    session_destroy();
+    header("location: index.php");
+    exit();
+  }
+?>
+
 <main class="home_page_main container-fluid">
 
   <div class="home_page_main_row row">
     <aside class="home_page_left col-md-4">
-      <?php home_page_generate_left(); ?>
+      <?php generate_mini_profile($user); ?>
     </aside>
 
     <aside class="home_page_right col-md-8">
@@ -20,4 +35,4 @@ new qcms ouverts
   </div>
 
 </main>
-<?php generate_dashboard_footer(); ?>
+<?php generate_footer(); ?>
