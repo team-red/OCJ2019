@@ -4,6 +4,9 @@ require_once("utils/quiz/qcm.php");
 
 class QuizForm
 {
+
+    public static $debug = true;
+
     public static $FEEDBACK = array(
         "no_feedback" => array(
             "message" => "",
@@ -26,7 +29,10 @@ class QuizForm
     public static function attempt($dbh, $user, $raw_data){
         
         $data = QuizForm::getData($raw_data);
-        if ($data === false){ return $FEEDBACK["failed"]; }
+        if ($data === false){
+            echo "compromised data";
+            return QuizForm::$FEEDBACK["failed"];
+        }
 
         // creating the qcm entry, and fetching its id
         $qcm_id = Qcm::insert(
@@ -37,7 +43,10 @@ class QuizForm
             $data["max_score"]
         );
 
-        if ($qcm_id === false){ return $FEEDBACK["failed"]; }
+        if ($qcm_id === false){
+            echo "couldn't get id";
+            return QuizForm::$FEEDBACK["failed"];
+        }
         
         foreach ($data["questions"] as $qst) {
             // creating a question entry
@@ -47,7 +56,10 @@ class QuizForm
                 $qst["body"],
                 $qst["max_score"]
             );
-            if ($qst_id === false){ return $FEEDBACK["failed"]; }
+            if ($qst_id === false){
+                echo "couldn't get qst id";
+                return QuizForm::$FEEDBACK["failed"];
+            }
             foreach ($qst["answers"] as $ans) {
                 // creating an answer entry
                 $is_correct = ($ans["score"] === $qst["max_score"]) ? 1 : 0;
@@ -59,7 +71,10 @@ class QuizForm
                     $ans["score"],
                     $is_correct
                 );
-                if ($success === false) { return $FEEDBACK["failed"]; }
+                if ($success === false) {
+                    echo "couldn't add to the db (answer)";
+                    return QuizForm::$FEEDBACK["failed"];
+                }
             }
         }
     }
@@ -71,6 +86,9 @@ class QuizForm
         $names = array("title", "max-score", "max-duration");
         foreach ($names as $value) {
             if (!isset($from_post[$value])){
+                if (QuizForm::$debug === true){
+                    echo "Title/Max-score/Max-duration is not set in POST variable";
+                }
                 return false;
             }
         }
@@ -86,12 +104,18 @@ class QuizForm
         $questions = array();
         
         if (!isset($from_post["question-count"])){
+            if (QuizForm::$debug === true){
+                echo "Question count is not set in POST variable";
+            }
             return false;
         }
 
         $question_count = $from_post["question-count"];
 
-        if (!filter_var($question_count, FILTER_VALIDATE_INT)){
+        if ( ($question_count = filter_var($question_count, FILTER_VALIDATE_INT)) === false ){
+            if (QuizForm::$debug === true){
+                echo "The question count could not be converted to an INT";
+            }
             return false;
         }
 
@@ -100,13 +124,19 @@ class QuizForm
             $question = array();
 
             if (!isset($from_post["qst" . $i . "-body"]) || !isset($from_post["qst" .$i . "-max-score"])){
+                if (QuizForm::$debug === true){
+                    echo "Body/Max-score of question #$i is not set in POST variable";
+                }
                 return false;
             }
 
             $body = $from_post["qst" . $i . "-body"];
             $score = $from_post["qst" .$i . "-max-score"];
             
-            if (!filter_var($score, FILTER_VALIDATE_INT)){
+            if ( ($score = filter_var($score, FILTER_VALIDATE_INT)) === false ){
+                if (QuizForm::$debug === true){
+                    echo "Max score of question #$i could not be converted to an INT";
+                }
                 return false;
             }
             
@@ -117,12 +147,18 @@ class QuizForm
             $answers = array();
 
             if (!isset($from_post["qst" . $i . "-count"])){
+                if (QuizForm::$debug === true){
+                    echo "Count of question #$i could not be found";
+                }
                 return false;
             }
 
             $answer_count = $from_post["qst" . $i . "-count"];
 
-            if (!filter_var($answer_count, FILTER_VALIDATE_INT)){
+            if ( ($answer_count = filter_var($answer_count, FILTER_VALIDATE_INT)) === false ) {
+                if (QuizForm::$debug === true){
+                    echo "Count of question #$i could not be converted to an INT";
+                }
                 return false;
             }
             
@@ -130,13 +166,18 @@ class QuizForm
                 $answer = array();
 
                 if (!isset($from_post["qst" . $i . "-ans" .$j . "-body"]) || !isset($from_post["qst" . $i . "-ans" .$j . "-score"])){
+                    if (QuizForm::$debug === true){
+                        echo "Body/Max-score of answer#$j/question#$i is not set in POST variable";
+                    }
                     return false;
                 }
 
                 $body = $from_post["qst" . $i . "-ans" .$j . "-body"];
                 $score = $from_post["qst" . $i . "-ans" .$j . "-score"];
-                
-                if (!filter_var($score, FILTER_VALIDATE_INT)){
+                if ( ($score = filter_var($score, FILTER_VALIDATE_INT)) === false ){
+                    if (QuizForm::$debug === true){
+                        echo "Max-score of answer#$j/question#$i could not be converted to an INT";
+                    }
                     return false;
                 }
                 

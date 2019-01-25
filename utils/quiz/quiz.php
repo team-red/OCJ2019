@@ -28,8 +28,8 @@ flag;
                 foreach ($answers as $akey => $ans){
                     echo <<<flag
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="qst$qkey-ans$akey" name=""
-                        <label class="custom-control-label" for='1'>Toggle this custom radio</label>
+                        <input type="radio" class="custom-control-input" id="qst{$qkey}-ans$akey" name="qst{$qkey}[]">
+                        <label class="custom-control-label" for="qst{$qkey}-ans$akey">$ans->body</label>
                     </div>
 flag;
                 }
