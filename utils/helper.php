@@ -107,8 +107,6 @@ function generate_header($page_name, $sheet_path, $valid_pages){
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
       <script type="text/javascript" src="js/jquery.min.js"></script>
-      <script type="text/javascript" src="js/chart.js"></script>
-      <script type="text/javascript" src="js/chart.min.js"></script>
       <script type="text/javascript" src="js/dashboard.js"></script>
   </head>
 flag;
@@ -171,7 +169,7 @@ function generate_sidebar_dashboard($active_page, $valid_pages, $admin){
 }
 function generate_dashboard_footer(){
   echo <<<flag
-  <footer class="dash_footer">
+  <footer class="dashboard_footer">
   Copyright © 2018. All rights reserved
   </footer>
 flag;
@@ -196,7 +194,7 @@ flag;
 
 //---------- Home page ----------
 function home_page_generate_left(){
-  //variables to get from sql
+  //variables to get from sql !!!!!!!!!! be carefull to always store name in right capitalization
   $profil_photo = "media/profi.jpg";
   //schoolar information
   $class = "2eme année";
@@ -212,11 +210,22 @@ function home_page_generate_left(){
 
   // A refaire en utilisant des vignettes!?
   echo<<<flag
-  <div class="left">
-  <div class="info">
+  <div class="min_box min_box_profil">
+  <header id="min_box_header_profil">
+  <h>Profil</h>
+  <a href="./dashboard.php?page=profil" class="min_see_more">Voir le profil complet ></a>
+  </header>
+  <main class="row">
+  <span class="col-md-12 min_col">
+  <span class="min_cell min_cell_profil no_border">Resume</span>
+  <div class="min_col_profil_content">
   <img src="$profil_photo" alt="Photo de profil" id="home_page_profil_photo"/>
-  <h1 id="home_page_name">$first_name $last_name</h1>
+
+<div>
+  <h1 id="home_page_name">$last_name $first_name</h1>
   <span id="home_page_description">$account_status</span>
+
+</div>
   <hr></hr>
   <span id="home_page_class" class="home_page_info"><b>Classe</b><br>$class</span>
   <span id="home_page_school" class="home_page_info"><b>Ecole</b><br>$school</span>
@@ -225,67 +234,130 @@ function home_page_generate_left(){
   <span id="home_page_email" class="home_page_info"><b>Email</b><br>$email</span>
   <span id="home_page_age" class="home_page_info"><b>Age</b><br>$age</span>
   <span id="home_page_adress" class="home_page_info"><b>Adresse Postale</b><br>$adresse</span>
-
   </div>
-  <a href="./dashboard.php?page=profil" id="home_page_see_more">Voir le profil complet ></a>
+  </span>
+  </main>
   </div>
 flag;
 }
 function home_page_generate_right(){
+  // things to get from SQL
+  $champion = "FOUSSOUL Ayoub";
+  $myRank = 32;
+  $myRankPlusOne = $myRank++;
+  $afterMe = "SLIMANI Adam";
+  $done = 12;
+  $numOfQuizes = 19;
+  $success = 13;
+  $mark = 15;
+
   $min_chat = "";
-  for($i = 0 ; $i < 15; $i++){
+  for($i = 0 ; $i < 5; $i++){
+      $order = $i+1;
       $min_chat = $min_chat . "<tr>
-      <th scope='row'>$i</th>
-      <td>test</td>
-      <td>test_objet</td>
-      <td>$i:00</td>
+      <th scope='row' class='min_chat_num'>$order</th>
+      <td class='min_chat_from'>test</td>
+      <td class='min_chat_subject'>test_objet</td>
+      <td class='min_chat_date'>$order:00</td>
     </tr>";
+  }
+  if($min_chat == ""){
+    $min_chat = "
+    <tr>
+      <th scope='row'></th>
+      <td></td>
+      <td style='text-align: center; vertical-align: middle;'>Pas de messages pour le moment</td>
+      <td></td>
+    </tr>
+    ";
   }
 
   echo<<<flag
-  <div class="row">
-  <span class="col-md-4 chart_container">
-  <canvas id="chart_done" class="home_page_chart home_page_chart"></canvas>
-  <span class="home_page_chart_description">Historique des questionnaires faits</span>
+  <div class="min_box min_box_quiz">
+  <header id="min_box_header_quiz">
+  <h>questionnaires</h>
+  <a class="min_see_more" href="dashboard.php?page=quiz">Voir plus de details > </a>
+  </header>
+  <main class="row">
+
+  <span class="col-md-6 min_col">
+  <table class="table table_min">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="no_border min_table_cell_quiz">Classement</th>
+          <th scope="col" class="no_border min_table_cell_quiz">Eleve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <th scope="row" class="no_border">1</th>
+        <td class="no_border">$champion</td>
+      </tr><tr>
+        <th scope="row" class="no_border">...</th>
+        <td class="no_border">...</td>
+      </tr><tr>
+        <th scope="row" class="no_border">$myRank</th>
+        <td class="no_border" id="min_table_cell_your_rank">Vous</td>
+      </tr><tr>
+        <th scope="row" class="no_border">$myRankPlusOne</th>
+        <td class="no_border">$afterMe</td>
+      </tr>
+      <tr>
+        <th scope="row" class="no_border">...</th>
+        <td class="no_border">...</td>
+      </tr></tbody>
+  </table>
   </span>
-  <span class="col-md-4 chart_container">
-  <canvas id="chart_success" class="home_page_chart"></canvas>
-  <span class="home_page_chart_description">Taux de réussite des questionnaires</span>
+  <span class="col-md-6 min_col">
+  <table class="table table_min" id="table_min_stat">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="no_border min_table_cell_quiz">Fait</th>
+          <th scope="col" class="no_border min_table_cell_quiz">Reussit</th>
+          <th scope="col" class="no_border min_table_cell_quiz">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="no_border min_table_cell_quiz_content">
+        <span class="min_col_stat_content_main">$done<span class="min_col_stat_content_sub">/$numOfQuizes</span></span>
+        </td>
+        <td class="no_border min_table_cell_quiz_content">
+        <span class="min_col_stat_content_main">$success<span class="min_col_stat_content_sub">/$numOfQuizes</span></span>
+        </td>
+        <td class="no_border min_table_cell_quiz_content">
+        <span class="min_col_stat_content_main">$mark<span class="min_col_stat_content_sub">/20</span></span>
+        </td>
+        </tr>
+      </tbody>
+  </table>
   </span>
-  <span class="col-md-4 chart_container">
-  <canvas id="chart_marks" class=" home_page_chart"></canvas>
-  <span class="home_page_chart_description">Note globale</span>
-  </span>
+
+  </main>
   </div>
 
-  <hr></hr>
-
-  <div class="row">
-  <div>
-  <header>
-  <h>Inbox</h>
+  <div class="min_box min_box_chat">
+  <header id="min_box_header_messages">
+  <h>mes messages</h>
+  <a href='dashboard.php?page=chat' class="min_see_more">Voir plus de details ></a>
   </header>
-  <main>
-
-
-  <table class="table">
+  <main class="row">
+  <span class="col-md-12 min_col">
+  <table class="table table_chat table_min">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">De</th>
-        <th scope="col">Objet</th>
-        <th scope="col">Date</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_num">#</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_from">De</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_subject">Objet</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_date">Date</th>
       </tr>
     </thead>
     <tbody>
       $min_chat
     </tbody>
   </table>
-
-
-
+  </span>
   </main>
-  </div>
   </div>
 
 flag;

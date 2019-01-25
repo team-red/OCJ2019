@@ -1,10 +1,10 @@
 
 /*  Variables */
 :root {
-  --sidebar_size : 220px;
+  --sidebar_size : 230px;
   --sidebar_main_color : #54667a;
   --sidebar_secondary_color : #008efa;
-  --sidebar_tertiary_color : #4f5467;
+  --sidebar_tertiary_color : #4f5467; /* #4f5467 ; #755096*/
   --sidebar_category_color : #a6afbb;
   --main_color : #f4f6f8;
   --questionnaire_secondary_color : #f7fafc;
@@ -33,12 +33,13 @@ body{
 /********************* header css **********************/
 
 /* large screen */
-@media (min-width: 768px){
+@media (min-width: 1200px){
   .app-header{
     z-index: 1;
     background-color: var(--sidebar_tertiary_color);
     height: 4rem;
     padding-left: Calc(var(--sidebar_size) + 1rem);
+    display: none;
   }
   .pointer{
     display: none;
@@ -46,7 +47,7 @@ body{
 }
 
 /* small screen */
-@media (max-width: 767.98px){
+@media (max-width: 1199.9px){
 
 .pointer{
     font-size: 30px;
@@ -71,7 +72,7 @@ body{
 /******************** sidebar css **********************/
 
 /* large screen */
-@media (min-width: 768px){
+@media (min-width: 1200px){
   .app-aside {
     top: 3.5rem;
     box-shadow: 1px 0 20px rgba(0,0,0,.08);
@@ -80,7 +81,7 @@ body{
 }
 
 /* small screen */
-@media (max-width: 767.98px){
+@media (max-width: 1199.9px){
   #dark{
     display: none;
     position: fixed;
@@ -185,14 +186,14 @@ body{
 /********************** main css ***********************/
 
 /* large screen */
-@media (min-width: 768px){
+@media (min-width: 1200px){
   .app-main {
     padding: 2rem 2rem 2rem Calc(var(--sidebar_size) + 2rem);
   }
 }
 
 /* small screen */
-@media (max-width: 767.98px){
+@media (max-width: 1199.9px){
   .app-main {
     padding: 5rem 2rem 2rem 2rem;
   }
@@ -203,46 +204,95 @@ body{
   position: relative;
   z-index: 0;
 }
-/*.app-main, .home_page_main, .home_page_main_row{
-  height: 100%;
-}*/
 .dashboard_footer{
   text-align: center;
-  padding-top: 4rem;
-  color: #7d8a9d;
-  font-size: small;
-  position: absolute;
-  bottom: 3rem;
 }
 
 /* Main */
 
   /* general */
-
-  /* left */
   @media (min-width: 768px){
-    .home_page_left{
-      min-height: 80vh;
+    .min_box{
+      margin: 0px 10px 0px 10px;
+    }
+    .min_box_chat{
+      margin: 20px 10px 20px 10px;
     }
   }
-  .left{
-    height: 100%;
+  @media (max-width: 767.9px){
+    .min_box{
+      margin-bottom: 20px;
+    }
   }
-  .info{
-    height: Calc(100% - 1rem);
-    min-height: fit-content;
+  .no_border{
+    border: 0 !important;
+  }
+  .min_box{
+    background-color: white;
+  }
+  .min_box>header{
+    padding: 20px 2rem 20px 2rem;
+    color: white;
+  }
+  .min_box>main{
+    margin: 0;
+  }
+  .min_box>header>h{
+    font-size: large;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .min_see_more{
+    display: block;
+    padding: 0px;
+    width: fit-content;
+    color: white;
+    font-size: smaller;
+  }
+  .min_see_more:hover{
+    color: white;
+  }
+  .min_cell{
+    padding: 10px 2rem 10px 2rem;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    display: block;
+    font-size: small;
+  }
+  .min_col{
+    text-align: center;
+    display: block;
+    font-size: small;
+    padding: 0;
+  }
+  .table td, .table th {
+    color: #5a6a7c;
+    vertical-align: middle !important;
+  }
+  /* left */
+  .left{
+    padding: 1rem 3rem 3rem 3rem;
   }
   .home_page_left{
-    background: white;
-    padding: 3rem;
-    margin-bottom: 2rem;
+    padding: 0;
     overflow: scroll;
   }
+  .min_cell_profil{
+    background-color: #37689e;
+  }
+  .min_col_profil_content{
+    padding: 3rem;
+    text-align: left !important;
+  }
+  #min_box_header_profil{
+    background-color: #2f70b7;
+    border-bottom: solid 1px #274e79;
+  }
   #home_page_profil_photo{
-    width: 9rem;
-    height: 9rem;
+    width: 8rem;
+    height: 8rem;
     margin: auto;
-    border-radius: 10rem;
     object-fit: cover;
     display: block;
   }
@@ -268,40 +318,84 @@ body{
     font-weight: 600;
     color: #545b62;
   }
-  #home_page_see_more{
-    display: block;
-    text-align: center;
-    margin-top: 5px;
-  }
+
   /* right */
+  @media (min-width: 1200px){
+    .min_col_stat_content_main{
+      font-size: 40px;
+    }
+    .min_col_stat_content_sub{
+      font-size: large;
+    }
+  }
+  @media (max-width: 1199.9px){
+    .min_col_stat_content_main{
+      font-size: 32px;
+    }
+    .min_col_stat_content_sub{
+      font-size: small;
+    }
+  }
   @media (min-width: 768px){
-    .home_page_right{
-      margin-left: 10px;
-      margin-right: -10px;
-      min-height: 80vh;
+  }
+  @media (max-width: 767.9px){
+    .min_chat_subject{
+      display: none;
     }
   }
   .home_page_right{
-    background-color: white;
-    margin-bottom: 2rem;
     overflow: scroll;
-    padding: 0rem 4rem 0rem 4rem;
+    padding: 0;
+    margin: 0;
   }
-  .home_page_right>.row{
-    padding: 3rem 0rem 0rem 0rem;
+  .min_box_chat{
   }
-  .home_page_chart{
-    max-height: 10rem;
+  .min_box_quiz{
   }
-  .chart_container{
-    width: 100%;
-    padding: 0rem 2rem 0rem 2rem;
+  .min_box_profil{
   }
-  .home_page_chart_description{
-    text-align: center;
-    display: block;
-    font-size: small;
-    padding: 1rem 0rem 1rem 0rem;
+  #min_box_header_quiz{
+    background-color: #c72a39;
+    border-bottom: solid 1px #9e1f2b;
+  }
+  #min_box_header_messages{
+    background-color: #17a8bf;
+    border-bottom: solid 1px #1c8c9e;
+  }
+  .table_min{
+    margin-bottom: 12px;
+  }
+  .table_chat{
+    min-height: 233px;
+  }
+  #table_min_stat{
+    height: 100%;
+    min-height: 12rem;
+  }
+  .min_table_cell{
+    border: 0 !important;
+  }
+  .min_cell_quiz{
+    background-color: #bd2130;
+  }
+  .min_table_cell_quiz{
+    background-color: #bd2130 !important;
+  }
+  .min_table_cell_chat{
+    background-color: #17a2b8 !important;
+  }
+  .min_table_cell_quiz_content{
+    vertical-align: middle !important;
+  }
+  .min_col_stat_content_main{
+    font-weight: 500;
+    color: #ce4f4b;
+  }
+  .min_col_stat_content_sub{
+    font-weight: 100;
+  }
+  #min_table_cell_your_rank{
+    font-weight: 900;
   }
 
 /* Quiz */
