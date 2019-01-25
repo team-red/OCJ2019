@@ -1,17 +1,12 @@
 <?php
 
-    // verify later that i am admin here
-
     require_once("utils/quiz/quiz_form.php");
     if (isset($_POST["title"])){
-        $momentOfTruth = QuizForm::getData($_POST);
-        if ($momentOfTruth === false) {
-            echo ":(";
-        }
-        else{
-            print_r($momentOfTruth);
-        }
+        $feedback = QuizForm::attempt($dbh, $user, $_POST);
+        QuizForm::generate_form($feedback);
+        
+    } else {
+        QuizForm::generate_form(QuizForm::$FEEDBACK["no_feedback"]);
     }
-    QuizForm::generate_form();
 
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+require_once("utils/quiz/qcm.php");
+
 class QuizForm
 {
     public static $FEEDBACK = array(
@@ -13,12 +15,53 @@ class QuizForm
             "visibility" => "visible",
             "alert_status" => "success",
         ),
+        "failed" => array(
+            "message" => "Erreur.",
+            "visibility" => "visible",
+            "alert_status" => "danger",
+        )
         
     );
 
     public static function attempt($dbh, $user, $raw_data){
-        $data = getData($raw_data);
         
+        $data = QuizForm::getData($raw_data);
+        if ($data === false){ return $FEEDBACK["failed"]; }
+
+        // creating the qcm entry, and fetching its id
+        $qcm_id = Qcm::insert(
+            $dbh,
+            $user->login,
+            $data["duration"],
+            $data["title"],
+            $data["max_score"]
+        );
+
+        if ($qcm_id === false){ return $FEEDBACK["failed"]; }
+        
+        foreach ($data["questions"] as $qst) {
+            // creating a question entry
+            $qst_id = Qst::insert(
+                $dbh,
+                $qcm_id,
+                $qst["body"],
+                $qst["max_score"]
+            );
+            if ($qst_id === false){ return $FEEDBACK["failed"]; }
+            foreach ($qst["answers"] as $ans) {
+                // creating an answer entry
+                $is_correct = ($ans["score"] === $qst["max_score"]) ? 1 : 0;
+                // we consider an answer correct if it achieves max score
+                $success = Answer::insert(
+                    $dbh,
+                    $qst_id,
+                    $ans["body"],
+                    $ans["score"],
+                    $is_correct
+                );
+                if ($success === false) { return $FEEDBACK["failed"]; }
+            }
+        }
     }
 
     public static function getData($from_post){
@@ -37,7 +80,7 @@ class QuizForm
         $duration = $from_post["max-duration"];
 
         $data["title"] = $title;
-        $data["max_score"] = $title;
+        $data["max_score"] = $max_score;
         $data["duration"] = $duration;
 
         $questions = array();
@@ -110,7 +153,7 @@ class QuizForm
     
     }
 
-    public static function generate_form(){
+    public static function generate_form($feedback){
         echo <<<flag
         <script src="js/quiz_form/dynamic_fields.js"></script>
   <form method="post" style="width: 100%; max-width: 500px; margin: auto; padding: 20px;">
@@ -168,6 +211,8 @@ class QuizForm
     <div class="mx-auto" style="width: 150px;">
         <button type="submit" class="btn btn-primary">Envoyez</button>
     </div>
+
+    <div class='alert alert-{$feedback["alert_status"]}' role='alert' style='visibility: {$feedback["visibility"]}; font-size: 0.9rem;'> {$feedback["message"]} </div>
 
 </form>
 flag;

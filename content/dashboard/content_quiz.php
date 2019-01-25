@@ -2,19 +2,22 @@
 Questionnaires fait et pas faits
 -->
 
-<header class="quiz_header">
-</header>
+<header class="quiz_header"></header>
 
-<!-- think of a generate content php function -->
-<main class="quiz_main container-fluid">
-  <h1>Liste des questionnaires disponibles :</h1>
-
-  <?php
-    require_once("utils/quiz/qcm.php");
+<?php
+  require_once("utils/quiz/quiz.php");
+  if (isset($_GET["qcm_id"])){
+    $qcm_id = $_GET["qcm_id"];
+    if ($user->hasAccess($dbh, $qcm_id)){
+      Quiz::createForm($dbh, $qcm_id);
+    } else {
+      echo "Too bad for you, you already tried (or some other excuse if we change the db)";
+    }
+  } else {
+    require_once("utils/quiz/qcm.php"); // included in quiz.php?
     $qcms = Qcm::getAll($dbh);
-    generate_qcms($qcms);    
-  ?>
-
-</main>
+    showQcms($qcms);
+  }
+?>
 
 <?php generate_footer(); ?>

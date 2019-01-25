@@ -248,19 +248,25 @@ flag;
 flag;
   }
 
-  function generate_qcms($qcms){
+  function showQcms($qcms)
+  {
+    echo <<<flag
+    <main class="quiz_main container-fluid">
+    <h1>Liste des questionnaires disponibles :</h1>
+flag;
     foreach ($qcms as $key => $qcm) {
         $key++;
         echo <<<flag
-        <a href="#" class="row quiz">
-          <div class="col-md-2 head">Q$key</div>
-          <div class="col-md-9 body">
-            {$qcm->title}
-            <br>
-            faire avant le {$qcm->start_time}
-          </div>
-          <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
-        </a>
+          <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="row quiz">
+            <div class="col-md-2 head">Q$key</div>
+              <div class="col-md-9 body">
+                {$qcm->title}
+                <br>
+                faire avant le {$qcm->start_time}
+              </div>
+              <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
+          </a>
+        </main>
 flag;
     }
   }

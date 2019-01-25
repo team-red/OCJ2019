@@ -42,6 +42,13 @@
             $sth->closeCursor();
             return $user;
         }
+
+        public function hasAccess($dbh, $qcm_id)
+        {
+            // verify that the current user can access the questions/answers
+            // verify that the current user can respond and submit a quiz attempt
+            return true; // test purposes
+        }
     }
 
 ?>
