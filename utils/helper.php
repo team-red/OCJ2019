@@ -212,7 +212,7 @@ function home_page_generate_left(){
   echo<<<flag
   <div class="min_box min_box_profil">
   <header id="min_box_header_profil">
-  <h>Profil</h>
+  <h><i class="icon-uniE011 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Profil</h>
   <a href="./dashboard.php?page=profil" class="min_see_more">Voir le profil complet ></a>
   </header>
   <main class="row">
@@ -275,7 +275,7 @@ function home_page_generate_right(){
   echo<<<flag
   <div class="min_box min_box_quiz">
   <header id="min_box_header_quiz">
-  <h>questionnaires</h>
+  <h><i class="icon-uniE049 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>questionnaires</h>
   <a class="min_see_more" href="dashboard.php?page=quiz">Voir plus de details > </a>
   </header>
   <main class="row">
@@ -338,7 +338,7 @@ function home_page_generate_right(){
 
   <div class="min_box min_box_chat">
   <header id="min_box_header_messages">
-  <h>mes messages</h>
+  <h><i class="icon-uni2D sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>mes messages</h>
   <a href='dashboard.php?page=chat' class="min_see_more">Voir plus de details ></a>
   </header>
   <main class="row">
