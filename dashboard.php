@@ -29,17 +29,24 @@ $dbh = Database::connect();
 
 <body>
 <div class="app">
-  <!-- Header-->
-  <?php generate_header_tag(); ?>
-  <!-- SideBar -->
+
   <?php
-
-  //POURTEST
-  $isAdmin = (isset($_GET["admin"]) && $_GET["admin"] === "true");
-  //POURTEST
-
+  generate_header_tag();
+  require_once("utils/profile/user.php");
+  if (isset($_SESSION["email"])){
+    $user = User::fromEmail($dbh, $_SESSION["email"]);
+  } else {
+    // _SESSION information corrupted
+    // logging out
+    session_unset();
+    session_destroy();
+    header("location: index.php");
+    exit();
+  }
+  $isAdmin = ($user->role) == "admin"; // should be improved
   generate_sidebar($active_page, $pages, $isAdmin);
-  ?>
+?>
+
   <!-- Main -->
   <main class="app-main">
     <?php require_once("content/dashboard/content_".$active_page.".php"); ?>

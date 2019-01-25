@@ -5,7 +5,6 @@
         public $id; // integer
         public $author_login; // string
         public $start_time; // date
-        public $finish_time; // date
         public $duration_seconds; // in seconds
         public $is_corrected; // boolean (int)
         public $title; // string
