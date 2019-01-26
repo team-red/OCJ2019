@@ -21,8 +21,8 @@ $dashboard_pages = array(
     "category" => "Menu principal"
   ),
   array(
-    "name"=> "profil",
-    "title"=> "Profile",
+    "name"=> "myinfo",
+    "title"=> "Mes infos",
     "icon_name" => "uniE011",
     "category" => "Menu principal"
   ),
@@ -204,21 +204,20 @@ function home_page_generate_left(){
   $last_name= "foussoul";
   $first_name="ayoub";
   $email="ayoub.foussoul@polytechnique.edu";
-  $age="21";
-  $adresse="Boulevard des maréchaux 72.20.16, 91120, Palaiseau, France";
+  $birthday="12 septembre 1997";
   $account_status="Administrateur";
 
   // A refaire en utilisant des vignettes!?
   echo<<<flag
-  <div class="min_box min_box_profil">
-  <header id="min_box_header_profil">
-  <h><i class="icon-uniE011 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Profil</h>
-  <a href="./dashboard.php?page=profil" class="min_see_more">Voir le profil complet ></a>
+  <div class="min_box min_box_myinfo">
+  <header id="min_box_header_myinfo">
+  <h><i class="icon-uniE011 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos personelles</h>
+  <a href="./dashboard.php?page=myinfo" class="min_see_more">Voir plus de details ></a>
   </header>
   <main class="row">
   <span class="col-md-12 min_col">
-  <span class="min_cell min_cell_profil no_border">Resume</span>
-  <div class="min_col_profil_content">
+  <span class="min_cell min_cell_myinfo no_border">Resume</span>
+  <div class="min_col_myinfo_content">
   <img src="$profil_photo" alt="Photo de profil" id="home_page_profil_photo"/>
 
 <div>
@@ -232,8 +231,7 @@ function home_page_generate_left(){
   <span id="home_page_academy" class="home_page_info"><b>Academie</b><br>$academy</span>
   <hr></hr>
   <span id="home_page_email" class="home_page_info"><b>Email</b><br>$email</span>
-  <span id="home_page_age" class="home_page_info"><b>Age</b><br>$age</span>
-  <span id="home_page_adress" class="home_page_info"><b>Adresse Postale</b><br>$adresse</span>
+  <span id="home_page_birthday" class="home_page_info"><b>Date de naissance</b><br>$birthday</span>
   </div>
   </span>
   </main>
@@ -275,8 +273,8 @@ function home_page_generate_right(){
   echo<<<flag
   <div class="min_box min_box_quiz">
   <header id="min_box_header_quiz">
-  <h><i class="icon-uniE049 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>questionnaires</h>
-  <a class="min_see_more" href="dashboard.php?page=quiz">Voir plus de details > </a>
+  <h><i class="icon-uniE049 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos questionnaires</h>
+  <a class="min_see_more" href="dashboard.php?page=quiz">Aller sur la partie questionnaires > </a>
   </header>
   <main class="row">
 

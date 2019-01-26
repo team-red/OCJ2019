@@ -278,14 +278,15 @@ body{
     padding: 0;
     overflow: scroll;
   }
-  .min_cell_profil{
+  .min_cell_myinfo{
     background-color: #37689e;
   }
-  .min_col_profil_content{
+  .min_col_myinfo_content{
+    padding-bottom: 97px !important;
     padding: 3rem;
     text-align: left !important;
   }
-  #min_box_header_profil{
+  #min_box_header_myinfo{
     background-color: #2f70b7;
     border-bottom: solid 1px #274e79;
   }
@@ -352,7 +353,7 @@ body{
   }
   .min_box_quiz{
   }
-  .min_box_profil{
+  .min_box_myinfo{
   }
   #min_box_header_quiz{
     background-color: #c72a39;
