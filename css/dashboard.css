@@ -427,3 +427,111 @@ body{
   text-align: center;
   margin: auto;
 }
+
+/* myInfo */
+.myinfo_main{
+  padding: 3rem;
+  background-color: white;
+}
+#myinfo_profil_photo{
+  width: 12rem;
+  height: 13rem;
+  max-width: 100%;
+  margin: auto;
+  object-fit: cover;
+  display: block;
+}
+.myinfo_pdp{
+  padding: 2rem 2rem 3rem 2rem;
+}
+.myinfo_hr{
+  margin: 0;
+  padding: 0;
+  height: inherit;
+  margin-top: 12px;
+}
+.myinfo_container>h{
+  width: 100%;
+  margin: 0;
+}
+.myinfo_container{
+  padding: 2rem;
+}
+.myinfo_quiz_tabs{
+  margin-top: 4rem;
+}
+.selected_tab{
+  color: white !important;
+  background-color: #4f5566 !important;
+}
+#myinfo_quiz_tab_rank, #myinfo_quiz_tab_done{
+  font-size: medium;
+  display: table-cell;
+  padding: 1rem;
+  color: #4f5566;
+  background-color: #fdfdfd;
+}
+.myinfo_quiz_tabs>header{
+  margin-bottom: 1rem;
+}
+#myinfo_champions{
+  padding: 4rem;
+}
+
+#myinfo_rank2_photo,#myinfo_rank3_photo{
+  width: 40%;
+  min-width: 90px;
+}
+#myinfo_rank1_photo{
+  width: 50%;
+  min-width: 100px;
+}
+
+.myinfo_champions_cell, .myinfo_champions_cell_first{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.myinfo_champions_cell_first{
+  font-size: large;
+}
+.myinfo_champions_cell{
+  font-size: small;
+}
+.myinfo_champions_cell>img, .myinfo_champions_cell_first>img{
+  margin-bottom: 1rem !important;
+  display: block;
+  margin: auto;
+}
+.myinfo_quiz_tabs_content{
+  margin-top: 5rem;
+}
+#table_quiz{
+  margin-top: 2rem;
+}
+@media (max-width: 767.9px){
+  #myinfo_profil_photo{
+
+    margin-bottom: 2rem;
+  }
+  .myinfo_pdp{
+    text-align: center;
+  }
+
+}
+@media (min-width: 768px) {
+  #myinfo_profil_photo{
+
+  }
+}
+
+.myinfo_pdp_info>h1{
+  font-weight: 100;
+}
+.myinfo_pdp_info>h5{
+  font-weight: 100;
+  color: #6c757d;
+}
+.myinfo_pdp_info>h{
+  font-size: small;
+  color: #6c757d;
+}

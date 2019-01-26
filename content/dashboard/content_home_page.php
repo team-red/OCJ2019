@@ -11,4 +11,4 @@
   </div>
 
 </main>
-<?php generate_dashboard_footer(); ?>
+<?php generate_footer(); ?>

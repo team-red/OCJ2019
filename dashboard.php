@@ -26,7 +26,7 @@ if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
 <body>
 <div class="app">
   <!-- Header-->
-  <?php generate_header_dashboard($active_page); ?>
+  <?php generate_header_tag($active_page); ?>
   <!-- SideBar -->
   <?php
 
@@ -34,7 +34,7 @@ if (isset($_GET["page"]) && check_page($_GET["page"], $dashboard_pages)) {
   $isAdmin = (isset($_GET["admin"]) && $_GET["admin"] == "true") ? true : false;
   //POURTEST
 
-  generate_sidebar_dashboard($active_page, $dashboard_pages, $isAdmin);
+  generate_sidebar($active_page, $dashboard_pages, $isAdmin);
   ?>
   <!-- Main -->
   <main class="app-main">

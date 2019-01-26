@@ -83,8 +83,8 @@ $dashboard_pages = array(
    "phone" => "+33671753326",
    "adress" => "72.20.16, Boulevard des marechaux, 91120 Palaiseau, Essone, France",
    //personal information
-   "last_name" => "foussoul",
-   "first_name" => "ayoub",
+   "last_name" => "FOUSSOUL",
+   "first_name" => "Ayoub",
    "gender" => "M",
    "birthday" => "12 septembre 1997",
    //other
@@ -146,14 +146,14 @@ flag;
 // ************* For dashboard *****************
 
 // --------- General ------------
-function generate_header_dashboard($active_page){
+function generate_header_tag($active_page){
   echo <<<flag
   <header class="app-header">
     <span style="font-size:30px;cursor:pointer" class="pointer" onclick="openNav()">  &#9776;</span>
   </header>
 flag;
 }
-function generate_sidebar_dashboard($active_page, $valid_pages, $admin){
+function generate_sidebar($active_page, $valid_pages, $admin){
   // Adding first stuff
   $html = "
     <!-- The dark window when the sidebar is open on small devices -->
@@ -198,7 +198,7 @@ function generate_sidebar_dashboard($active_page, $valid_pages, $admin){
   // printing the html code
   echo $html;
 }
-function generate_dashboard_footer(){
+function generate_footer(){
   echo <<<flag
   <footer class="dashboard_footer">
   Copyright © 2018. All rights reserved
@@ -449,25 +449,141 @@ flag;
 }
 
 function myinfo_generate_pdp_info($personalInfo){
+  $first_name = $personalInfo["first_name"];
+  $last_name = $personalInfo["last_name"];
+  $school = $personalInfo["school"];
+  $accountStatus = $personalInfo["account_status"];
 
+  echo<<<flag
+  <h1>$last_name $first_name</h1>
+  <h5>$school</h5>
+  <h>$accountStatus</h>
+
+flag;
 }
 
 function myinfo_generate_personal_academic($personalInfo){
+  $academy = $personalInfo["academy"];
+  $class = $personalInfo["class"];
+  $school = $personalInfo["school"];
 
+  echo<<<flag
+  <br><br><br>
+  <span class="row"><span class="col-md-3"><b>Ecole :</b></span><span class="col-md-9">$school</span></span><br>
+  <span class="row"><span class="col-md-3"><b>Academie :</b></span><span class="col-md-9">$academy</span></span><br>
+  <span class="row"><span class="col-md-3"><b>Classe :</b></span><span class="col-md-9">$class</span></span><br>
+  <br>
+flag;
 }
 
 function myinfo_generate_personal_postal($personalInfo){
+  $email = $personalInfo["email"];
+  $phone = $personalInfo["phone"];
+  $adress = $personalInfo["adress"];
 
+  echo<<<flag
+  <br>
+  <span class="row"><span class="col-md-3"><b>Email :</b></span><span class="col-md-9">$email</span></span><br>
+  <span class="row"><span class="col-md-3"><b>Telephone :</b></span><span class="col-md-9">$phone</span></span><br>
+  <span class="row"><span class="col-md-3"><b>Adresse Postale :</b></span><span class="col-md-9">$adress</span></span><br>
+  <br>
+flag;
 }
 
 function myinfo_generate_personal_personal($personalInfo){
+  $gender = $personalInfo["gender"];
+  $birthday = $personalInfo["birthday"];
+  $description = $personalInfo["description"];
 
+  echo<<<flag
+  <br>
+  <span class="row"><span class="col-md-3"><b>Gendre :</b></span><span class="col-md-9">$gender</span></span><br>
+  <span class="row"><span class="col-md-3"><b>Date de naissance :</b></span><span class="col-md-9">$birthday</span></span><br>
+  <span class="row"><span class="col-md-3"><b>Signature :</b></span><span class="col-md-9">$description</span></span><br>
+  <br>
+flag;
 }
 
 function myinfo_generate_rank_tab($quizInfo){
+  $rankData = "";
 
+  for($i=0; $i < 10; $i++){
+    $rankData = $rankData . "  <tr>
+      <td class=' table_cell_rank_content'>
+      $i
+      </td>
+      <td class=' table_cell_rank_content'>
+      test
+      </td>
+      <td class=' table_cell_rank_content'>
+      test_test
+      </td>
+      </tr>";
+  }
+
+    echo<<<flag
+    <div class="row" id="myinfo_champions">
+      <div class="col-md-4 myinfo_champions_cell">
+      <img src="media/rank2.png" alt="classment 2" id="myinfo_rank2_photo"/>
+      <h>BELOUAFI Kamal</h>
+      </div>
+      <div class="col-md-4 myinfo_champions_cell_first">
+      <img src="media/rank1.png" alt="classement 1" id="myinfo_rank1_photo"/>
+      <h>FOUSSOUL Ayoub</h>
+      </div>
+      <div class="col-md-4 myinfo_champions_cell">
+      <img src="media/rank3.png" alt="classement 3" id="myinfo_rank3_photo"/>
+      <h>ZHIRO Salma</h>
+      </div>
+    </div>
+    <diV class="row" id="myinfo_rank">
+    <table class="table" id="table_stat">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" class="table_cell_rank">Classement</th>
+            <th scope="col" class="table_cell_rank">Nom de l'éleve</th>
+            <th scope="col" class="table_cell_rank">De</th>
+          </tr>
+        </thead>
+        <tbody>
+          $rankData
+        </tbody>
+    </table>
+
+    </div>
+flag;
 }
 
 function myinfo_generate_done_tab($quizInfo){
+  $quizData = "";
 
+  for($i=0; $i < 10; $i++){
+    $quizData = $quizData . "  <tr>
+      <td class=' table_cell_quiz_content'>
+      $i
+      </td>
+      <td class=' table_cell_quiz_content'>
+      test
+      </td>
+      <td class=' table_cell_quiz_content'>
+      15
+      </td>
+      </tr>";
+  }
+
+  echo<<<flag
+  <h>Liste des questionnaires que j'ai deja fait :</h>
+  <table class="table" id="table_quiz">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" class="table_cell_quiz">#</th>
+          <th scope="col" class="table_cell_quiz">Titre du questionnaire</th>
+          <th scope="col" class="table_cell_quiz">Note obtenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        $quizData
+      </tbody>
+  </table>
+flag;
 }
