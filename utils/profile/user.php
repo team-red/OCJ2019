@@ -1,5 +1,7 @@
 <?php
 
+    require_once("utils/quiz/timestamp.php");
+
     class User
     {
         public $login; // string
@@ -41,13 +43,6 @@
             $user = $sth->fetch();
             $sth->closeCursor();
             return $user;
-        }
-
-        public function hasAccess($dbh, $qcm_id)
-        {
-            // verify that the current user can access the questions/answers
-            // verify that the current user can respond and submit a quiz attempt
-            return true; // test purposes
         }
     }
 

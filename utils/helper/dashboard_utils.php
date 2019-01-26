@@ -64,6 +64,22 @@ $pages = array(
 $default_page = $pages[0];
 
 // --------- General ------------
+
+function is_admin_exclusive($page_name, $valid_pages)
+{
+  foreach ($valid_pages as $current_page) {
+    if ($current_page["name"] === $page_name) {
+        if ($current_page["category"] === "Administrateur")
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+    }
+  }
+}
 function generate_header_tag(){
     echo <<<flag
     <header class="app-header">
@@ -257,17 +273,20 @@ flag;
     foreach ($qcms as $key => $qcm) {
         $key++;
         echo <<<flag
-          <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="row quiz">
-            <div class="col-md-2 head">Q$key</div>
-              <div class="col-md-9 body">
-                {$qcm->title}
-                <br>
-                faire avant le {$qcm->start_time}
-              </div>
-              <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
-          </a>
-        </main>
+        
+        <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="row quiz">
+          <div class="col-md-2 head">Q{$key}</div>
+            <div class="col-md-9 body">
+              $qcm->title
+              <br>
+              Mis en ligne le $qcm->start_time
+            </div>
+          <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
+        </a>
 flag;
     }
+    echo <<<flag
+    </main>
+flag;
   }
 ?>

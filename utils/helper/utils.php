@@ -2,7 +2,7 @@
 
 function check_page($page_name, $valid_pages){
     foreach ($valid_pages as $page) {
-        if ($page["name"] == $page_name) {
+        if ($page["name"] === $page_name) {
             return true;
         }
     }
@@ -12,7 +12,7 @@ function check_page($page_name, $valid_pages){
 function get_page_title($page_name, $valid_pages){
     // called only if page exists in valid_pages
     foreach ($valid_pages as $current_page) {
-        if ($current_page["name"] == $page_name) {
+        if ($current_page["name"] === $page_name) {
             return $current_page["title"];
         }
     }

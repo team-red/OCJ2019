@@ -30,7 +30,6 @@ class QuizForm
         
         $data = QuizForm::getData($raw_data);
         if ($data === false){
-            echo "compromised data";
             return QuizForm::$FEEDBACK["failed"];
         }
 
@@ -40,11 +39,10 @@ class QuizForm
             $user->login,
             $data["duration"],
             $data["title"],
-            $data["max_score"]
+            $data["max_score"] * 60 // in seconds
         );
 
         if ($qcm_id === false){
-            echo "couldn't get id";
             return QuizForm::$FEEDBACK["failed"];
         }
         
@@ -57,7 +55,6 @@ class QuizForm
                 $qst["max_score"]
             );
             if ($qst_id === false){
-                echo "couldn't get qst id";
                 return QuizForm::$FEEDBACK["failed"];
             }
             foreach ($qst["answers"] as $ans) {
@@ -72,7 +69,6 @@ class QuizForm
                     $is_correct
                 );
                 if ($success === false) {
-                    echo "couldn't add to the db (answer)";
                     return QuizForm::$FEEDBACK["failed"];
                 }
             }
@@ -252,7 +248,7 @@ class QuizForm
     <div class="mx-auto" style="width: 150px;">
         <button type="submit" class="btn btn-primary">Envoyez</button>
     </div>
-
+    <br>
     <div class='alert alert-{$feedback["alert_status"]}' role='alert' style='visibility: {$feedback["visibility"]}; font-size: 0.9rem;'> {$feedback["message"]} </div>
 
 </form>

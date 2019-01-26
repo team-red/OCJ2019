@@ -6,19 +6,63 @@ Questionnaires fait et pas faits
 
 
 <?php
-  require_once("utils/quiz/quiz.php");
-  if (isset($_GET["qcm_id"])){
-    $qcm_id = $_GET["qcm_id"];
-    if ($user->hasAccess($dbh, $qcm_id)){
-      Quiz::createForm($dbh, $qcm_id);
+    require_once("utils/quiz/quiz.php");
+    require_once("utils/quiz/attempt.php");
+    require_once("utils/quiz/timestamp.php");
+
+    $valid_qcm = true; // always start with good intentions lol
+    if (isset($_GET["qcm_id"]) === false){
+        $valid_qcm = false;
     } else {
-      echo "Too bad for you, you already tried (or some other excuse if we change the db)";
+        $qcm_id = $_GET["qcm_id"];
+        $qcm = Qcm::fromId($dbh, $qcm_id);
+        if ($qcm === false){
+            $valid_qcm = false;
+        }
     }
-  } else {
-    require_once("utils/quiz/qcm.php"); // included in quiz.php?
-    $qcms = Qcm::getAll($dbh);
-    showQcms($qcms);
-  }
+
+    if ($valid_qcm === false){
+        $qcms = Qcm::getAll($dbh);
+        showQcms($qcms);
+    } else {
+        if (isset($_POST["ans"]) === false){
+            if (Timestamp::hasStamp($dbh, $qcm_id, $user->login)){
+                Quiz::denyAccess();
+            } else {
+                Quiz::createForm($dbh, $qcm_id);
+                Timestamp::touch($dbh, $qcm_id, $user->login);
+            }
+        } else {
+            if (Attempt::hasAttemptedQcm($dbh, $qcm_id, $user->login)){
+                denyAccess();
+            } else {
+                $now = time();
+                $stamp = Timestamp::getStamp($dbh, $qcm_id, $user->login)[0];
+                $stamp = filter_var($stamp, FILTER_VALIDATE_INT);
+                $duration = $qcm->duration_seconds;
+                $duration = filter_var($duration, FILTER_VALIDATE_INT);
+                if ($stamp === false || $duration === false){
+                    // something bad happened, something very bad happened
+                    Quiz::attemptFailed();
+                } else {
+                    $timed_out = ($now - $stamp) > ($duration + 5); // 5 seconds for leniency (+ server delay?)
+                    if ($timed_out === false){
+                        $data = isset($_POST["ans"]) ? $_POST["ans"] : array();
+                        $success = Attempt::insert($dbh, $data, $user->login);
+                        if ($success === false){
+                            Quiz::attemptFailed();
+                        } else {
+                            Quiz::attemptSucceeded();
+                        }
+                    } else {
+                        // in case client bypasses client-side verification
+                        Quiz::timedOut();
+                    }
+                }
+            }
+        }
+    }
+
 ?>
 
 <?php generate_footer(); ?>
