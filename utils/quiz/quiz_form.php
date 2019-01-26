@@ -32,14 +32,17 @@ class QuizForm
         if ($data === false){
             return QuizForm::$FEEDBACK["failed"];
         }
+        // eventually check if the data consistent
+        // in terms of score
 
         // creating the qcm entry, and fetching its id
+        $minutes = 
         $qcm_id = Qcm::insert(
             $dbh,
             $user->login,
-            $data["duration"],
+            $data["duration"] * 60, // in seconds
             $data["title"],
-            $data["max_score"] * 60 // in seconds
+            $data["max_score"]
         );
 
         if ($qcm_id === false){
@@ -73,6 +76,7 @@ class QuizForm
                 }
             }
         }
+        return QuizForm::$FEEDBACK["success"];
     }
 
     public static function getData($from_post){

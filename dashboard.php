@@ -36,6 +36,10 @@ if (is_admin_exclusive($active_page, $pages) && $isAdmin === false)
     $active_page = $default_page["name"];
 }
 
+if ($active_page === "logout"){
+  require_once("content/dashboard/content_logout.php");
+}
+
 
 ?>
 
