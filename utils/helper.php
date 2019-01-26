@@ -72,6 +72,37 @@ $dashboard_pages = array(
   )
 );
 
+ $personalInfo = array(
+   "profilPhoto" => "media/profi.jpg",
+   //schoolar information
+   "class" => "2eme année",
+   "school" => "Ecole Polytechnique",
+   "academy" => "NA",
+   //postal information
+   "email" => "ayoub.foussoul@polytechnique.edu",
+   "phone" => "+33671753326",
+   "adress" => "72.20.16, Boulevard des marechaux, 91120 Palaiseau, Essone, France",
+   //personal information
+   "last_name" => "foussoul",
+   "first_name" => "ayoub",
+   "gender" => "M",
+   "birthday" => "12 septembre 1997",
+   //other
+   "account_status" => "Administrateur",
+   "description" => "Hi there!",
+ );
+ $quizInfo = array(
+   "champion" => "FOUSSOUL Ayoub",
+   "myRank" => 22,
+   "afterMe" => "SLIMANI Adam",
+   "lastRank" => 203,
+   "lastOne" => "BOUTIHAL Achraf",
+   "done" => 12,
+   "numOfQuizes" => 19,
+   "success" => 13,
+   "mark" => 15,
+ );
+
 // ************* For all *****************
 function check_page($page_name, $valid_pages){
     foreach ($valid_pages as $page) {
@@ -193,21 +224,19 @@ flag;
 }
 
 //---------- Home page ----------
-function home_page_generate_left(){
-  //variables to get from sql !!!!!!!!!! be carefull to always store name in right capitalization
-  $profil_photo = "media/profi.jpg";
-  //schoolar information
-  $class = "2eme année";
-  $school = "Ecole Polytechnique";
-  $academy = "NA";
-  //personal information
-  $last_name= "foussoul";
-  $first_name="ayoub";
-  $email="ayoub.foussoul@polytechnique.edu";
-  $birthday="12 septembre 1997";
-  $account_status="Administrateur";
+function home_page_generate_left($personalInfo){
+  //variables !!!!!!!!!! be carefull to always store name in right capitalization !!!!!!!!!!
+  $profilPhoto = $personalInfo["profilPhoto"];
+  $class = $personalInfo["class"];
+  $school = $personalInfo["school"];
+  $academy = $personalInfo["academy"];
+  $last_name = $personalInfo["last_name"];
+  $first_name = $personalInfo["first_name"];
+  $email = $personalInfo["email"];
+  $birthday = $personalInfo["birthday"];
+  $accountStatus = $personalInfo["account_status"];
 
-  // A refaire en utilisant des vignettes!?
+  // vignettes!?
   echo<<<flag
   <div class="min_box min_box_myinfo">
   <header id="min_box_header_myinfo">
@@ -218,11 +247,11 @@ function home_page_generate_left(){
   <span class="col-md-12 min_col">
   <span class="min_cell min_cell_myinfo no_border">Resume</span>
   <div class="min_col_myinfo_content">
-  <img src="$profil_photo" alt="Photo de profil" id="home_page_profil_photo"/>
+  <img src="$profilPhoto" alt="Photo de profil" id="home_page_profil_photo"/>
 
 <div>
   <h1 id="home_page_name">$last_name $first_name</h1>
-  <span id="home_page_description">$account_status</span>
+  <span id="home_page_description">$accountStatus</span>
 
 </div>
   <hr></hr>
@@ -238,29 +267,31 @@ function home_page_generate_left(){
   </div>
 flag;
 }
-function home_page_generate_right(){
+function home_page_generate_right($quizInfo){
   // things to get from SQL
-  $champion = "FOUSSOUL Ayoub";
-  $myRank = 32;
-  $myRankPlusOne = $myRank++;
-  $afterMe = "SLIMANI Adam";
-  $done = 12;
-  $numOfQuizes = 19;
-  $success = 13;
-  $mark = 15;
+  $champion = $quizInfo["champion"];
+  $myRank = $quizInfo["myRank"];
+  $myRankPlusOne = $myRank+1;
+  $afterMe = $quizInfo["afterMe"];
+  $lastRank = $quizInfo["lastRank"];
+  $lastOne = $quizInfo["lastOne"];
+  $done = $quizInfo["done"];
+  $numOfQuizes = $quizInfo["numOfQuizes"];
+  $success = $quizInfo["success"];
+  $mark = $quizInfo["mark"];
 
-  $min_chat = "";
+  $minChat = "";
   for($i = 0 ; $i < 5; $i++){
       $order = $i+1;
-      $min_chat = $min_chat . "<tr>
+      $minChat = $minChat . "<tr>
       <th scope='row' class='min_chat_num'>$order</th>
       <td class='min_chat_from'>test</td>
       <td class='min_chat_subject'>test_objet</td>
       <td class='min_chat_date'>$order:00</td>
     </tr>";
   }
-  if($min_chat == ""){
-    $min_chat = "
+  if($minChat == ""){
+    $minChat = "
     <tr>
       <th scope='row'></th>
       <td></td>
@@ -269,6 +300,78 @@ function home_page_generate_right(){
     </tr>
     ";
   }
+
+  $quizStats = "
+  <table class='table table_min'>
+      <thead class='thead-dark'>
+        <tr>
+          <th scope='col' class='no_border min_table_cell_quiz'>Classement</th>
+          <th scope='col' class='no_border min_table_cell_quiz'>Eleve</th>
+        </tr>
+      </thead>
+      <tbody>";
+
+
+if($myRank === 1){
+  $quizStats = $quizStats . "<tr>
+       <th scope='row' class='no_border'>1</th>
+       <td class='no_border' id='min_table_cell_your_rank'>Vous</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>2</th>
+       <td class='no_border'>$afterMe</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>...</th>
+       <td class='no_border'>...</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>...</th>
+       <td class='no_border'>...</td>
+     </tr>
+     <tr>
+       <th scope='row' class='no_border'>$lastRank</th>
+       <td class='no_border'>$lastOne</td>
+     </tr></tbody>
+ </table>";
+}
+elseif ($myRank === 2) {
+  $quizStats = $quizStats . "<tr>
+       <th scope='row' class='no_border'>1</th>
+       <td class='no_border'>$champion</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>2</th>
+       <td class='no_border' id='min_table_cell_your_rank'>Vous</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>3</th>
+       <td class='no_border'>$afterMe</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>...</th>
+       <td class='no_border'>...</td>
+     </tr>
+     <tr>
+       <th scope='row' class='no_border'>$lastRank</th>
+       <td class='no_border'>$lastOne</td>
+     </tr></tbody>
+  </table>";
+}
+else{
+   $quizStats = $quizStats . "<tr>
+        <th scope='row' class='no_border'>1</th>
+        <td class='no_border'>$champion</td>
+      </tr><tr>
+        <th scope='row' class='no_border'>...</th>
+        <td class='no_border'>...</td>
+      </tr><tr>
+        <th scope='row' class='no_border'>$myRank</th>
+        <td class='no_border' id='min_table_cell_your_rank'>Vous</td>
+      </tr><tr>
+        <th scope='row' class='no_border'>$myRankPlusOne</th>
+        <td class='no_border'>$afterMe</td>
+      </tr>
+      <tr>
+        <th scope='row' class='no_border'>...</th>
+        <td class='no_border'>...</td>
+      </tr></tbody>
+  </table>";
+}
 
   echo<<<flag
   <div class="min_box min_box_quiz">
@@ -279,32 +382,7 @@ function home_page_generate_right(){
   <main class="row">
 
   <span class="col-md-6 min_col">
-  <table class="table table_min">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col" class="no_border min_table_cell_quiz">Classement</th>
-          <th scope="col" class="no_border min_table_cell_quiz">Eleve</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-        <th scope="row" class="no_border">1</th>
-        <td class="no_border">$champion</td>
-      </tr><tr>
-        <th scope="row" class="no_border">...</th>
-        <td class="no_border">...</td>
-      </tr><tr>
-        <th scope="row" class="no_border">$myRank</th>
-        <td class="no_border" id="min_table_cell_your_rank">Vous</td>
-      </tr><tr>
-        <th scope="row" class="no_border">$myRankPlusOne</th>
-        <td class="no_border">$afterMe</td>
-      </tr>
-      <tr>
-        <th scope="row" class="no_border">...</th>
-        <td class="no_border">...</td>
-      </tr></tbody>
-  </table>
+    $quizStats
   </span>
   <span class="col-md-6 min_col">
   <table class="table table_min" id="table_min_stat">
@@ -351,7 +429,7 @@ function home_page_generate_right(){
       </tr>
     </thead>
     <tbody>
-      $min_chat
+      $minChat
     </tbody>
   </table>
   </span>
@@ -359,4 +437,37 @@ function home_page_generate_right(){
   </div>
 
 flag;
+}
+
+//---------- infos page ----------
+
+function myinfo_generate_pdp_pdp($personalInfo){
+  $profilPhoto = $personalInfo["profilPhoto"];
+  echo<<<flag
+  <img src="$profilPhoto" alt="Photo de profil" id="myinfo_profil_photo"/>
+flag;
+}
+
+function myinfo_generate_pdp_info($personalInfo){
+
+}
+
+function myinfo_generate_personal_academic($personalInfo){
+
+}
+
+function myinfo_generate_personal_postal($personalInfo){
+
+}
+
+function myinfo_generate_personal_personal($personalInfo){
+
+}
+
+function myinfo_generate_rank_tab($quizInfo){
+
+}
+
+function myinfo_generate_done_tab($quizInfo){
+
 }
