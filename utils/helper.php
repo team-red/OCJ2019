@@ -461,6 +461,9 @@ function myinfo_generate_pdp_info($personalInfo){
 
 flag;
 }
+function myinfo_generate_options($personalInfo){
+  echo "<span class='myinfo_options'><a href='#' OnClick='javascript:window.print()'><i class='icon-uni7D'></i></a><a href='dashboard.php?page=settings'><i class='icon-uni2E'></i></a><a href='#'><i class='icon-uni36'></i></a></span> ";
+}
 
 function myinfo_generate_personal_academic($personalInfo){
   $academy = $personalInfo["academy"];
@@ -510,7 +513,7 @@ function myinfo_generate_rank_tab($quizInfo){
   for($i=0; $i < 10; $i++){
     $rankData = $rankData . "  <tr>
       <td class=' table_cell_rank_content'>
-      $i
+      ".($i+1)."
       </td>
       <td class=' table_cell_rank_content'>
       test
@@ -537,7 +540,7 @@ function myinfo_generate_rank_tab($quizInfo){
       </div>
     </div>
     <diV class="row" id="myinfo_rank">
-    <table class="table" id="table_stat">
+    <table class="table" id="table_rank">
         <thead class="thead-dark">
           <tr>
             <th scope="col" class="table_cell_rank">Classement</th>
@@ -556,11 +559,13 @@ flag;
 
 function myinfo_generate_done_tab($quizInfo){
   $quizData = "";
+  $showQuizes = "";
+  $numQuizes = 10;
 
-  for($i=0; $i < 10; $i++){
-    $quizData = $quizData . "  <tr>
+  for($i=0; $i < $numQuizes; $i++){
+    $quizData = $quizData . "  <tr onclick='showQuiz(".($i+1).")'>
       <td class=' table_cell_quiz_content'>
-      $i
+      ".($i+1)."
       </td>
       <td class=' table_cell_quiz_content'>
       test
@@ -569,6 +574,13 @@ function myinfo_generate_done_tab($quizInfo){
       15
       </td>
       </tr>";
+    $showQuizes = $showQuizes . "
+    <div id='quiz_".($i+1)."'>
+    Quiz ".($i+1)."!
+    <br>
+    <span style='cursor:pointer' onclick='unShowQuiz($numQuizes)'>< Revenir en arriere</span>
+    </div>
+    ";
   }
 
   echo<<<flag
@@ -585,5 +597,29 @@ function myinfo_generate_done_tab($quizInfo){
         $quizData
       </tbody>
   </table>
+  $showQuizes
+flag;
+}
+
+// ************  Chat ****************
+
+function chat_generate_seemore(){
+  for($i=0; $i < 10; $i++){
+    echo<<<flag
+  <span class="msg_min">
+    <span class="msg_min_title">Test Message $i</span>
+    <span class="msg_min_description">Description</span>
+  </span>
+flag;
+  }
+}
+
+function chat_generate_body($num){
+  echo<<<flag
+  <h2 class="msg_body_title">Test Message</h2>
+  <h5 class="msg_body_description">Test Message</h5>
+  <span class="msg_body_core">
+  Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+  </span>
 flag;
 }

@@ -503,7 +503,7 @@ body{
   margin: auto;
 }
 .myinfo_quiz_tabs_content{
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 #table_quiz{
   margin-top: 2rem;
@@ -513,14 +513,25 @@ body{
 
     margin-bottom: 2rem;
   }
+  .myinfo_options{
+    text-align: center;
+  }
   .myinfo_pdp{
     text-align: center;
   }
-
+  .myinfo_main{
+    padding: 0;
+  }
+  .myinfo_pdp_options{
+    padding: 2rem !important;
+  }
 }
 @media (min-width: 768px) {
   #myinfo_profil_photo{
 
+  }
+  .myinfo_options{
+    text-align: right;
   }
 }
 
@@ -534,4 +545,93 @@ body{
 .myinfo_pdp_info>h{
   font-size: small;
   color: #6c757d;
+}
+.table_cell_rank{
+  background-color: #4f5566 !important;
+  border: none !important;
+}
+.table_cell_quiz{
+  background-color: #4f5566 !important;
+  border: none !important;
+}
+
+#table_rank>tbody>tr:hover{
+  background-color: #f8f9fa;
+}
+#table_quiz>tbody>tr:hover{
+  background-color: #f8f9fa;
+  cursor:pointer;
+}
+
+.myinfo_pdp_options{
+  max-width: 100%;
+  margin: 0;
+  padding: 0rem;
+}
+
+.myinfo_options{
+  font-size: large;
+  width: 100%;
+}
+
+.myinfo_options>a{
+  margin: 4px;
+  color: #545b62;
+  text-decoration: none;
+}
+
+
+/*  Chat  */
+
+.chat_main{
+  background-color: white;
+  padding: 3rem;
+}
+.chat_main>main{
+  border: solid #e9ecef 1px;
+}
+
+@media (min-width: 768px) {
+  #chat_largescreen{
+    width: 20%;
+    display: table-cell;
+    text-align: center;
+    border-right: solid #e9ecef 1px;
+    padding: 1rem;
+  }
+  .chat_link{
+    display: block;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  #chat_seemore{
+    padding: 1rem;
+    width: 25%;
+    display: table-cell;
+  }
+  .msg_min{
+    display: block;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+  }
+  .msg_min>span{
+    display: block;
+  }
+  #chat_body{
+    width: 55%;
+    background-color: #f8f9fa;
+    display: table-cell;
+    padding: 2rem;
+    border-left: 1px solid #e9ecef;
+  }
+  #chat_mobile{
+    display: none;
+  }
+
+}
+.chat_main>h2{
+  margin-bottom: 2rem;
+}
+#chat_body>h2,#chat_body>h5, #chat_body>span{
+  display: block;
 }
