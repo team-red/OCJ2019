@@ -15,7 +15,7 @@
 
         public static function getAll($dbh)
         {
-            $query = "SELECT * FROM main.qcm ORDER BY start_time DESC;";
+            $query = "SELECT * FROM qcm ORDER BY start_time DESC;";
             $sth = $dbh->prepare($query);
             $sth->setFetchMode(PDO::FETCH_CLASS, 'Qcm');
             $sth->execute();

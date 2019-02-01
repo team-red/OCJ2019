@@ -110,7 +110,7 @@ class Registration
         $sth->closeCursor();
         $query = "INSERT INTO users (email, pwd, login, name, surname, birthday) VALUES (?, ?, ?, ?, ?, ?)";
         $sth = $dbh->prepare($query);
-        $success = $sth->execute(array($email, sha1($pwd), $login, $name, $surname, $birthday));
+        $success = $sth->execute(array($email, password_hash($pwd, PASSWORD_DEFAULT), $login, $name, $surname, $birthday));
         $sth->closeCursor();
         if ($success) {
             return Registration::$FEEDBACK["success"];

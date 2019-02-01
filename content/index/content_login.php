@@ -9,7 +9,7 @@ if (isset($_SESSION["logged_in"])) {
         // default landing page is the login page
         $_GET["action"] = "login";
     }
-    if ($_GET["action"] == "register") {
+    if ($_GET["action"] === "register") {
       require("utils/access/registration.php");
         if (isset($_POST["email"], $_POST["pwd"], $_POST["login"], $_POST["name"], $_POST["surname"], $_POST["birthday"], $_POST["conf"])) {
             $feedback = Registration::attempt($dbh, $_POST);
@@ -17,7 +17,7 @@ if (isset($_SESSION["logged_in"])) {
         } else {
           Registration::generate_form(Registration::$FEEDBACK["no_feedback"], array());
         }
-    } else if ($_GET["action"] == "forgot") {
+    } else if ($_GET["action"] === "forgot") {
       require("utils/access/forgot_password.php");
       if (isset($_POST["email"])){
         $feedback = ResetPassword::attempt($dbh, $_POST["email"]);

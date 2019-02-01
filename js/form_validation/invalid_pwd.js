@@ -8,6 +8,6 @@ pwd.autofocus = true;
 
 let cnf = document.getElementById("inputPasswordConfirmation");
 
-if (cnf != null){
+if (cnf !== null){
   cnf.setCustomValidity("Wrong Password.");
 }

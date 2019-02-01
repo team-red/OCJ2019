@@ -52,7 +52,7 @@ class Login
             return Login::$FEEDBACK["unknown_error"];
         }
         if ($user = $sth->fetch()) {
-            if (sha1($pwd) == $user["pwd"]) {
+            if (password_verify($pwd, $user["pwd"]) === true) {
                 // pwd is valid
                 return Login::$FEEDBACK["success"];
             } else {

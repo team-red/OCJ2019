@@ -103,14 +103,14 @@ flag;
       $category = "";
     foreach ($valid_pages as $valid_page){
       // Adding category if a new one is selected in the loop and skiping General
-      if($valid_page["category"] != "Administrateur" || ($valid_page["category"] == "Administrateur" && $admin)){
-        if($valid_page["category"] != $category){
+      if($valid_page["category"] !== "Administrateur" || ($valid_page["category"] === "Administrateur" && $admin)){
+        if($valid_page["category"] !== $category){
           $category = $valid_page["category"];
           $html = $html."<li class='sidebar_category'> &nbsp; --- ".$category."</li>";
         }
   
       // Adding pages and verifying wheter the page is active or not (if so adding it to the class sidebar_page_selected)
-      $selected = ($valid_page["name"] == $active_page) ? " sidebar_page_selected" : "";
+      $selected = ($valid_page["name"] === $active_page) ? " sidebar_page_selected" : "";
   
       $html = $html."
       <li>

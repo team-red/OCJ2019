@@ -1,9 +1,9 @@
 * Test accounts
 
 * * Admin
-login: admin@qcm
-password: adminQcm47
+login: olivier@qcm
+password: olivier@qcm
 
 * * User
-login: user@qcm
-password: userQcm77
+login: baptiste@qcm
+password: baptiste@qcm

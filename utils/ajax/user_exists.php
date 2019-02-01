@@ -14,7 +14,7 @@ if (isset($_SESSION['initiated']) && $_SESSION['initiated'] === true && isset($_
             echo "Not Found";
         }
         $sth->closeCursor();
-    } elseif ($_POST["auth"] == "login") {
+    } elseif ($_POST["auth"] === "login") {
         $query = "SELECT * FROM users WHERE login=?;";
         $sth = $dbh->prepare($query);
         $sth->execute(array($_POST["value"]));

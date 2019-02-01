@@ -35,11 +35,11 @@ class ResetPassword
     public static function attempt($dbh, $email)
     {
         $test = rand(1, 3);
-        if ($test == 1) {
+        if ($test === 1) {
             return ResetPassword::$FEEDBACK["email_not_found"];
-        } elseif ($test == 2) {
+        } elseif ($test === 2) {
             return ResetPassword::$FEEDBACK["success"];
-        } elseif ($test == 3) {
+        } elseif ($test === 3) {
             return ResetPassword::$FEEDBACK["unknown_error"];
         }
     }

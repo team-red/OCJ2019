@@ -1,71 +1,42 @@
-<table class="table">
+<?php
 
+require_once("utils/profile/admin_panel.php");
+require_once("utils/profile/user.php");
+require_once("utils/quiz/qcm.php");
 
-    <thead class="thead-dark">
-    
-        <th scope="col">Nom Complet</th>
-        <th scope="col">Debloquer</th>
-        <th scope="col">Actions</a></th>
-    
-    </thead>
-
-    <tbody>
-
-
-    </tbody>
-
-    
-
-
-</table>
-
-<table class="table">
-
-
-    <thead class="thead-dark">
-    
-        <th scope="col">Titre du qcm</th>
-        <th scope="col">Nombre de reponses correctes</th>
-        <th scope="col">Nombre total de question</th>
-        <th scope="col">Score</th>
-        <th scope="col">Score Maximum</a></th>
-
-    
-    </thead>
-
-    <?php
-
-    require_once("utils/profile/user_data.php");
-    $data = UserData::fromEmail($dbh, "admin@qcm");
-
-    ?>
-
-    <tbody>
-
-    <?php
-
-    foreach ($data as $qcm_res) {
-        $title = htmlspecialchars($qcm_res["qcm"]->title);
-        $num_correct = htmlspecialchars($qcm_ans["correct_ans"]);
-        $num_tot = count($qcm_res["qcm"]->questions);
-        $score = htmlspecialchars($qcm_res["score"]);
-        $score_max = htmlspecialchars($qcm_res["qcm"]->max_score);
-        echo <<<flag
-        <tr>
-            <td>$title</td>
-            <td>$num_correct</td>
-            <td>$num_tot</td>
-            <td>$score</td>
-            <td>$score_max</td>
-        </tr>
-flag;
+if (!isset($_GET["action"])){
+    AdminPanel::createUserManagerForm($dbh);
+} else if ($_GET["action"] === "view_activity"){
+    if (isset($_GET["value"])){
+        $login = $_GET["value"];
+        $student = User::fromLogin($dbh, $login);
+        if ($student === false) {
+            AdminPanel::createUserManagerForm($dbh);
+        }
+        else {
+            AdminPanel::createUserOverview($dbh, $student);
+        }
+    } else {
+        AdminPanel::createUserManagerForm($dbh);
     }
+} else if ($_GET["action"] === "delete"){
+    if (isset($_GET["value"])){
+        $login = $_GET["value"];
+        $student = User::fromLogin($dbh, $login);
+        if ($student !== false && $student->role === "user") {
+            User::deleteUser($dbh, $student->login);
+        }
+    }
+    AdminPanel::createUserManagerForm($dbh);
+} else if ($_GET["action"] === "unblock"){
+    if (isset($_GET["u_login"]) && isset($_GET["qcm_id"])){
+        $qcm = Qcm::fromId($dbh, $_GET["qcm_id"]);
+        $student = User::fromLogin($dbh, $_GET["u_login"]);
+        UserData::unblockUserQcm($dbh, $student->login, $qcm->id);
+        AdminPanel::createUserOverview($dbh, $student);
+    } else {
+        AdminPanel::createUserManagerForm($dbh);
+    }
+}
 
-    ?>
-
-    </tbody>
-
-    
-
-
-</table>
+?>
