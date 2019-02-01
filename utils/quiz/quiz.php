@@ -44,27 +44,35 @@ flag;
                 return false; 
             }
             $minutes = ($qcm->duration_seconds) / 60;
-            $minutes = filter_var($minutes, FILTER_VALIDATE_INT);
+            $minutes = htmlspecialchars(filter_var($minutes, FILTER_VALIDATE_INT));
+            $seconds = htmlspecialchars($qcm->duration_seconds);
+            $title = htmlspecialchars($qcm->title);
             echo <<<flag
-            <span style="visibility: hidden;" id="quiz-duration">$qcm->duration_seconds</span>
+            <span style="visibility: hidden;" id="quiz-duration">$seconds</span>
             <form method="post">
 
-                <center>$qcm->title</center>
+                <center>$title</center>
                 <center>$minutes minutes</center>
 
 flag;
             $qsts = $qcm->questions;
             foreach ($qsts as $qkey => $qst) {
                 $enum = $qkey + 1;
-                echo "<div><center>Question $enum</center>";
+                $q_body = htmlspecialchars($qst->body);
+                echo <<<flag
+                <div><center>Question $enum</center>
+                <br>
+                <div><center>$q_body</center>
+flag;
                 $answers = $qst->answers;
                 foreach ($answers as $akey => $ans){
                     $checked = ($akey === 0) ? " checked" : " ";
                     $a_enum = $akey + 1;
+                    $a_body = htmlspecialchars($ans->body);
                     echo <<<flag
                     <div class="custom-control custom-radio">
                         <input type="radio" class="custom-control-input" id="qst{$enum}-ans$a_enum" name="ans[$qkey]" value="{$ans->id}"{$checked}>
-                        <label class="custom-control-label" for="qst{$enum}-ans$a_enum">$ans->body</label>
+                        <label class="custom-control-label" for="qst{$enum}-ans$a_enum">$a_body</label>
                     </div>
 flag;
                 }

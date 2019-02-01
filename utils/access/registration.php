@@ -27,6 +27,24 @@ class Registration
         "alert_status" => "danger",
         "show_defaults" => true
       ),
+      "invalid_login" => array(
+        "message" => "Login invalide.",
+        "visibility" => "visible",
+        "alert_status" => "danger",
+        "show_defaults" => true
+      ),
+      "invalid_email" => array(
+        "message" => "Email invalide.",
+        "visibility" => "visible",
+        "alert_status" => "danger",
+        "show_defaults" => true
+      ),
+      "invalid_birthday" => array(
+        "message" => "Date de naissance invalide.",
+        "visibility" => "visible",
+        "alert_status" => "danger",
+        "show_defaults" => true
+      ),
       "different_passwords" => array(
         "message" => "Les mots de passe ne sont pas identiques.",
         "visibility" => "visible",
@@ -55,9 +73,26 @@ class Registration
         $name = $data["name"];
         $surname = $data["surname"];
         $birthday = $data["birthday"];
-        if ($pwd != $pwd_conf) {
+
+        $dt = DateTime::createFromFormat("Y-m-d", $birthday, new DateTimeZone('Europe/Paris'));
+        if($dt === false || array_sum($dt->getLastErrors())){
+          return Registration::$FEEDBACK["invalid_birthday"];
+        }
+        
+        $match_res = preg_match('/^[a-zA-Z0-9_]{4,32}$/', $login); 
+        if ($match_res === false || $match_res === 0){
+          return Registration::$FEEDBACK["invalid_login"];
+        }
+
+        $match_res = preg_match('/^\S+@\S+$/', $email); 
+        if ($match_res === false || $match_res === 0){
+          return Registration::$FEEDBACK["invalid_email"];
+        }
+
+        if ($pwd !== $pwd_conf) {
             return Registration::$FEEDBACK["different_passwords"];
         }
+
         $query = "SELECT * FROM users WHERE email=?";
         $sth = $dbh->prepare($query);
         $sth->execute(array($email));

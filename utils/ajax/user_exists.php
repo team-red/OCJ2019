@@ -1,5 +1,7 @@
 <?php
-if (isset($_POST["auth"], $_POST["value"])) {
+session_name("peanutbutterandjelly");
+session_start();
+if (isset($_SESSION['initiated']) && $_SESSION['initiated'] === true && isset($_POST["auth"], $_POST["value"])) {
     require_once("../database.php");
     $dbh = Database::connect();
     if ($_POST["auth"] === "email") {

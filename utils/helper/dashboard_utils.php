@@ -179,7 +179,7 @@ flag;
     $address = htmlspecialchars($user->address);
     $account_status = User::$roles[$user->role];
 
-    $tz  = new DateTimeZone('Europe/Paris'); // does this matter ? I didn't look more at the documentation to know
+    $tz = new DateTimeZone('Europe/Paris');
     $age = DateTime::createFromFormat('Y-m-d', $user->birthday, $tz)
      ->diff(new DateTime('now', $tz))
      ->y;
@@ -272,14 +272,16 @@ flag;
 flag;
     foreach ($qcms as $key => $qcm) {
         $key++;
+        $title = htmlspecialchars($qcm->title);
+        $time = htmlspecialchars((new DateTime($qcm->start_time, new DateTimeZone('Europe/Paris')))->format("d-m-Y"));
         echo <<<flag
         
         <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="row quiz">
           <div class="col-md-2 head">Q{$key}</div>
             <div class="col-md-9 body">
-              $qcm->title
+              $title
               <br>
-              Mis en ligne le $qcm->start_time
+              Mis en ligne le $time
             </div>
           <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
         </a>
