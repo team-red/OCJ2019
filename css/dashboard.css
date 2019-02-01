@@ -115,6 +115,7 @@ body{
   left: 0;
   height: 100%;
   background-color: white;
+  background-image: url('../media/background_sidebar.png');
 }
 .logo{
   height: 4.8rem;
@@ -229,6 +230,8 @@ body{
   }
   .min_box{
     background-color: white;
+    /***/
+    background-size: cover;
   }
   .min_box>header{
     padding: 20px 2rem 20px 2rem;
@@ -289,6 +292,7 @@ body{
   #min_box_header_myinfo{
     background-color: #2f70b7;
     border-bottom: solid 1px #274e79;
+    overflow: scroll;
   }
   #home_page_profil_photo{
     width: 8rem;
@@ -305,7 +309,7 @@ body{
     margin: 0;
     padding-top: 1rem;
   }
-  #home_page_description{
+  #home_page_subject{
     text-align: center;
     display: block;
     font-size: smaller;
@@ -432,6 +436,7 @@ body{
 .myinfo_main{
   padding: 3rem;
   background-color: white;
+  /***/
 }
 #myinfo_profil_photo{
   width: 12rem;
@@ -443,6 +448,7 @@ body{
 }
 .myinfo_pdp{
   padding: 2rem 2rem 3rem 2rem;
+  background-image: url(../media/background.png);
 }
 .myinfo_hr{
   margin: 0;
@@ -518,6 +524,10 @@ body{
   }
   .myinfo_pdp{
     text-align: center;
+    width: 100%;
+    margin: 0;
+    background-color: #f8f9fa;
+    padding: 2rem;
   }
   .myinfo_main{
     padding: 0;
@@ -532,6 +542,13 @@ body{
   }
   .myinfo_options{
     text-align: right;
+  }
+  .myinfo_pdp{
+    background-color: #f8f9fa;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: Calc(100% + 6rem);
+    margin-left: -3rem;
   }
 }
 
@@ -586,9 +603,14 @@ body{
 .chat_main{
   background-color: white;
   padding: 3rem;
+  /***/
+  background-size: cover;
 }
 .chat_main>main{
   border: solid #e9ecef 1px;
+  display: table;
+  width: 100%;
+  min-height: Calc(100vh - 33px - 6rem);
 }
 
 @media (min-width: 768px) {
@@ -597,15 +619,17 @@ body{
     display: table-cell;
     text-align: center;
     border-right: solid #e9ecef 1px;
-    padding: 1rem;
   }
   .chat_link{
     display: block;
     padding: 1rem;
     border-bottom: 1px solid #e9ecef;
   }
+  #chat_seemore_container{
+    max-height: Calc(100vh - 33px - 6rem);
+    overflow: scroll;
+  }
   #chat_seemore{
-    padding: 1rem;
     width: 25%;
     display: table-cell;
   }
@@ -616,12 +640,45 @@ body{
   }
   .msg_min>span{
     display: block;
+    text-transform: capitalize;
+  }
+  .msg_min_date{
+    font-size: x-small;
+  }
+  .msg_min_subject{
+    font-size: small;
+    padding-top: 10px;
+  }
+  .msg_body_subject{
+    padding: 10px 0px 10px 0px;
+  }
+  .msg_body_title{
+    font-size: large;
+  }
+  .send_form>input, .send_form>textarea{
+    display: block;
+    width: 100%;
+    margin-bottom: 2rem;
+    color: #828282;
+    font-weight: 100;
+    margin-top: 10px;
+    min-height: 3rem;
+    border: solid #eaecef 1px;
+  }
+  #send_button{
+    width: auto !important;
+    margin: auto;
   }
   #chat_body{
+    max-height: Calc(100vh - 10rem);
+    overflow: scroll;
+  }
+  #chat_body_container{
     width: 55%;
     background-color: #f8f9fa;
     display: table-cell;
-    padding: 2rem;
+    padding: 3rem;
+    padding-top: 0;
     border-left: 1px solid #e9ecef;
   }
   #chat_mobile{

@@ -73,7 +73,7 @@ $dashboard_pages = array(
 );
 
  $personalInfo = array(
-   "profilPhoto" => "media/profi.jpg",
+   "profilPhoto" => "media/profil.jpg",
    //schoolar information
    "class" => "2eme année",
    "school" => "Ecole Polytechnique",
@@ -251,7 +251,7 @@ function home_page_generate_left($personalInfo){
 
 <div>
   <h1 id="home_page_name">$last_name $first_name</h1>
-  <span id="home_page_description">$accountStatus</span>
+  <span id="home_page_subject">$accountStatus</span>
 
 </div>
   <hr></hr>
@@ -280,14 +280,20 @@ function home_page_generate_right($quizInfo){
   $success = $quizInfo["success"];
   $mark = $quizInfo["mark"];
 
+  $_POST["type"] = 1;
+  $_POST["min"] = true;
+  require_once("utils/ajax/get_seemore.php");
   $minChat = "";
-  for($i = 0 ; $i < 5; $i++){
-      $order = $i+1;
+  foreach ($messagesTable as $key => $message){
+      $order = $key+1;
+      $from = $message["from_id"];
+      $description = $message["title"];
+      $date = $message["date"];
       $minChat = $minChat . "<tr>
       <th scope='row' class='min_chat_num'>$order</th>
-      <td class='min_chat_from'>test</td>
-      <td class='min_chat_subject'>test_objet</td>
-      <td class='min_chat_date'>$order:00</td>
+      <td class='min_chat_from'>$from</td>
+      <td class='min_chat_subject'>$description</td>
+      <td class='min_chat_date'>date</td>
     </tr>";
   }
   if($minChat == ""){
@@ -603,23 +609,33 @@ flag;
 
 // ************  Chat ****************
 
-function chat_generate_seemore(){
-  for($i=0; $i < 10; $i++){
-    echo<<<flag
-  <span class="msg_min">
-    <span class="msg_min_title">Test Message $i</span>
-    <span class="msg_min_description">Description</span>
-  </span>
+function chat_generate_seemore($messagesTable, $type){
+
+    foreach ($messagesTable as $message){
+      $id = $message["id"];
+      $description = $message["title"];
+      $from_to = (intval($type) === 3) ? "to: " . $message["to_id"] : "from: " . $message["from_id"];
+      $date = $message["date"];
+      echo<<<flag
+    <span class="msg_min" id="msg_$id" onclick="getMessage($id, $type)">
+      <span class="msg_min_title">$from_to</span>
+      <span class="msg_min_date">$date</span>
+      <span class="msg_min_subject">$description</span>
+    </span>
 flag;
   }
 }
 
-function chat_generate_body($num){
+function chat_generate_body($message, $type){
+  $description = $message["title"];
+  $from_to = (intval($type) === 3) ? "<b>to: </b>" . $message["to_id"] : "<b>from: </b>" . $message["from_id"];
+  $core = $message["core"];
+  $date = $message["date"];
   echo<<<flag
-  <h2 class="msg_body_title">Test Message</h2>
-  <h5 class="msg_body_description">Test Message</h5>
-  <span class="msg_body_core">
-  Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
-  </span>
+  <br>
+  <span class="msg_body_title">$from_to</span>
+  <span class="msg_min_date">$date</span>
+  <span class="msg_body_subject"><b>Objet :</b> $description</span>
+  <span class="msg_body_core"><b>Message : </b><br>$core</span>
 flag;
 }
