@@ -1,18 +1,18 @@
 <main class="chat_main container-fluid">
   <h2>Messagerie</h2>
   <header id="chat_mobile">
-    <span class="chat_mobile_link" id="msg_from_admin_mobile" onclick="getSeeMore(1)">Important</span>
-    <span class="chat_mobile_link" id="msg_in_mobile" onclick="getSeeMore(2)">Recu</span>
-    <span class="chat_mobile_link" id="msg_out_mobile_mobile" onclick="getSeeMore(3)">Envoyé</span>
-    <span class="chat_mobile_link" id="msg_new_mobile" onclick="writeMsg()">Ecrire</span>
+    <span class="chat_link msg_from_admin" onclick="getSeeMore(1)">Important</span>
+    <span  class="chat_link msg_in" onclick="getSeeMore(2)">Recu</span>
+    <span class="chat_link msg_out" onclick="getSeeMore(3)">Envoyé</span>
+    <span class="chat_link msg_new" onclick="writeMsg()">Ecrire</span>
   </header>
 
   <main>
     <div id="chat_largescreen">
-      <span class="chat_link" id="msg_from_admin_web" onclick="getSeeMore(1)">Important</span>
-      <span  class="chat_link" id="msg_in_web" onclick="getSeeMore(2)">Recu</span>
-      <span class="chat_link" id="msg_out_web" onclick="getSeeMore(3)">Envoyé</span>
-      <span class="chat_link" id="msg_new_web" onclick="writeMsg()">Ecrire</span>
+      <span class="chat_link msg_from_admin" onclick="getSeeMore(1)">Important</span>
+      <span  class="chat_link msg_in" onclick="getSeeMore(2)">Recu</span>
+      <span class="chat_link msg_out" onclick="getSeeMore(3)">Envoyé</span>
+      <span class="chat_link msg_new" onclick="writeMsg()">Ecrire</span>
     </div>
     <div id="chat_seemore_container">
       <div id="chat_seemore">

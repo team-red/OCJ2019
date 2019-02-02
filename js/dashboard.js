@@ -47,10 +47,22 @@ function unShowQuiz(num){
 // chat
 
 function getSeeMore(type){
+  var mobile = false;
+  $(".chat_main>main").css("background-color","");
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","none");
+    $("#chat_seemore_container").css("display","block");
+    $("#chat_body_container").css("width","");
+    mobile = true;
+  } else {
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","table-cell");
     $("#chat_body_container").css("width","55%");
-    $(".chat_link").css("background-color","");
-    $(".chat_link").css("color","");
-    $("#chat_seemore_container").css("display","");
+    mobile = false;
+  }
+  $(".chat_link").css("background-color","");
+  $(".chat_link").css("color","");
+  $("#chat_seemore_container").css("display","");
     $.ajax({
         url: "utils/ajax/get_seemore.php", // URL de la page
         type: "POST", // GET ou POST
@@ -59,16 +71,16 @@ function getSeeMore(type){
         success: function (response) {
             switch (type){
               case 1:
-                $("#msg_from_admin_web").css("background-color","rgb(79, 85, 102)");
-                $("#msg_from_admin_web").css("color","white");
+                $(".msg_from_admin").css("background-color","rgb(79, 85, 102)");
+                $(".msg_from_admin").css("color","white");
                 break;
               case 2:
-                $("#msg_in_web").css("background-color","rgb(79, 85, 102)");
-                $("#msg_in_web").css("color","white");
+                $(".msg_in").css("background-color","rgb(79, 85, 102)");
+                $(".msg_in").css("color","white");
                 break;
               case 3:
-                $("#msg_out_web").css("background-color","rgb(79, 85, 102)");
-                $("#msg_out_web").css("color","white");
+                $(".msg_out").css("background-color","rgb(79, 85, 102)");
+                $(".msg_out").css("color","white");
                 break;
             }
             if(response === ""){
@@ -76,7 +88,7 @@ function getSeeMore(type){
               $("#chat_body").html("");
             }else{
             $("#chat_seemore").html(response);
-            $(".msg_min").first().click();
+            if(!mobile) $(".msg_min").first().click();
           }
         }
     });
@@ -84,6 +96,20 @@ function getSeeMore(type){
 
 
 function getMessage(id, type){
+  var mobile = false;
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","block");
+    $("#chat_seemore_container").css("display","none");
+    $("#chat_body_container").css("width","100%");
+    $(".chat_main>main").css("background-color","#f8f9fa");
+    mobile = true;
+  } else {
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_body_container").css("width","55%");
+    $(".chat_main>main").css("background-color","");
+    mobile = false;
+  }
     $.ajax({
         url: "utils/ajax/get_message.php", // URL de la page
         type: "POST", // GET ou POST
@@ -98,12 +124,23 @@ function getMessage(id, type){
 }
 
 function writeMsg(){
+  var mobile = false;
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","block");
+    $("#chat_body_container").css("width","100%");
+    $(".chat_main>main").css("background-color","#f8f9fa");
+    mobile = true;
+  } else {
+    $("#chat_body_container").css("display","table-cell");
     $("#chat_body_container").css("width","80%");
+    $(".chat_main>main").css("background-color","");
+    mobile = false;
+  }
     $("#chat_seemore_container").css("display","none");
     $(".chat_link").css("background-color","");
     $(".chat_link").css("color","");
-    $("#msg_new_web").css("background-color","rgb(79, 85, 102)");
-    $("#msg_new_web").css("color","white");
+    $(".msg_new").css("background-color","rgb(79, 85, 102)");
+    $(".msg_new").css("color","white");
     $("#chat_body").html("<form action='dashboard.php?page=chat' method='post' class='send_form'><input type='hidden' name='check'><span><br>À : </span><input type='text' name='to' value=' To' onfocus='delete_default_value(this, 1)'><span>Objet : </span><input type='text' name='title' value=' Objet'  onfocus='delete_default_value(this, 2)'><span>Message : </span><textarea rows='10' name='core' onfocus='delete_default_value(this, 3)'> Message ...</textarea><input id='send_button' type='submit' value='Envoyer'></form>");
 }
 
@@ -122,7 +159,18 @@ function delete_default_value(object, value){
 
 }
 
+$( window ).resize(function(){
+  $(".chat_main>main").css("background-color","");
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","none");
+    $("#chat_seemore_container").css("display","block");
+  }else{
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_body_container").css("width","55%");
+  }
+})
+
 function default_chat(){
   getSeeMore(1);
-  $(".msg_min").first().click();
 }
