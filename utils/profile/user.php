@@ -66,6 +66,57 @@
             // use success for debugging
             $sth->execute();
             $sth->closeCursor();
+            $filename = preg_replace('((^\.)|\/|(\.$))', '_', $login);
+            // escaping dots and backslashes because they have a special meaning in paths
+            $src = "media/profile/" . $filename . ".jpg";
+            if (file_exists($src)){
+                $success = unlink($src); // delete his profile photo if it exists
+                var_dump($src);
+                var_dump($success);
+            }
+        }
+
+        public static function modifyData($dbh, $login, $data)
+        {
+            $query = "UPDATE users SET surname=?, name=?, school=?, city=?, address=?, grade=?, birthday=? WHERE login=?;";
+            $sth = $dbh->prepare($query);
+            $success = $sth->execute(array(
+                $data["surname"], $data["name"], $data["school"], $data["city"], $data["address"], $data["grade"], $data["birthday"], $login
+            ));
+            $sth->closeCursor();
+        }
+
+        public static function getPhotoSource($login)
+        {
+            $filename = preg_replace('((^\.)|\/|(\.$))', '_', $login);
+            // escaping dots and backslashes because they have a special meaning in paths
+            $src = "media/profile/" . $filename . ".jpg";
+            return file_exists($src) ? $src : "media/profile/default.jpg";
+        }
+
+        public static function setPhotoSource($login, $file)
+        {
+            $filename = preg_replace('((^\.)|\/|(\.$))', '_', $login);
+            // escaping dots and backslashes because they have a special meaning in paths
+            $src = "media/profile/" . $filename . ".jpg";
+
+            $target_file = basename($file["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            if (getimagesize($file["tmp_name"]) === false){
+                return false;
+            }
+            if ($file["size"] > 500000) {
+                return false;
+            }
+            if ($imageFileType !== "jpg"){
+                return false;
+            }
+
+            if (move_uploaded_file($file["tmp_name"], $src) === false) {
+                return false;
+            }
+            
         }
     }
 
