@@ -71,8 +71,6 @@
             $src = "media/profile/" . $filename . ".jpg";
             if (file_exists($src)){
                 $success = unlink($src); // delete his profile photo if it exists
-                var_dump($src);
-                var_dump($success);
             }
         }
 
@@ -91,7 +89,7 @@
             $filename = preg_replace('((^\.)|\/|(\.$))', '_', $login);
             // escaping dots and backslashes because they have a special meaning in paths
             $src = "media/profile/" . $filename . ".jpg";
-            return file_exists($src) ? $src : "media/profile/default.jpg";
+            return file_exists($src) ? $src : "media/default.jpg";
         }
 
         public static function setPhotoSource($login, $file)

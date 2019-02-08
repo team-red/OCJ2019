@@ -1,6 +1,7 @@
 <?php
 
 // When adding new page add it with its category. 
+
 $pages = array(
     // Main menu
     array(
@@ -10,8 +11,8 @@ $pages = array(
       "category" => "Menu principal"
     ),
     array(
-      "name"=> "profil",
-      "title"=> "Profile",
+      "name"=> "myinfo",
+      "title"=> "Mes infos",
       "icon_name" => "uniE011",
       "category" => "Menu principal"
     ),
@@ -154,115 +155,233 @@ flag;
       <div class="col-md-1 options"><i class="icon-uniE049"></i></br><i class="icon-uniE00B"></i></br><i class="icon-uniE013"></i></div>
     </a>
 flag;
-  }
+    }
   }
   
   //---------- Home page ----------
-  function generate_mini_profile($user){
-    // setting the photo source. We check if the image exists otherwise we use a default picture.
-    // All profile photos should be named login.jpg where login is the login of the user (login because it's unique)
-    // Two problems, one is what if the user uploads a .png or any other type. We could either rename it to .jpg without
-    // actually converting it. Or we could convert it and rename it. (this second method is more RAS but it's probably annoying to implement)
-    // Using the login may seem unelegant, but it's either that or rename uploaded files with random names and verify
-    // that the randomely chosen name wasn't used before. Uniqueness is necessary if we put all image files in the same directory.
-    // If we don't and say put all the user data in a folder called "ayoub" then we need to add a field in the database
-    // indicating the name of the last profile photo the user uploaded. Again, a pain!
-    $default = "media/profile/default.jpg";
-    $filename = preg_replace('((^\.)|\/|(\.$))', '_', $user->login); // escaping dots and backslashes because they have a special meaning in paths
-    $src = "media/profile/" . $filename . ".jpg";
-    $photo_src = file_exists($src) ? $src : $default;
-
-    $full_name = htmlspecialchars($user->name) . " " . htmlspecialchars($user->surname);
+  function home_page_generate_left($user){
+    //variables !!!!!!!!!! be carefull to always store name in right capitalization !!!!!!!!!!
+    $profilPhoto = htmlspecialchars(User::getPhotoSource($user->login));
     $class = htmlspecialchars($user->grade);
+    $class = $class === "" ? "Non renseigné" : $class;
     $school = htmlspecialchars($user->school);
-    $email= htmlspecialchars($user->email);
-    $address = htmlspecialchars($user->address);
-    $account_status = User::$roles[$user->role];
+    $school = $school === "" ? "Non renseigné" : $school;
+    $academy = "Non renseigné";
+    $last_name = htmlspecialchars($user->name);
+    $first_name = htmlspecialchars($user->surname);
+    $email = htmlspecialchars($user->email);
+    $birthday = htmlspecialchars($user->birthday);
+    $accountStatus = htmlspecialchars(User::$roles[$user->role]);
 
-    $tz = new DateTimeZone('Europe/Paris');
-    $age = DateTime::createFromFormat('Y-m-d', $user->birthday, $tz)
-     ->diff(new DateTime('now', $tz))
-     ->y;
-  
-    // A refaire en utilisant des vignettes!?
-    echo<<<flag
-    <div class="left">
-    <div class="info">
-    <img src="$photo_src" alt="Photo de profil" id="home_page_profil_photo"/>
-    <h1 id="home_page_name">$full_name</h1>
-    <span id="home_page_description">$account_status</span>
-    <hr></hr>
-    <span id="home_page_class" class="home_page_info"><b>Classe</b><br>$class</span>
-    <span id="home_page_school" class="home_page_info"><b>Ecole</b><br>$school</span>
-    <hr></hr>
-    <span id="home_page_email" class="home_page_info"><b>Email</b><br>$email</span>
-    <span id="home_page_age" class="home_page_info"><b>Age</b><br>$age</span>
-    <span id="home_page_adress" class="home_page_info"><b>Adresse Postale</b><br>$address</span>
-  
-    </div>
-    <a href="./dashboard.php?page=profil" id="home_page_see_more">Voir le profil complet ></a>
-    </div>
+  // vignettes!?
+  echo<<<flag
+  <div class="min_box min_box_myinfo">
+  <header id="min_box_header_myinfo">
+  <h><i class="icon-uniE011 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos personelles</h>
+  <a href="./dashboard.php?page=myinfo" class="min_see_more">Voir plus de details ></a>
+  </header>
+  <main class="row">
+  <span class="col-md-12 min_col">
+  <span class="min_cell min_cell_myinfo no_border">Resume</span>
+  <div class="min_col_myinfo_content">
+  <img src="$profilPhoto" alt="Photo de profil" id="home_page_profil_photo"/>
+
+<div>
+  <h1 id="home_page_name">$last_name $first_name</h1>
+  <span id="home_page_subject">$accountStatus</span>
+
+</div>
+  <hr></hr>
+  <span id="home_page_class" class="home_page_info"><b>Classe</b><br>$class</span>
+  <span id="home_page_school" class="home_page_info"><b>Ecole</b><br>$school</span>
+  <span id="home_page_academy" class="home_page_info"><b>Academie</b><br>$academy</span>
+  <hr></hr>
+  <span id="home_page_email" class="home_page_info"><b>Email</b><br>$email</span>
+  <span id="home_page_birthday" class="home_page_info"><b>Date de naissance</b><br>$birthday</span>
+  </div>
+  </span>
+  </main>
+  </div>
 flag;
+}
+
+  function home_page_generate_right($quizInfo){
+  // things to get from SQL
+  $champion = $quizInfo["champion"];
+  $myRank = $quizInfo["myRank"];
+  $myRankPlusOne = $myRank+1;
+  $afterMe = $quizInfo["afterMe"];
+  $lastRank = $quizInfo["lastRank"];
+  $lastOne = $quizInfo["lastOne"];
+  $done = $quizInfo["done"];
+  $numOfQuizes = $quizInfo["numOfQuizes"];
+  $success = $quizInfo["success"];
+  $mark = $quizInfo["mark"];
+
+  $_POST["type"] = 1;
+  $_POST["min"] = true;
+  require_once("utils/ajax/get_seemore.php");
+  $minChat = "";
+  foreach ($messagesTable as $key => $message){
+      $order = $key+1;
+      $from = $message["from_id"];
+      $description = $message["title"];
+      $date = $message["date"];
+      $minChat = $minChat . "<tr>
+      <th scope='row' class='min_chat_num'>$order</th>
+      <td class='min_chat_from'>$from</td>
+      <td class='min_chat_subject'>$description</td>
+      <td class='min_chat_date'>date</td>
+    </tr>";
   }
-  function home_page_generate_right(){
-    $min_chat = "";
-    for($i = 0 ; $i < 15; $i++){
-        $min_chat = $min_chat . "<tr>
-        <th scope='row'>$i</th>
-        <td>test</td>
-        <td>test_objet</td>
-        <td>$i:00</td>
-      </tr>";
-    }
-  
-    echo<<<flag
-    <div class="row">
-    <span class="col-md-4 chart_container">
-    <canvas id="chart_done" class="home_page_chart home_page_chart"></canvas>
-    <span class="home_page_chart_description">Historique des questionnaires faits</span>
-    </span>
-    <span class="col-md-4 chart_container">
-    <canvas id="chart_success" class="home_page_chart"></canvas>
-    <span class="home_page_chart_description">Taux de réussite des questionnaires</span>
-    </span>
-    <span class="col-md-4 chart_container">
-    <canvas id="chart_marks" class=" home_page_chart"></canvas>
-    <span class="home_page_chart_description">Note globale</span>
-    </span>
-    </div>
-  
-    <hr></hr>
-  
-    <div class="row">
-    <div>
-    <header>
-    <h>Inbox</h>
-    </header>
-    <main>
-  
-  
-    <table class="table">
+  if($minChat == ""){
+    $minChat = "
+    <tr>
+      <th scope='row'></th>
+      <td></td>
+      <td style='text-align: center; vertical-align: middle;'>Pas de messages pour le moment</td>
+      <td></td>
+    </tr>
+    ";
+  }
+
+  $quizStats = "
+  <table class='table table_min'>
+      <thead class='thead-dark'>
+        <tr>
+          <th scope='col' class='no_border min_table_cell_quiz'>Classement</th>
+          <th scope='col' class='no_border min_table_cell_quiz'>Eleve</th>
+        </tr>
+      </thead>
+      <tbody>";
+
+
+if($myRank === 1){
+  $quizStats = $quizStats . "<tr>
+       <th scope='row' class='no_border'>1</th>
+       <td class='no_border' id='min_table_cell_your_rank'>Vous</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>2</th>
+       <td class='no_border'>$afterMe</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>...</th>
+       <td class='no_border'>...</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>...</th>
+       <td class='no_border'>...</td>
+     </tr>
+     <tr>
+       <th scope='row' class='no_border'>$lastRank</th>
+       <td class='no_border'>$lastOne</td>
+     </tr></tbody>
+ </table>";
+}
+elseif ($myRank === 2) {
+  $quizStats = $quizStats . "<tr>
+       <th scope='row' class='no_border'>1</th>
+       <td class='no_border'>$champion</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>2</th>
+       <td class='no_border' id='min_table_cell_your_rank'>Vous</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>3</th>
+       <td class='no_border'>$afterMe</td>
+     </tr><tr>
+       <th scope='row' class='no_border'>...</th>
+       <td class='no_border'>...</td>
+     </tr>
+     <tr>
+       <th scope='row' class='no_border'>$lastRank</th>
+       <td class='no_border'>$lastOne</td>
+     </tr></tbody>
+  </table>";
+}
+else{
+   $quizStats = $quizStats . "<tr>
+        <th scope='row' class='no_border'>1</th>
+        <td class='no_border'>$champion</td>
+      </tr><tr>
+        <th scope='row' class='no_border'>...</th>
+        <td class='no_border'>...</td>
+      </tr><tr>
+        <th scope='row' class='no_border'>$myRank</th>
+        <td class='no_border' id='min_table_cell_your_rank'>Vous</td>
+      </tr><tr>
+        <th scope='row' class='no_border'>$myRankPlusOne</th>
+        <td class='no_border'>$afterMe</td>
+      </tr>
+      <tr>
+        <th scope='row' class='no_border'>...</th>
+        <td class='no_border'>...</td>
+      </tr></tbody>
+  </table>";
+}
+
+  echo<<<flag
+  <div class="min_box min_box_quiz">
+  <header id="min_box_header_quiz">
+  <h><i class="icon-uniE049 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos questionnaires</h>
+  <a class="min_see_more" href="dashboard.php?page=quiz">Aller sur la partie questionnaires > </a>
+  </header>
+  <main class="row">
+
+  <span class="col-md-6 min_col">
+    $quizStats
+  </span>
+  <span class="col-md-6 min_col">
+  <table class="table table_min" id="table_min_stat">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">De</th>
-          <th scope="col">Objet</th>
-          <th scope="col">Date</th>
+          <th scope="col" class="no_border min_table_cell_quiz">Fait</th>
+          <th scope="col" class="no_border min_table_cell_quiz">Reussit</th>
+          <th scope="col" class="no_border min_table_cell_quiz">Note</th>
         </tr>
       </thead>
       <tbody>
-        $min_chat
+        <tr>
+        <td class="no_border min_table_cell_quiz_content">
+        <span class="min_col_stat_content_main">$done<span class="min_col_stat_content_sub">/$numOfQuizes</span></span>
+        </td>
+        <td class="no_border min_table_cell_quiz_content">
+        <span class="min_col_stat_content_main">$success<span class="min_col_stat_content_sub">/$numOfQuizes</span></span>
+        </td>
+        <td class="no_border min_table_cell_quiz_content">
+        <span class="min_col_stat_content_main">$mark<span class="min_col_stat_content_sub">/20</span></span>
+        </td>
+        </tr>
       </tbody>
-    </table>
-  
-  
-  
-    </main>
-    </div>
-    </div>
-  
+  </table>
+  </span>
+
+  </main>
+  </div>
+
+  <div class="min_box min_box_chat">
+  <header id="min_box_header_messages">
+  <h><i class="icon-uni2D sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>mes messages</h>
+  <a href='dashboard.php?page=chat' class="min_see_more">Voir plus de details ></a>
+  </header>
+  <main class="row">
+  <span class="col-md-12 min_col">
+  <table class="table table_chat table_min">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_num">#</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_from">De</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_subject">Objet</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_date">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      $minChat
+    </tbody>
+  </table>
+  </span>
+  </main>
+  </div>
+
 flag;
-  }
+}
 
   function showQcms($qcms)
   {

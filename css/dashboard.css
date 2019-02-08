@@ -1,10 +1,10 @@
 
 /*  Variables */
 :root {
-  --sidebar_size : 220px;
+  --sidebar_size : 230px;
   --sidebar_main_color : #54667a;
   --sidebar_secondary_color : #008efa;
-  --sidebar_tertiary_color : #4f5467;
+  --sidebar_tertiary_color : #4f5467; /* #4f5467 ; #755096*/
   --sidebar_category_color : #a6afbb;
   --main_color : #f4f6f8;
   --questionnaire_secondary_color : #f7fafc;
@@ -33,12 +33,13 @@ body{
 /********************* header css **********************/
 
 /* large screen */
-@media (min-width: 768px){
+@media (min-width: 1200px){
   .app-header{
     z-index: 1;
     background-color: var(--sidebar_tertiary_color);
     height: 4rem;
     padding-left: Calc(var(--sidebar_size) + 1rem);
+    display: none;
   }
   .pointer{
     display: none;
@@ -46,7 +47,7 @@ body{
 }
 
 /* small screen */
-@media (max-width: 767.98px){
+@media (max-width: 1199.9px){
 
 .pointer{
     font-size: 30px;
@@ -71,7 +72,7 @@ body{
 /******************** sidebar css **********************/
 
 /* large screen */
-@media (min-width: 768px){
+@media (min-width: 1200px){
   .app-aside {
     top: 3.5rem;
     box-shadow: 1px 0 20px rgba(0,0,0,.08);
@@ -80,7 +81,7 @@ body{
 }
 
 /* small screen */
-@media (max-width: 767.98px){
+@media (max-width: 1199.9px){
   #dark{
     display: none;
     position: fixed;
@@ -114,6 +115,7 @@ body{
   left: 0;
   height: 100%;
   background-color: white;
+  background-image: url('../media/background_sidebar.png');
 }
 .logo{
   height: 4.8rem;
@@ -185,14 +187,14 @@ body{
 /********************** main css ***********************/
 
 /* large screen */
-@media (min-width: 768px){
+@media (min-width: 1200px){
   .app-main {
     padding: 2rem 2rem 2rem Calc(var(--sidebar_size) + 2rem);
   }
 }
 
 /* small screen */
-@media (max-width: 767.98px){
+@media (max-width: 1199.9px){
   .app-main {
     padding: 5rem 2rem 2rem 2rem;
   }
@@ -203,46 +205,99 @@ body{
   position: relative;
   z-index: 0;
 }
-/*.app-main, .home_page_main, .home_page_main_row{
-  height: 100%;
-}*/
 .dashboard_footer{
   text-align: center;
-  padding-top: 4rem;
-  color: #7d8a9d;
-  font-size: small;
-  position: absolute;
-  bottom: 3rem;
 }
 
 /* Main */
 
   /* general */
-
-  /* left */
   @media (min-width: 768px){
-    .home_page_left{
-      min-height: 80vh;
+    .min_box{
+      margin: 0px 10px 0px 10px;
+    }
+    .min_box_chat{
+      margin: 20px 10px 20px 10px;
     }
   }
-  .left{
-    height: 100%;
+  @media (max-width: 767.9px){
+    .min_box{
+      margin-bottom: 20px;
+    }
   }
-  .info{
-    height: Calc(100% - 1rem);
-    min-height: fit-content;
+  .no_border{
+    border: 0 !important;
+  }
+  .min_box{
+    background-color: white;
+    /***/
+    background-size: cover;
+  }
+  .min_box>header{
+    padding: 20px 2rem 20px 2rem;
+    color: white;
+  }
+  .min_box>main{
+    margin: 0;
+  }
+  .min_box>header>h{
+    font-size: large;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .min_see_more{
+    display: block;
+    padding: 0px;
+    width: fit-content;
+    color: white;
+    font-size: smaller;
+  }
+  .min_see_more:hover{
+    color: white;
+  }
+  .min_cell{
+    padding: 10px 2rem 10px 2rem;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    display: block;
+    font-size: small;
+  }
+  .min_col{
+    text-align: center;
+    display: block;
+    font-size: small;
+    padding: 0;
+  }
+  .table td, .table th {
+    color: #5a6a7c;
+    vertical-align: middle !important;
+  }
+  /* left */
+  .left{
+    padding: 1rem 3rem 3rem 3rem;
   }
   .home_page_left{
-    background: white;
+    padding: 0;
+    overflow: scroll;
+  }
+  .min_cell_myinfo{
+    background-color: #37689e;
+  }
+  .min_col_myinfo_content{
+    padding-bottom: 97px !important;
     padding: 3rem;
-    margin-bottom: 2rem;
+    text-align: left !important;
+  }
+  #min_box_header_myinfo{
+    background-color: #2f70b7;
+    border-bottom: solid 1px #274e79;
     overflow: scroll;
   }
   #home_page_profil_photo{
-    width: 9rem;
-    height: 9rem;
+    width: 8rem;
+    height: 8rem;
     margin: auto;
-    border-radius: 10rem;
     object-fit: cover;
     display: block;
   }
@@ -254,7 +309,7 @@ body{
     margin: 0;
     padding-top: 1rem;
   }
-  #home_page_description{
+  #home_page_subject{
     text-align: center;
     display: block;
     font-size: smaller;
@@ -268,40 +323,84 @@ body{
     font-weight: 600;
     color: #545b62;
   }
-  #home_page_see_more{
-    display: block;
-    text-align: center;
-    margin-top: 5px;
-  }
+
   /* right */
+  @media (min-width: 1200px){
+    .min_col_stat_content_main{
+      font-size: 40px;
+    }
+    .min_col_stat_content_sub{
+      font-size: large;
+    }
+  }
+  @media (max-width: 1199.9px){
+    .min_col_stat_content_main{
+      font-size: 32px;
+    }
+    .min_col_stat_content_sub{
+      font-size: small;
+    }
+  }
   @media (min-width: 768px){
-    .home_page_right{
-      margin-left: 10px;
-      margin-right: -10px;
-      min-height: 80vh;
+  }
+  @media (max-width: 767.9px){
+    .min_chat_subject{
+      display: none;
     }
   }
   .home_page_right{
-    background-color: white;
-    margin-bottom: 2rem;
     overflow: scroll;
-    padding: 0rem 4rem 0rem 4rem;
+    padding: 0;
+    margin: 0;
   }
-  .home_page_right>.row{
-    padding: 3rem 0rem 0rem 0rem;
+  .min_box_chat{
   }
-  .home_page_chart{
-    max-height: 10rem;
+  .min_box_quiz{
   }
-  .chart_container{
-    width: 100%;
-    padding: 0rem 2rem 0rem 2rem;
+  .min_box_myinfo{
   }
-  .home_page_chart_description{
-    text-align: center;
-    display: block;
-    font-size: small;
-    padding: 1rem 0rem 1rem 0rem;
+  #min_box_header_quiz{
+    background-color: #c72a39;
+    border-bottom: solid 1px #9e1f2b;
+  }
+  #min_box_header_messages{
+    background-color: #17a8bf;
+    border-bottom: solid 1px #1c8c9e;
+  }
+  .table_min{
+    margin-bottom: 12px;
+  }
+  .table_chat{
+    min-height: 233px;
+  }
+  #table_min_stat{
+    height: 100%;
+    min-height: 12rem;
+  }
+  .min_table_cell{
+    border: 0 !important;
+  }
+  .min_cell_quiz{
+    background-color: #bd2130;
+  }
+  .min_table_cell_quiz{
+    background-color: #bd2130 !important;
+  }
+  .min_table_cell_chat{
+    background-color: #17a2b8 !important;
+  }
+  .min_table_cell_quiz_content{
+    vertical-align: middle !important;
+  }
+  .min_col_stat_content_main{
+    font-weight: 500;
+    color: #ce4f4b;
+  }
+  .min_col_stat_content_sub{
+    font-weight: 100;
+  }
+  #min_table_cell_your_rank{
+    font-weight: 900;
   }
 
 /* Quiz */
@@ -331,4 +430,309 @@ body{
   color: var(--sidebar_main_color);
   text-align: center;
   margin: auto;
+}
+
+/* myInfo */
+.myinfo_main{
+  padding: 3rem;
+  background-color: white;
+  /***/
+}
+#myinfo_profil_photo{
+  width: 12rem;
+  height: 13rem;
+  max-width: 100%;
+  margin: auto;
+  object-fit: cover;
+  display: block;
+}
+.myinfo_pdp{
+  padding: 2rem 2rem 3rem 2rem;
+  background-image: url(../media/background.png);
+}
+.myinfo_hr{
+  margin: 0;
+  padding: 0;
+  height: inherit;
+  margin-top: 12px;
+}
+.myinfo_container>h{
+  width: 100%;
+  margin: 0;
+}
+.myinfo_container{
+  padding: 2rem;
+}
+.myinfo_quiz_tabs{
+  margin-top: 4rem;
+}
+.selected_tab{
+  color: white !important;
+  background-color: #4f5566 !important;
+}
+#myinfo_quiz_tab_rank, #myinfo_quiz_tab_done{
+  font-size: medium;
+  display: table-cell;
+  padding: 1rem;
+  color: #4f5566;
+  background-color: #fdfdfd;
+}
+.myinfo_quiz_tabs>header{
+  margin-bottom: 1rem;
+}
+#myinfo_champions{
+  padding: 4rem;
+}
+
+#myinfo_rank2_photo,#myinfo_rank3_photo{
+  width: 40%;
+  min-width: 90px;
+}
+#myinfo_rank1_photo{
+  width: 50%;
+  min-width: 100px;
+}
+
+.myinfo_champions_cell, .myinfo_champions_cell_first{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.myinfo_champions_cell_first{
+  font-size: large;
+}
+.myinfo_champions_cell{
+  font-size: small;
+}
+.myinfo_champions_cell>img, .myinfo_champions_cell_first>img{
+  margin-bottom: 1rem !important;
+  display: block;
+  margin: auto;
+}
+.myinfo_quiz_tabs_content{
+  margin-top: 3rem;
+}
+#table_quiz{
+  margin-top: 2rem;
+}
+@media (max-width: 767.9px){
+  #myinfo_profil_photo{
+
+    margin-bottom: 2rem;
+  }
+  .myinfo_options{
+    text-align: center;
+  }
+  .myinfo_pdp{
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    background-color: #f8f9fa;
+    padding: 2rem;
+  }
+  .myinfo_main{
+    padding: 0;
+  }
+  .myinfo_pdp_options{
+    padding: 2rem !important;
+  }
+}
+@media (min-width: 768px) {
+  #myinfo_profil_photo{
+
+  }
+  .myinfo_options{
+    text-align: right;
+  }
+  .myinfo_pdp{
+    background-color: #f8f9fa;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: Calc(100% + 6rem);
+    margin-left: -3rem;
+  }
+}
+
+.myinfo_pdp_info>h1{
+  font-weight: 100;
+}
+.myinfo_pdp_info>h5{
+  font-weight: 100;
+  color: #6c757d;
+}
+.myinfo_pdp_info>h{
+  font-size: small;
+  color: #6c757d;
+}
+.table_cell_rank{
+  background-color: #4f5566 !important;
+  border: none !important;
+}
+.table_cell_quiz{
+  background-color: #4f5566 !important;
+  border: none !important;
+}
+
+#table_rank>tbody>tr:hover{
+  background-color: #f8f9fa;
+}
+#table_quiz>tbody>tr:hover{
+  background-color: #f8f9fa;
+  cursor:pointer;
+}
+
+.myinfo_pdp_options{
+  max-width: 100%;
+  margin: 0;
+  padding: 0rem;
+}
+
+.myinfo_options{
+  font-size: large;
+  width: 100%;
+}
+
+.myinfo_options>a{
+  margin: 4px;
+  color: #545b62;
+  text-decoration: none;
+}
+
+
+/*  Chat  */
+
+.chat_main{
+  background-color: white;
+  background-size: cover;
+}
+.chat_main>main{
+  border: solid #e9ecef 1px;
+  display: table;
+  width: 100%;
+  min-height: Calc(100vh - 33px - 6rem);
+}
+
+@media (max-width: 767.9px) {
+#chat_largescreen{
+  display: none;
+}
+#chat_mobile{
+  display: block;
+}
+#chat_seemore_container{
+  display: block;
+}
+#chat_body_container{
+  display: none;
+}
+.chat_link{
+display: block;
+}
+#chat_body_container{
+  padding: 1rem;
+}
+.chat_main{
+  padding: 1rem;
+}
+.chat_main>h2{
+  text-align: center;
+  margin-top: 2rem;
+}
+}
+
+@media (min-width: 768px) {
+.chat_link{
+  display: block;
+  border-bottom: 1px solid #e9ecef;
+}
+.chat_main{
+  padding: 3rem;
+}
+#chat_largescreen{
+  display: table-cell;
+}
+#chat_mobile{
+  display: none;
+}
+#chat_seemore_containerw{
+  display: table-cell;
+}
+#chat_body_container{
+  display: table-cell;
+}
+#chat_body_container{
+  padding: 3rem;
+}
+}
+
+#chat_largescreen{
+  width: 20%;
+  text-align: center;
+  border-right: solid #e9ecef 1px;
+}
+.chat_link{
+  padding: 1rem;
+}
+#chat_mobile{
+  padding: 1rem 0rem 1rem 0rem;
+}
+#chat_seemore_container{
+  max-height: Calc(100vh - 33px - 6rem);
+  overflow: scroll;
+}
+#chat_seemore{
+  width: 25%;
+  display: table-cell;
+}
+.msg_min{
+  display: block;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem;
+}
+.msg_min>span{
+  display: block;
+  text-transform: capitalize;
+}
+.msg_min_date{
+  font-size: x-small;
+}
+.msg_min_subject{
+  font-size: small;
+  padding-top: 10px;
+}
+.msg_body_subject{
+  padding: 10px 0px 10px 0px;
+}
+.msg_body_title{
+  font-size: large;
+}
+.send_form>input, .send_form>textarea{
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  color: #828282;
+  font-weight: 100;
+  margin-top: 10px;
+  min-height: 3rem;
+  border: solid #eaecef 1px;
+}
+#send_button{
+  width: auto !important;
+  margin: auto;
+}
+#chat_body{
+  max-height: Calc(100vh - 10rem);
+  overflow: scroll;
+}
+#chat_body_container{
+  width: 55%;
+  background-color: #f8f9fa;
+  padding-top: 0;
+  border-left: 1px solid #e9ecef;
+}
+
+.chat_main>h2{
+  margin-bottom: 2rem;
+}
+#chat_body>h2,#chat_body>h5, #chat_body>span{
+  display: block;
 }

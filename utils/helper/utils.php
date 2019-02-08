@@ -18,8 +18,9 @@ function get_page_title($page_name, $valid_pages){
     }
 }
 
-function generate_header($page_name, $sheet_path, $valid_pages){
+function generate_header($page_name, $sheet_path, $script_path, $valid_pages){
     $title = get_page_title($page_name, $valid_pages);
+    $script_tag = $script_path === "" ? "" : "<script src='$script_path'></script>";
     echo <<<flag
   <head>
       <title>$title</title>
@@ -34,7 +35,7 @@ function generate_header($page_name, $sheet_path, $valid_pages){
       <!-- Bootstrap CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
-      <script src="js/jquery.min.js"></script>
+      $script_tag
   </head>
 flag;
 }

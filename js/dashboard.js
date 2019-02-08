@@ -9,108 +9,168 @@ function closeNav(){
   document.getElementById("dark").style.display = "none";
 }
 
-// Home page charts
-function generate_chart(element_id, type, labels, datasets, options){
-  if (type === undefined) {
-        type = "doughnut";
+
+// Myinfo tabs JavaScript code   !!!!! Add if exists !!!!!
+function rank_tab(){
+  document.getElementById("myinfo_quiz_tabs_rank").style.display = "block";
+  document.getElementById("myinfo_quiz_tab_rank").className = "selected_tab";
+  document.getElementById("myinfo_quiz_tabs_done").style.display = "none";
+  document.getElementById("myinfo_quiz_tab_done").className = "";
+}
+function done_tab(){
+  document.getElementById("myinfo_quiz_tabs_done").style.display = "block";
+  document.getElementById("myinfo_quiz_tab_done").className = "selected_tab";
+  document.getElementById("myinfo_quiz_tabs_rank").style.display = "none";
+  document.getElementById("myinfo_quiz_tab_rank").className = "";
+}
+$(function(){
+  if(document.getElementById("table_quiz") != null){
+    rank_tab();
+    unShowQuiz(10);
   }
-  if (options === undefined) {
-        options = {
-          maintainAspectRatio: false,
-          cutoutPercentage: 80,
-          legend: {display: false},
-          centerText: {display: true,text: "280"}
-        };
+}); //on document ready
+
+// show/unShows quizes on quiz tabs
+function showQuiz(numQuiz){
+  var quizId = "quiz_" + numQuiz;
+  document.getElementById("table_quiz").style.display = "none";
+  document.getElementById(quizId).style.display = "block";
+}
+function unShowQuiz(num){
+  document.getElementById("table_quiz").style.display = "table";
+  for(var i = 1 ; i < num+1 ; i++){
+    var quizId = "quiz_" + i;
+    document.getElementById(quizId).style.display = "none";
   }
-  var ctx = document.getElementById(element_id);
-  var chart = new Chart(ctx, {
-      type: type,
-      data: {
-          labels: labels,
-          datasets: datasets
-      },
-      options: options
-  });
 }
 
-//contral text
-Chart.plugins.register({
-    afterDatasetsDraw: function(chartInstance, easing) {
-        if (chartInstance.config.type == "doughnut") {
-            var ctx = chartInstance.chart.ctx;
-            var sum = 0;
-            var act = 0;
+// chat
 
-            ctx.fillStyle = '#4f5566';
-            var elmnt = document.getElementById("chart_done");
-            var width = elmnt.offsetWidth;
-            var height = elmnt.offsetHeight;
-            var fontSize = 0;
-            if (window.matchMedia("(min-width: 768px)").matches) {
-              fontSize = width/8;
-            } else {
-              fontSize = 20;
+function getSeeMore(type){
+  var mobile = false;
+  $(".chat_main>main").css("background-color","");
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","none");
+    $("#chat_seemore_container").css("display","block");
+    $("#chat_body_container").css("width","");
+    mobile = true;
+  } else {
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_body_container").css("width","55%");
+    mobile = false;
+  }
+  $(".chat_link").css("background-color","");
+  $(".chat_link").css("color","");
+  $("#chat_seemore_container").css("display","");
+    $.ajax({
+        url: "utils/ajax/get_seemore.php", // URL de la page
+        type: "POST", // GET ou POST
+        data: {type: type}, // Paramètres envoyés à php
+        dataType: "html", // Données en retour
+        success: function (response) {
+            switch (type){
+              case 1:
+                $(".msg_from_admin").css("background-color","rgb(79, 85, 102)");
+                $(".msg_from_admin").css("color","white");
+                break;
+              case 2:
+                $(".msg_in").css("background-color","rgb(79, 85, 102)");
+                $(".msg_in").css("color","white");
+                break;
+              case 3:
+                $(".msg_out").css("background-color","rgb(79, 85, 102)");
+                $(".msg_out").css("color","white");
+                break;
             }
-            var fontStyle = 'normal';
-            var fontFamily = 'Rubik,sans-serif';
-            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-
-            chartInstance.data.datasets.forEach(function (dataset, i) {
-                            var meta = chartInstance.getDatasetMeta(i);
-                            if (!meta.hidden) {
-                                act = dataset.data[0];
-                                meta.data.forEach(function(element, index) {
-                                    sum += dataset.data[index];
-                                });
-                            }
-                        });
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(act +"/"+ sum, width/2, height/2);
+            if(response === ""){
+              $("#chat_seemore").html("Pas de messages pour le moment!");
+              $("#chat_body").html("");
+            }else{
+            $("#chat_seemore").html(response);
+            if(!mobile) $(".msg_min").first().click();
+          }
         }
-    }
-});
-
-//creating charts
-$( document ).ready(function() {
-  // done chart
-  generate_chart(
-      "chart_done",
-      undefined,
-      ["Faits", "Pas encore Faits"],
-      [{
-        data: [12, 3],
-        backgroundColor: ['#4f5566','#aab2bb'],
-        borderWidth: 0
-      }],
-      undefined
-    );
-
-  //success chart
-  generate_chart(
-      "chart_success",
-      undefined,
-      ["Réussites", "Echecs"],
-      [{
-        data: [16, 12],
-        backgroundColor: ['#4f5566','#aab2bb'],
-        borderWidth: 0
-      }],
-      undefined
-    );
+    });
+}
 
 
-    //marks chart
-    generate_chart(
-        "chart_marks",
-        undefined,
-        ["Note", ""],
-        [{
-          data: [16, 4],
-          backgroundColor: ['#4f5566','#aab2bb'],
-          borderWidth: 0
-        }],
-        undefined
-      );
+function getMessage(id, type){
+  var mobile = false;
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","block");
+    $("#chat_seemore_container").css("display","none");
+    $("#chat_body_container").css("width","100%");
+    $(".chat_main>main").css("background-color","#f8f9fa");
+    mobile = true;
+  } else {
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_body_container").css("width","55%");
+    $(".chat_main>main").css("background-color","");
+    mobile = false;
+  }
+    $.ajax({
+        url: "utils/ajax/get_message.php", // URL de la page
+        type: "POST", // GET ou POST
+        data: {id: id, type: type}, // Paramètres envoyés à php
+        dataType: "html", // Données en retour
+        success: function (response) {
+            $("#chat_body").html(response);
+            $(".msg_min").css("font-weight","");
+            $("#msg_"+id).css("font-weight","bold");
+        }
+    });
+}
 
-});
+function writeMsg(){
+  var mobile = false;
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","block");
+    $("#chat_body_container").css("width","100%");
+    $(".chat_main>main").css("background-color","#f8f9fa");
+    mobile = true;
+  } else {
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_body_container").css("width","80%");
+    $(".chat_main>main").css("background-color","");
+    mobile = false;
+  }
+    $("#chat_seemore_container").css("display","none");
+    $(".chat_link").css("background-color","");
+    $(".chat_link").css("color","");
+    $(".msg_new").css("background-color","rgb(79, 85, 102)");
+    $(".msg_new").css("color","white");
+    $("#chat_body").html("<form action='dashboard.php?page=chat' method='post' class='send_form'><input type='hidden' name='check'><span><br>À : </span><input type='text' name='to' value=' To' onfocus='delete_default_value(this, 1)'><span>Objet : </span><input type='text' name='title' value=' Objet'  onfocus='delete_default_value(this, 2)'><span>Message : </span><textarea rows='10' name='core' onfocus='delete_default_value(this, 3)'> Message ...</textarea><input id='send_button' type='submit' value='Envoyer'></form>");
+}
+
+function delete_default_value(object, value){
+  switch (value) {
+    case 1:
+      if(object.value === ' To') object.value = '';
+      break;
+    case 2:
+      if(object.value === ' Objet') object.value = '';
+      break;
+    case 3:
+      if(object.value === ' Message ...') object.value = '';
+      break;
+  }
+
+}
+
+$( window ).resize(function(){
+  $(".chat_main>main").css("background-color","");
+  if (window.matchMedia("(max-width: 767.9px)").matches) {
+    $("#chat_body_container").css("display","none");
+    $("#chat_seemore_container").css("display","block");
+  }else{
+    $("#chat_body_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_body_container").css("width","55%");
+  }
+})
+
+function default_chat(){
+  getSeeMore(1);
+}

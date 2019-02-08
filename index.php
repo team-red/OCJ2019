@@ -17,7 +17,7 @@ $dbh = Database::connect();
 
  <!DOCTYPE html>
  <html lang="fr-FR">
- <?php generate_header($page, "css/login.css", $pages); ?>
+ <?php generate_header($page, "css/login.css", "", $pages); ?>
  <body class="text-center">
    <!--<div class="container-fluid">-->
 

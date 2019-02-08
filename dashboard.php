@@ -45,7 +45,7 @@ if ($active_page === "logout"){
 
 <!DOCTYPE html>
 <html lang="fr-FR">
-<?php generate_header($active_page, "css/dashboard.css", $pages); ?>
+<?php generate_header($active_page, "css/dashboard.css", "js/dashboard.js", $pages); ?>
 
 <body>
 <div class="app">
