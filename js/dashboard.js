@@ -26,7 +26,7 @@ function done_tab(){
 $(function(){
   if(document.getElementById("table_quiz") != null){
     rank_tab();
-    unShowQuiz(10);
+    unShowQuiz(27); // nombre de quiz faits à obtenir de la bd
   }
 }); //on document ready
 
@@ -44,9 +44,14 @@ function unShowQuiz(num){
   }
 }
 
+function contact(email){
+  window.location = 'dashboard.php?page=chat&sendTo=' + email;
+}
+
 // chat
 
 function getSeeMore(type){
+  onNewMessage = false;
   var mobile = false;
   $(".chat_main>main").css("background-color","");
   if (window.matchMedia("(max-width: 767.9px)").matches) {
@@ -56,13 +61,14 @@ function getSeeMore(type){
     mobile = true;
   } else {
     $("#chat_body_container").css("display","table-cell");
-    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","");
     $("#chat_body_container").css("width","55%");
     mobile = false;
   }
   $(".chat_link").css("background-color","");
   $(".chat_link").css("color","");
   $("#chat_seemore_container").css("display","");
+  $("#chat_seemore").html("");
     $.ajax({
         url: "utils/ajax/get_seemore.php", // URL de la page
         type: "POST", // GET ou POST
@@ -84,7 +90,7 @@ function getSeeMore(type){
                 break;
             }
             if(response === ""){
-              $("#chat_seemore").html("Pas de messages pour le moment!");
+              $("#chat_seemore").html("<span class='msg_min'>Pas de messages pour le moment!</span>");
               $("#chat_body").html("");
             }else{
             $("#chat_seemore").html(response);
@@ -96,20 +102,22 @@ function getSeeMore(type){
 
 
 function getMessage(id, type){
+  onNewMessage = false;
   var mobile = false;
   if (window.matchMedia("(max-width: 767.9px)").matches) {
-    $("#chat_body_container").css("display","block");
+    $("#chat_body_container").css("display","table-cell");
     $("#chat_seemore_container").css("display","none");
     $("#chat_body_container").css("width","100%");
     $(".chat_main>main").css("background-color","#f8f9fa");
     mobile = true;
   } else {
     $("#chat_body_container").css("display","table-cell");
-    $("#chat_seemore_container").css("display","table-cell");
+    $("#chat_seemore_container").css("display","");
     $("#chat_body_container").css("width","55%");
     $(".chat_main>main").css("background-color","");
     mobile = false;
   }
+  $("#chat_body").html("");
     $.ajax({
         url: "utils/ajax/get_message.php", // URL de la page
         type: "POST", // GET ou POST
@@ -123,10 +131,13 @@ function getMessage(id, type){
     });
 }
 
+var onNewMessage = false;
+
 function writeMsg(){
+  onNewMessage = true;
   var mobile = false;
   if (window.matchMedia("(max-width: 767.9px)").matches) {
-    $("#chat_body_container").css("display","block");
+    $("#chat_body_container").css("display","table-cell");
     $("#chat_body_container").css("width","100%");
     $(".chat_main>main").css("background-color","#f8f9fa");
     mobile = true;
@@ -141,13 +152,13 @@ function writeMsg(){
     $(".chat_link").css("color","");
     $(".msg_new").css("background-color","rgb(79, 85, 102)");
     $(".msg_new").css("color","white");
-    $("#chat_body").html("<form action='dashboard.php?page=chat' method='post' class='send_form'><input type='hidden' name='check'><span><br>À : </span><input type='text' name='to' value=' To' onfocus='delete_default_value(this, 1)'><span>Objet : </span><input type='text' name='title' value=' Objet'  onfocus='delete_default_value(this, 2)'><span>Message : </span><textarea rows='10' name='core' onfocus='delete_default_value(this, 3)'> Message ...</textarea><input id='send_button' type='submit' value='Envoyer'></form>");
+    $("#chat_body").html("<form action='dashboard.php?page=chat' method='post' class='send_form'><input type='hidden' name='check'><span><br>À : </span><input id='send_to' type='text' name='to' value=' Email du destinataire' onfocus='delete_default_value(this, 1)'><span>Objet : </span><input type='text' name='title' value=' Objet'  onfocus='delete_default_value(this, 2)'><span>Message : </span><textarea rows='10' name='core' onfocus='delete_default_value(this, 3)'> Message ...</textarea><input id='send_button' type='submit' value='Envoyer'></form>");
 }
 
 function delete_default_value(object, value){
   switch (value) {
     case 1:
-      if(object.value === ' To') object.value = '';
+      if(object.value === ' Email du destinataire') object.value = '';
       break;
     case 2:
       if(object.value === ' Objet') object.value = '';
@@ -161,16 +172,26 @@ function delete_default_value(object, value){
 
 $( window ).resize(function(){
   $(".chat_main>main").css("background-color","");
-  if (window.matchMedia("(max-width: 767.9px)").matches) {
-    $("#chat_body_container").css("display","none");
-    $("#chat_seemore_container").css("display","block");
-  }else{
+  if(onNewMessage){
+    $("#chat_seemore_container").css("display","none");
     $("#chat_body_container").css("display","table-cell");
-    $("#chat_seemore_container").css("display","table-cell");
-    $("#chat_body_container").css("width","55%");
+  }else {
+    if (window.matchMedia("(max-width: 767.9px)").matches) {
+      $("#chat_body_container").css("display","none");
+      $("#chat_seemore_container").css("display","block");
+    }else{
+      $("#chat_body_container").css("display","table-cell");
+      $("#chat_seemore_container").css("display","");
+      $("#chat_body_container").css("width","55%");
+    }
   }
 })
 
-function default_chat(){
-  getSeeMore(1);
+function default_chat(commingFromInfo){
+  if(commingFromInfo !== null){
+    $(".msg_new").click();
+    $("#send_to").val(commingFromInfo);
+  }else{
+    getSeeMore(1);
+  }
 }

@@ -42,7 +42,7 @@
     <h class="row"><h class="col-md-2">Questionnaires</h><hr class="col-md-10 myinfo_hr"></h>
     <div class="myinfo_quiz_tabs">
       <header>
-        <span id="myinfo_quiz_tab_rank" onclick="rank_tab()">TOP10</span>
+        <span id="myinfo_quiz_tab_rank" onclick="rank_tab()">Classements</span>
         <span id="myinfo_quiz_tab_done" onclick="done_tab()">Questionnaires</span>
       </header>
       <main>

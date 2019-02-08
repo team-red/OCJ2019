@@ -1,4 +1,4 @@
-<main class="home_page_main container-fluid">
+<div class="home_page_main container-fluid">
 
   <div class="home_page_main_row row">
     <aside class="home_page_left col-md-4">
@@ -10,5 +10,5 @@
     </aside>
   </div>
 
-</main>
+</div>
 <?php generate_footer(); ?>

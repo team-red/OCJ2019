@@ -137,8 +137,8 @@ function generate_header($page_name, $sheet_path, $valid_pages){
       <!-- Bootstrap CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
-      <script type="text/javascript" src="js/jquery.min.js"></script>
-      <script type="text/javascript" src="js/dashboard.js"></script>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/dashboard.js"></script>
   </head>
 flag;
 }
@@ -154,16 +154,18 @@ function generate_header_tag($active_page){
 flag;
 }
 function generate_sidebar($active_page, $valid_pages, $admin){
+  $adminEmail = "admin@qcm"; // to get from bd
+
   // Adding first stuff
   $html = "
     <!-- The dark window when the sidebar is open on small devices -->
     <div id='dark' onclick='closeNav()'></div>
     <!-- The actual sidebar -->
     <aside id='side-bar' class='app-aside'>
-    <header class='logo_header'>
+    <div class='logo_header'>
     <img class='logo' src='media/mathmaroc-dashboard.png' alt='logo'>
-    </header>
-    <main class='sidebar_main'>
+    </div>
+    <div class='sidebar_main'>
     <ul class='sidebar_pages'>";
 
     $category = "";
@@ -180,7 +182,7 @@ function generate_sidebar($active_page, $valid_pages, $admin){
 
     $html = $html."
     <li>
-      <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
+      <a class='sidebar_page".$selected." ' id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
         <i class='icon-".$valid_page["icon_name"]." sidebar_icon'></i>
         ".$valid_page["title"]."
         <i class='icon-uniE04B sidebar_arrow'></i>
@@ -190,9 +192,9 @@ function generate_sidebar($active_page, $valid_pages, $admin){
   }
   $html = $html."
     </ul>
-  </main>
+  </div>
   <footer class='sidebar_help'>
-  <div class='need_help'><a href='#' style='text-decoration: none; color:unset;'><i class='icon-uni36'></i> Besoin d'aide? </a></div>
+  <div class='need_help'><a href='#' style='text-decoration: none; color:unset;'  onclick=".'"contact('."'$adminEmail'".')"'." ><i class='icon-uni36'></i> Besoin d'aide? </a></div>
   </footer>
   </aside>";
   // printing the html code
@@ -239,12 +241,12 @@ function home_page_generate_left($personalInfo){
   // vignettes!?
   echo<<<flag
   <div class="min_box min_box_myinfo">
-  <header id="min_box_header_myinfo">
-  <h><i class="icon-uniE011 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos personelles</h>
+  <div id="min_box_header_myinfo">
+  <span><i class="icon-uniE011 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos personelles</span>
   <a href="./dashboard.php?page=myinfo" class="min_see_more">Voir plus de details ></a>
-  </header>
-  <main class="row">
-  <span class="col-md-12 min_col">
+  </div>
+  <div class="row min_box_main">
+  <div class="col-md-12 min_col">
   <span class="min_cell min_cell_myinfo no_border">Resume</span>
   <div class="min_col_myinfo_content">
   <img src="$profilPhoto" alt="Photo de profil" id="home_page_profil_photo"/>
@@ -254,16 +256,16 @@ function home_page_generate_left($personalInfo){
   <span id="home_page_subject">$accountStatus</span>
 
 </div>
-  <hr></hr>
+  <hr/>
   <span id="home_page_class" class="home_page_info"><b>Classe</b><br>$class</span>
   <span id="home_page_school" class="home_page_info"><b>Ecole</b><br>$school</span>
   <span id="home_page_academy" class="home_page_info"><b>Academie</b><br>$academy</span>
-  <hr></hr>
+  <hr/>
   <span id="home_page_email" class="home_page_info"><b>Email</b><br>$email</span>
   <span id="home_page_birthday" class="home_page_info"><b>Date de naissance</b><br>$birthday</span>
   </div>
-  </span>
-  </main>
+  </div>
+  </div>
   </div>
 flag;
 }
@@ -280,19 +282,21 @@ function home_page_generate_right($quizInfo){
   $success = $quizInfo["success"];
   $mark = $quizInfo["mark"];
 
+  $max = 5;
   $_POST["type"] = 1;
   $_POST["min"] = true;
   require_once("utils/ajax/get_seemore.php");
   $minChat = "";
   foreach ($messagesTable as $key => $message){
       $order = $key+1;
+      if($order === $max) break;
       $from = $message["from_id"];
       $description = $message["title"];
       $date = $message["date"];
       $minChat = $minChat . "<tr>
       <th scope='row' class='min_chat_num'>$order</th>
       <td class='min_chat_from'>$from</td>
-      <td class='min_chat_subject'>$description</td>
+      <td class='min_chat_subject min_chat_hide'>$description</td>
       <td class='min_chat_date'>date</td>
     </tr>";
   }
@@ -300,8 +304,8 @@ function home_page_generate_right($quizInfo){
     $minChat = "
     <tr>
       <th scope='row'></th>
-      <td></td>
-      <td style='text-align: center; vertical-align: middle;'>Pas de messages pour le moment</td>
+      <td class='min_chat_hide'></td>
+      <td style='text-align: center; vertical-align: middle;'>Pas de messages reçus pour le moment</td>
       <td></td>
     </tr>
     ";
@@ -381,16 +385,16 @@ else{
 
   echo<<<flag
   <div class="min_box min_box_quiz">
-  <header id="min_box_header_quiz">
-  <h><i class="icon-uniE049 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos questionnaires</h>
+  <div id="min_box_header_quiz">
+  <span><i class="icon-uniE049 sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>Infos questionnaires</span>
   <a class="min_see_more" href="dashboard.php?page=quiz">Aller sur la partie questionnaires > </a>
-  </header>
-  <main class="row">
+  </div>
+  <div class="row min_box_main">
 
-  <span class="col-md-6 min_col">
+  <div class="col-md-6 min_col">
     $quizStats
-  </span>
-  <span class="col-md-6 min_col">
+  </div>
+  <div class="col-md-6 min_col">
   <table class="table table_min" id="table_min_stat">
       <thead class="thead-dark">
         <tr>
@@ -413,24 +417,24 @@ else{
         </tr>
       </tbody>
   </table>
-  </span>
+  </div>
 
-  </main>
+  </div>
   </div>
 
   <div class="min_box min_box_chat">
-  <header id="min_box_header_messages">
-  <h><i class="icon-uni2D sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>mes messages</h>
+  <div id="min_box_header_messages">
+  <span><i class="icon-uni2D sidebar_icon" style="font-weight: 900;margin-right: 10px;"></i>mes messages</span>
   <a href='dashboard.php?page=chat' class="min_see_more">Voir plus de details ></a>
-  </header>
-  <main class="row">
-  <span class="col-md-12 min_col">
+  </div>
+  <div class="row min_box_main">
+  <div class="col-md-12 min_col">
   <table class="table table_chat table_min">
     <thead class="thead-dark">
       <tr>
         <th scope="col" class="no_border min_table_cell_chat min_chat_num">#</th>
         <th scope="col" class="no_border min_table_cell_chat min_chat_from">De</th>
-        <th scope="col" class="no_border min_table_cell_chat min_chat_subject">Objet</th>
+        <th scope="col" class="no_border min_table_cell_chat min_chat_subject min_chat_hide">Objet</th>
         <th scope="col" class="no_border min_table_cell_chat min_chat_date">Date</th>
       </tr>
     </thead>
@@ -438,8 +442,8 @@ else{
       $minChat
     </tbody>
   </table>
-  </span>
-  </main>
+  </div>
+  </div>
   </div>
 
 flag;
@@ -468,7 +472,8 @@ function myinfo_generate_pdp_info($personalInfo){
 flag;
 }
 function myinfo_generate_options($personalInfo){
-  echo "<span class='myinfo_options'><a href='#' OnClick='javascript:window.print()'><i class='icon-uni7D'></i></a><a href='dashboard.php?page=settings'><i class='icon-uni2E'></i></a><a href='#'><i class='icon-uni36'></i></a></span> ";
+  $adminEmail = "admin@qcm"; // to get from bd
+  echo "<span class='myinfo_options'><a href='#' OnClick='javascript:window.print()'><i class='icon-uni7D'></i></a><a href='dashboard.php?page=settings'><i class='icon-uni2E'></i></a><a href='#' onclick=".'"contact('."'$adminEmail'".')"'." ><i class='icon-uni36'></i></a></span> ";
 }
 
 function myinfo_generate_personal_academic($personalInfo){
@@ -515,8 +520,9 @@ flag;
 
 function myinfo_generate_rank_tab($quizInfo){
   $rankData = "";
-
-  for($i=0; $i < 10; $i++){
+  $sendToEmail = ""; // to get from bd when getting student don't change the format of the variable!
+  for($i=0; $i < 500; $i++){
+    $sendToEmail = "email$i@gmail.com";
     $rankData = $rankData . "  <tr>
       <td class=' table_cell_rank_content'>
       ".($i+1)."
@@ -524,8 +530,8 @@ function myinfo_generate_rank_tab($quizInfo){
       <td class=' table_cell_rank_content'>
       test
       </td>
-      <td class=' table_cell_rank_content'>
-      test_test
+      <td class=' table_cell_rank_content table_cell_rank_content_contact' onclick=".'"contact('."'$sendToEmail'".')"'." >
+      <span class='icon-uni3E table_cell_rank_contact'></span>
       </td>
       </tr>";
   }
@@ -550,12 +556,14 @@ function myinfo_generate_rank_tab($quizInfo){
         <thead class="thead-dark">
           <tr>
             <th scope="col" class="table_cell_rank">Classement</th>
-            <th scope="col" class="table_cell_rank">Nom de l'éleve</th>
-            <th scope="col" class="table_cell_rank">De</th>
+            <th scope="col" class="table_cell_rank">Eleve</th>
+            <th scope="col" class="table_cell_rank">Contacter...</th>
           </tr>
         </thead>
         <tbody>
+          <div class="test">
           $rankData
+          </div>
         </tbody>
     </table>
 
@@ -566,7 +574,7 @@ flag;
 function myinfo_generate_done_tab($quizInfo){
   $quizData = "";
   $showQuizes = "";
-  $numQuizes = 10;
+  $numQuizes = 27;
 
   for($i=0; $i < $numQuizes; $i++){
     $quizData = $quizData . "  <tr onclick='showQuiz(".($i+1).")'>
@@ -614,7 +622,7 @@ function chat_generate_seemore($messagesTable, $type){
     foreach ($messagesTable as $message){
       $id = $message["id"];
       $description = $message["title"];
-      $from_to = (intval($type) === 3) ? "to: " . $message["to_id"] : "from: " . $message["from_id"];
+      $from_to = (intval($type) === 3) ? "À: " . $message["to_id"] : "De: " . $message["from_id"];
       $date = $message["date"];
       echo<<<flag
     <span class="msg_min" id="msg_$id" onclick="getMessage($id, $type)">
@@ -628,7 +636,7 @@ flag;
 
 function chat_generate_body($message, $type){
   $description = $message["title"];
-  $from_to = (intval($type) === 3) ? "<b>to: </b>" . $message["to_id"] : "<b>from: </b>" . $message["from_id"];
+  $from_to = (intval($type) === 3) ? "<b>À: </b>" . $message["to_id"] : "<b>De: </b>" . $message["from_id"];
   $core = $message["core"];
   $date = $message["date"];
   echo<<<flag
@@ -636,6 +644,7 @@ function chat_generate_body($message, $type){
   <span class="msg_body_title">$from_to</span>
   <span class="msg_min_date">$date</span>
   <span class="msg_body_subject"><b>Objet :</b> $description</span>
+  <hr>
   <span class="msg_body_core"><b>Message : </b><br>$core</span>
 flag;
 }
