@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2019 at 04:20 PM
+-- Generation Time: Feb 08, 2019 at 05:03 PM
 -- Server version: 5.7.22
 -- PHP Version: 7.1.9
 
@@ -62,6 +62,15 @@ CREATE TABLE `attempt` (
   `user_login` varchar(64) NOT NULL,
   `answer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `attempt`
+--
+
+INSERT INTO `attempt` (`id`, `user_login`, `answer_id`) VALUES
+(1, 'olivier', 107),
+(2, 'olivier', 103),
+(3, 'olivier', 100);
 
 -- --------------------------------------------------------
 
@@ -136,6 +145,13 @@ CREATE TABLE `stamps` (
   `user_login` varchar(64) NOT NULL,
   `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stamps`
+--
+
+INSERT INTO `stamps` (`id`, `id_qcm`, `user_login`, `stamp`) VALUES
+(1, 39, 'olivier', '2019-02-08 15:25:49');
 
 -- --------------------------------------------------------
 
@@ -235,7 +251,7 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT for table `attempt`
 --
 ALTER TABLE `attempt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `qcm`
@@ -253,7 +269,7 @@ ALTER TABLE `qst`
 -- AUTO_INCREMENT for table `stamps`
 --
 ALTER TABLE `stamps`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
