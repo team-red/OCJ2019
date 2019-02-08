@@ -1,4 +1,6 @@
 <?php
+session_name("peanutbutterandjelly");
+session_start();
 if (isset($_POST["id"]) && isset($_POST["type"])) {
     require_once("../database.php");
     require_once("../helper/chat_utils.php");

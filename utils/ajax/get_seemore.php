@@ -1,4 +1,6 @@
 <?php
+session_name("peanutbutterandjelly");
+session_start();
 if (isset($_POST["type"])) {
   if(isset($_POST["min"])){
     require_once("utils/database.php");

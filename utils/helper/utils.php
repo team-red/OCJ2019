@@ -35,6 +35,7 @@ function generate_header($page_name, $sheet_path, $script_path, $valid_pages){
       <!-- Bootstrap CSS -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="$sheet_path">
+      <script src="js/jquery.min.js"></script>
       $script_tag
   </head>
 flag;
