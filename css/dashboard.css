@@ -461,7 +461,8 @@ body{
   color: white;
 }
 .quiz_main .quiz .body{
-  padding: 2rem;
+  padding-left: 2rem !important;
+  padding: 1rem;
   color: #545b62;
 }
 .quiz_main .quiz .options{
