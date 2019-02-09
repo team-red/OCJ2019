@@ -52,6 +52,7 @@ require_once("utils/helper/chat_utils.php");
           <style>#chat_seemore_container{display: none;} #chat_body_container{width : 75%;}</style>
 flag;
         } catch(PDOException $e) {
+          echo $e;
           echo "<br>Une erreure est survenue lors de l'ajout du message! Verifiez bien que l'utilisateur auquel vous envoyez le message est bien enregistré sur le site";
           echo "<br><a href='#' onclick='writeMsg()' >Cliquez ici pour revenir à la page precedente</a>";
           echo "<style>#chat_seemore_container{display: none;} #chat_body_container{width : 75%;}</style>";
