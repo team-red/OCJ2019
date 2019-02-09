@@ -430,7 +430,7 @@ $isAdmin = ($user->role !== "admin") ? "none" : "block";
         <div class="row quiz">
         <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="col-md-11" onclick="return confirm('Êtes-vous sûrs de vouloir commencer ce questionnaire?');">
         <div class="row">
-          <div class="col-md-2 head"><span style="display: inline-block; vertical-align: -webkit-baseline-middle;">Q{$key}</span></div>
+          <div class="col-md-2 head"><span style="">Q{$key}</span></div>
             <div class="col-md-10 body">
               <span style="font-size: large;font-weight: 400; text-transform:capitalize ;">$title</span>
               <br>
