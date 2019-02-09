@@ -27,7 +27,7 @@ class UserData
         $qcmData = UserData::fromEmail($dbh, $user);
         $count = 0;
         foreach ($qcmData as $key => $qcmStaf) {
-          if(intval($qcmStaf["qcm_score"]) === intval($qcmStaf["qcm"]->max_score)){
+          if(intval($qcmStaf["qcm_score"]) >= intval($qcmStaf["qcm"]->max_score)){
             $count++;
           }
         }
