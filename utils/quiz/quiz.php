@@ -50,8 +50,20 @@ flag;
             echo <<<flag
             <span style="visibility: hidden;" id="quiz-duration">$seconds</span>
             <form method='post' class='quiz_main_form'>
-                <span style='font-size: x-large;'><b>$title</b> ($minutes minutes)</span>
-                <br><br><br><br>
+
+                <h4>Bonjour!</h4>
+                <span style="font-size: medium;">
+                - Lisez <b> bien </b> les questions, ne répondez que si vous êtes <b> sûrs </b> de la réponse
+                il y a souvent des reponses <b>pénalisantes</b>! <br>
+                - Pour répondre choisissez la bonne réponse et cochez la case correspondante.<br>
+                - Vous avez <b> $minutes minutes </b> pour valider vos réponses, dans le cas contraire
+                les réponses seront validés automatiquement!.
+                </span>
+                <br><br><br>
+
+                <span style='font-size: large;'><b>Titre du questionnaire :</b> $title</span>
+
+                <br><br><br>
 
 flag;
             $qsts = $qcm->questions;
@@ -59,7 +71,7 @@ flag;
                 $enum = $qkey + 1;
                 $q_body = htmlspecialchars($qst->body);
                 echo <<<flag
-                <div><span style='font-size: large;'>Question $enum</span>
+                <div><span style='font-size: large;'>Question $enum :</span>
                 <br>
                 <div><span>$q_body</span><br><br>
 flag;

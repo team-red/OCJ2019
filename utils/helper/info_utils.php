@@ -129,7 +129,7 @@ function myinfo_generate_rank_tab(){
         <thead class="thead-dark">
           <tr>
             <th scope="col" class="table_cell_rank">Classement</th>
-            <th scope="col" class="table_cell_rank">Eleve</th>
+            <th scope="col" class="table_cell_rank">Elève</th>
             <th scope="col" class="table_cell_rank">Contacter...</th>
           </tr>
         </thead>
@@ -178,7 +178,7 @@ function myinfo_generate_done_tab(){
   }
 
   echo<<<flag
-  <h>Liste des questionnaires que j'ai deja fait :</h>
+  <h>Liste des questionnaires que vous avez déjà fait:</h>
   <table class="table" id="table_quiz">
       <thead class="thead-dark">
         <tr>

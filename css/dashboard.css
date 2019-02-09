@@ -370,9 +370,15 @@ body{
     background-color: #c72a39;
     border-bottom: solid 1px #9e1f2b;
   }
+  #min_box_header_quiz>span{
+    text-transform: uppercase;
+  }
   #min_box_header_messages{
     background-color: #17a8bf;
     border-bottom: solid 1px #1c8c9e;
+  }
+  #min_box_header_messages>span{
+    text-transform: uppercase;
   }
   .table_min{
     margin-bottom: 12px;
@@ -448,9 +454,11 @@ body{
 }
 .quiz_main .quiz .head{
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
   padding: 1rem;
-  color: #4f5566;
+  border-right: solid 1px #e9ecef;
+  background-color: #bd2130;
+  color: white;
 }
 .quiz_main .quiz .body{
   padding: 2rem;

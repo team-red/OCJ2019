@@ -44,7 +44,7 @@ $pages = array(
     // User Account
     array(
       "name"=> "settings",
-      "title"=> "Paramettres",
+      "title"=> "Paramètres",
       "icon_name" => "uniE005",
       "category" => "Compte d'utilisateur"
     ),
@@ -275,7 +275,7 @@ flag;
       <thead class='thead-dark'>
         <tr>
           <th scope='col' class='no_border min_table_cell_quiz'>Classement</th>
-          <th scope='col' class='no_border min_table_cell_quiz'>Eleve</th>
+          <th scope='col' class='no_border min_table_cell_quiz'>Elève</th>
         </tr>
       </thead>
       <tbody>";
@@ -415,31 +415,35 @@ function showQcms($qcms, $user)
   {
     echo <<<flag
     <main class="quiz_main container-fluid">
-    <h1>Liste des questionnaires disponibles :</h1>
-    <span style="color:red; margin-bottom:3rem; display:block;">Faites bien attention! une fois un questionnaire commencé il y aura pas une possibilité de le refaire!</span>
+    <h1>Liste des questionnaires disponibles:</h1>
+    <span style="color:red; margin-bottom:4rem; display:block;">Faites bien attention! une fois un questionnaire commencé il y aura plus la possibilité de le refaire!</span>
 
 flag;
 
-$isAdmin = ($user->role !== "admin") ? "none" : "";
+$isAdmin = ($user->role !== "admin") ? "none" : "block";
 
     foreach ($qcms as $key => $qcm) {
         $key++;
         $title = htmlspecialchars($qcm->title);
+        $duration = htmlspecialchars(intval($qcm->duration_seconds / 60)) . " min";
         $time = htmlspecialchars((new DateTime($qcm->start_time, new DateTimeZone('Europe/Paris')))->format("d-m-Y"));
         echo <<<flag
 
         <div class="row quiz">
-        <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="col-md-11">
+        <a href="dashboard.php?page=quiz&qcm_id=$qcm->id" class="col-md-11" onclick="return confirm('Êtes-vous sûrs de vouloir commencer ce questionnaire?');">
         <div class="row">
-          <div class="col-md-2 head">Q{$key}</div>
+          <div class="col-md-2 head"><span style="display: inline-block; vertical-align: -webkit-baseline-middle;">Q{$key}</span></div>
             <div class="col-md-10 body">
-              $title
+              <span style="font-size: large;font-weight: 400; text-transform:capitalize ;">$title</span>
+              <br>
+              <br>
+              Durée : $duration
               <br>
               Mis en ligne le $time
             </div>
           </div>
         </a>
-        <a class="col-md-1 options" style="display: $isAdmin" onclick="return confirm('Êtes-vous sûrs?');" href="dashboard.php?page=quiz&qcm_del=$qcm->id"><i class="icon-uniE016"></i></a>
+        <a class="col-md-1 options" style="display: $isAdmin; font-size: large;" onclick="return confirm('Êtes-vous sûrs?');" href="dashboard.php?page=quiz&qcm_del=$qcm->id"><i class="icon-uniE01C"></i></a>
         </div>
 flag;
     }

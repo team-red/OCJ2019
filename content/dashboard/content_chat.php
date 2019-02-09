@@ -10,7 +10,7 @@ require_once("utils/helper/chat_utils.php");
     <span class="chat_link msg_from_admin" onclick="getSeeMore(1)">Important</span>
     <span  class="chat_link msg_in" onclick="getSeeMore(2)">Recu</span>
     <span class="chat_link msg_out" onclick="getSeeMore(3)">Envoyé</span>
-    <span class="chat_link msg_new" onclick="writeMsg()">Ecrire</span>
+    <span class="chat_link msg_new" onclick="writeMsg()">Nouveau</span>
   </header>
 
   <div id="chat_main_main">
@@ -18,7 +18,7 @@ require_once("utils/helper/chat_utils.php");
       <span class="chat_link msg_from_admin" onclick="getSeeMore(1)">Important</span>
       <span  class="chat_link msg_in" onclick="getSeeMore(2)">Recu</span>
       <span class="chat_link msg_out" onclick="getSeeMore(3)">Envoyé</span>
-      <span class="chat_link msg_new" onclick="writeMsg()">Ecrire</span>
+      <span class="chat_link msg_new" onclick="writeMsg()">Nouveau</span>
     </div>
     <div id="chat_seemore_container">
       <div id="chat_seemore">

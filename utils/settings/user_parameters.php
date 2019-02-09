@@ -32,51 +32,61 @@ flag;
             $birthday = htmlspecialchars($user->birthday);
             echo <<<flag
                 <h1>Modifier mes données</h1>
+                <br>
                 <div>
                     <label for="name">Prénom</label>
                     <input type="text" id="name" class="form-control" name="name" value="{$name}" required>
                 </div>
 
+                <br>
                 <div>
                     <label for="surname">Nom</label>
                     <input type="text" id="surname" class="form-control" name="surname" value="{$surname}" required>
                 </div>
 
+                <br>
                 <div>
                     <label for="pwd">Nouveau mot de passe</label>
                     <input type="password" id="pwd" class="form-control" name="pwd" value="">
                 </div>
 
+                <br>
                 <div>
                     <label for="pwd_conf">Retapez le mot de passe</label>
                     <input type="password" id="pwd_conf" class="form-control" name="pwd_conf" value="">
                 </div>
 
+                <br>
                 <div>
                     <label for="school">Etablissement</label>
                     <input type="text" id="school" class="form-control" name="school" value="{$school}">
                 </div>
 
+                <br>
                 <div>
                     <label for="city">Ville</label>
                     <input type="text" id="city" class="form-control" name="city" value="{$city}">
                 </div>
 
+                <br>
                 <div>
                     <label for="address">Adresse</label>
                     <input type="text" id="address" class="form-control" name="address" value="{$address}">
                 </div>
 
+                <br>
                 <div>
                     <label for="grade">Niveau scolaire</label>
                     <input type="text" id="grade" class="form-control" name="grade" value="{$grade}">
                 </div>
 
+                <br>
                 <div>
                     <label for="birthday">Date de naissance</label>
                     <input type="date" id="birthday" class="form-control" name="birthday" value="{$birthday}" required>
                 </div>
 
+                <br>
                 <input type="text" style="visibility: hidden;" name="action" value="modify_data">
 
                 <div>
