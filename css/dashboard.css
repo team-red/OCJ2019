@@ -282,6 +282,12 @@ body{
     padding: 0;
     overflow: hidden;
   }
+  .msg_body_core{
+    max-width: 40rem;
+    display: block;
+    margin: auto;
+    text-align: justify;
+  }
   .min_cell_myinfo{
     background-color: #37689e;
   }
@@ -470,7 +476,7 @@ body{
 }
 #table_rank>tbody{
   display: block;
-  overflow: scroll;
+  overflow: auto;
   height: 30rem;
 }
 
@@ -481,7 +487,7 @@ body{
 }
 #table_quiz>tbody{
   display: block;
-  overflow: scroll;
+  overflow: auto;
   height: 30rem;
 }
 
@@ -738,7 +744,7 @@ body{
 }
 #chat_seemore_container{
   max-height: Calc(100vh - 33px - 6rem);
-  overflow: scroll;
+  overflow: auto;
   background-color: white;
   border: solid 1px #e9ecef;
   min-height: 100vh;
@@ -787,8 +793,8 @@ body{
   margin: auto;
 }
 #chat_body{
-  max-height: Calc(100vh - 10rem);
-  overflow: scroll;
+  height: Calc(100vh - 4rem);
+  overflow: auto;
 }
 #chat_body_container{
   width: 55%;
