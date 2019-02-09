@@ -139,8 +139,6 @@ flag;
   function generate_footer(){
     echo <<<flag
     <footer class="dash_footer">
-    <br>
-    Copyright © 2018. All rights reserved
     </footer>
 flag;
   }
