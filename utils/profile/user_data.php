@@ -10,11 +10,9 @@ class UserData
 
 
     public static function numberOfQcmsTried($dbh, $user){
-        $query = "SELECT COUNT(DISTINCT qcm.id) FROM attempt
-                  JOIN answer ON attempt.answer_id = answer.id
-                  JOIN qst ON answer.id_qst = qst.id
-                  JOIN qcm ON qcm.id = id_qcm
-                  WHERE attempt.user_login=?;";
+        $query = "SELECT COUNT(DISTINCT qcm.id) FROM stamps 
+                  JOIN qcm ON qcm.id = stamps.id_qcm 
+                  WHERE stamps.user_login=?;";
         $sth = $dbh->prepare($query);
         $sth->execute(array($user->login));
         $count = $sth->fetch()[0];
@@ -58,12 +56,9 @@ class UserData
     }
 
     public static function fromEmail($dbh, $user){
-        $query = "SELECT DISTINCT qcm.id, qcm.title, qcm.max_score, qcm.start_time FROM attempt
-                  JOIN answer ON attempt.answer_id = answer.id
-                  JOIN qst ON answer.id_qst = qst.id
-                  JOIN qcm ON qcm.id = id_qcm
-                  WHERE attempt.user_login=?
-                  ORDER BY qcm.start_time DESC;";
+        $query = "SELECT DISTINCT qcm.id, qcm.title, qcm.max_score, qcm.start_time FROM stamps 
+                  JOIN qcm ON qcm.id = stamps.id_qcm 
+                  WHERE stamps.user_login=?;";
         $sth = $dbh->prepare($query);
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Qcm');
         $sth->execute(array($user->login));
