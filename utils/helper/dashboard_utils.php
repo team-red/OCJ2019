@@ -245,7 +245,9 @@ flag;
   // end stuff getting
 
   $minChat = "";
+  $max = 5;
   foreach ($messagesTable as $key => $message){
+      if($key === $max){break;}
       $order = $key+1;
       $from = $message["from_id"];
       $description = $message["title"];
@@ -254,7 +256,7 @@ flag;
       <th scope='row' class='min_chat_num'>$order</th>
       <td class='min_chat_from'>$from</td>
       <td class='min_chat_subject min_chat_hide'>$description</td>
-      <td class='min_chat_date'>date</td>
+      <td class='min_chat_date'>$date</td>
     </tr>";
   }
   if($minChat == ""){
