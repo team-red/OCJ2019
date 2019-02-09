@@ -10,7 +10,7 @@ Questionnaires fait et pas faits
     require_once("utils/quiz/attempt.php");
     require_once("utils/quiz/timestamp.php");
 
-    if(isset($_GET["qcm_del"])){
+    if(isset($_GET["qcm_del"]) && $user->role === "admin"){
       Qcm::del($dbh, htmlspecialchars($_GET["qcm_del"]));
     }
 
@@ -27,7 +27,7 @@ Questionnaires fait et pas faits
 
     if ($valid_qcm === false){
         $qcms = Qcm::getAll($dbh);
-        showQcms($qcms);
+        showQcms($qcms, $user);
     } else {
         if (isset($_POST["ans"]) === false){
             if (Timestamp::hasStamp($dbh, $qcm_id, $user->login)){

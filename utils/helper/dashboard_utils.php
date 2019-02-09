@@ -409,7 +409,7 @@ $dbh = null; //todo
 
 }
 
-function showQcms($qcms)
+function showQcms($qcms, $user)
   {
     echo <<<flag
     <main class="quiz_main container-fluid">
@@ -417,6 +417,9 @@ function showQcms($qcms)
     <span style="color:red; margin-bottom:3rem; display:block;">Faites bien attention! une fois un questionnaire commencé il y aura pas une possibilité de le refaire!</span>
 
 flag;
+
+$isAdmin = ($user->role !== "admin") ? "none" : "";
+
     foreach ($qcms as $key => $qcm) {
         $key++;
         $title = htmlspecialchars($qcm->title);
@@ -434,7 +437,7 @@ flag;
             </div>
           </div>
         </a>
-        <a class="col-md-1 options" onclick="return confirm('Êtes-vous sûrs?');" href="dashboard.php?page=quiz&qcm_del=$qcm->id"><i class="icon-uniE016"></i></a>
+        <a class="col-md-1 options" style="display: $isAdmin" onclick="return confirm('Êtes-vous sûrs?');" href="dashboard.php?page=quiz&qcm_del=$qcm->id"><i class="icon-uniE016"></i></a>
         </div>
 flag;
     }
