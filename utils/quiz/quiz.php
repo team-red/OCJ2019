@@ -49,10 +49,9 @@ flag;
             $title = htmlspecialchars($qcm->title);
             echo <<<flag
             <span style="visibility: hidden;" id="quiz-duration">$seconds</span>
-            <form method="post">
-
-                <center>$title</center>
-                <center>$minutes minutes</center>
+            <form method='post' class='quiz_main_form'>
+                <span style='font-size: x-large;'><b>$title</b> ($minutes minutes)</span>
+                <br><br><br><br>
 
 flag;
             $qsts = $qcm->questions;
@@ -60,9 +59,9 @@ flag;
                 $enum = $qkey + 1;
                 $q_body = htmlspecialchars($qst->body);
                 echo <<<flag
-                <div><center>Question $enum</center>
+                <div><span style='font-size: large;'>Question $enum</span>
                 <br>
-                <div><center>$q_body</center>
+                <div><span>$q_body</span><br><br>
 flag;
                 $answers = $qst->answers;
                 foreach ($answers as $akey => $ans){
@@ -76,7 +75,7 @@ flag;
                     </div>
 flag;
                 }
-                echo "</div></div>";
+                echo "</div><br><br><br></div>";
 
             }
             echo <<<flag

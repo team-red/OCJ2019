@@ -172,8 +172,7 @@ function myinfo_generate_done_tab(){
     $showQuizes = $showQuizes . "
     <div id='quiz_".($i++)."'>
       {$qcmData[0]}
-    <br>
-    <span style='cursor:pointer' onclick='unShowQuiz()'>< Revenir en arriere</span>
+    <span class='back_quiz' onclick='unShowQuiz()'>< Revenir en arriere</span>
     </div>
     ";
   }

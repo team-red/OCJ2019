@@ -414,7 +414,7 @@ function showQcms($qcms)
     echo <<<flag
     <main class="quiz_main container-fluid">
     <h1>Liste des questionnaires disponibles :</h1>
-    <span>Faites bien attention! une fois un questionnaire commencé il y aura pas une possibilité de le refaire!</span>
+    <span style="color:red; margin-bottom:3rem; display:block;">Faites bien attention! une fois un questionnaire commencé il y aura pas une possibilité de le refaire!</span>
 
 flag;
     foreach ($qcms as $key => $qcm) {

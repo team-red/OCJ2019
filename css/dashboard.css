@@ -408,15 +408,27 @@ body{
 .qst{
   margin-bottom: 3rem;
 }
+.back_quiz{
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  font-size: medium;
+  color: #4f5665;
+}
 #create_quiz_form{
   width: 100%;
   margin: auto;
   background-color: white;
   padding: 2rem;
 }
+.quiz_main_form{
+  padding: 3rem;
+  background-color: white;
+  min-height: -webkit-fill-available;
+}
 .quiz_main .quiz{
   text-decoration: none;
-  margin: 2rem 0rem 0rem 0rem;
+  margin: 1rem 0rem 0rem 0rem;
   border: 1px solid #e9ecef;
 }
 .quiz_main a:hover{
@@ -432,7 +444,7 @@ body{
   text-align: center;
   font-size: 3rem;
   padding: 1rem;
-  color: var(--sidebar_main_color);
+  color: #4f5566;
 }
 .quiz_main .quiz .body{
   padding: 2rem;
@@ -745,7 +757,10 @@ body{
   text-transform: capitalize;
 }
 .msg_min_date{
-  font-size: x-small;
+  font-size: xx-small;
+}
+.msg_body_core{
+  margin-top: 2rem;
 }
 .msg_min_subject{
   font-size: small;
