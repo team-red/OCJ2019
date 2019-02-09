@@ -61,7 +61,7 @@
             ));
             if ($success === false){ return false; }
             $sth->closeCursor();
-            
+
             $query = "SELECT LAST_INSERT_ID();";
             $sth = $dbh->prepare($query);
             $success = $sth->execute(array());
@@ -74,6 +74,15 @@
                 $sth->closeCursor();
                 return false;
             }
+
+        }
+
+        public static function del($dbh, $qcm_id){
+
+          $query = "DELETE FROM qcm WHERE id=?;";
+          $sth = $dbh->prepare($query);
+          $sth->execute(array($qcm_id));
+          $sth->closeCursor();
 
         }
     }

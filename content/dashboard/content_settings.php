@@ -25,8 +25,8 @@ if (isset($_POST["action"])){
 
 
 UserParameters::createChangeInfoForm($user);
-echo "<br><br><br>";
+echo "<br>";
 UserParameters::createDeleteAccountForm();
-echo "<br><br><br>";
+echo "<br>";
 UserParameters::createChangePhotoForm($user->login);
 ?>

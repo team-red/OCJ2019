@@ -23,11 +23,11 @@ class QuizForm
             "visibility" => "visible",
             "alert_status" => "danger",
         )
-        
+
     );
 
     public static function attempt($dbh, $user, $raw_data){
-        
+
         $data = QuizForm::getData($raw_data);
         if ($data === false){
             return QuizForm::$FEEDBACK["failed"];
@@ -36,7 +36,7 @@ class QuizForm
         // in terms of score
 
         // creating the qcm entry, and fetching its id
-        $minutes = 
+        $minutes =
         $qcm_id = Qcm::insert(
             $dbh,
             $user->login,
@@ -48,7 +48,7 @@ class QuizForm
         if ($qcm_id === false){
             return QuizForm::$FEEDBACK["failed"];
         }
-        
+
         foreach ($data["questions"] as $qst) {
             // creating a question entry
             $qst_id = Qst::insert(
@@ -80,9 +80,9 @@ class QuizForm
     }
 
     public static function getData($from_post){
-            
+
         $data = array();
-        
+
         $names = array("title", "max-score", "max-duration");
         foreach ($names as $value) {
             if (!isset($from_post[$value])){
@@ -92,7 +92,7 @@ class QuizForm
                 return false;
             }
         }
-        
+
         $title = $from_post["title"];
         $max_score = $from_post["max-score"];
         $duration = $from_post["max-duration"];
@@ -102,7 +102,7 @@ class QuizForm
         $data["duration"] = $duration;
 
         $questions = array();
-        
+
         if (!isset($from_post["question-count"])){
             if (QuizForm::$debug === true){
                 echo "Question count is not set in POST variable";
@@ -132,14 +132,14 @@ class QuizForm
 
             $body = $from_post["qst" . $i . "-body"];
             $score = $from_post["qst" .$i . "-max-score"];
-            
+
             if ( ($score = filter_var($score, FILTER_VALIDATE_INT)) === false ){
                 if (QuizForm::$debug === true){
                     echo "Max score of question #$i could not be converted to an INT";
                 }
                 return false;
             }
-            
+
 
             $question["body"] = $body;
             $question["max_score"] = $score;
@@ -161,7 +161,7 @@ class QuizForm
                 }
                 return false;
             }
-            
+
             for ($j = 1; $j <= $answer_count; $j++){
                 $answer = array();
 
@@ -180,7 +180,7 @@ class QuizForm
                     }
                     return false;
                 }
-                
+
                 $answer["body"] = $body;
                 $answer["score"] = $score;
                 $answers[] = $answer;
@@ -191,13 +191,16 @@ class QuizForm
         }
         $data["questions"] = $questions;
         return $data;
-    
+
     }
 
     public static function generate_form($feedback){
         echo <<<flag
         <script src="js/quiz_form/dynamic_fields.js"></script>
-  <form method="post" style="width: 100%; max-width: 500px; margin: auto; padding: 20px;">
+
+  <form method="post" id="create_quiz_form">
+  <h1 style="padding: 1rem">Creez un nouveau questionaire: </h1>
+  <br>
     <div class="form-group">
         <label for="qcm-title">Titre du questionnaire</label>
         <input type="text" id="qcm-title" class="form-control" placeholder="Titre" name="title" required>
@@ -243,7 +246,7 @@ class QuizForm
             <div class="form-group col-md-1">
                 <a href="#" class="qst1-add-answer"><i class="fa fa-plus"></i></a>
             </div>
-        </div>  
+        </div>
 
     </div>
 

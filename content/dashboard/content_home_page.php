@@ -30,17 +30,7 @@ new qcms ouverts
     </aside>
 
     <aside class="home_page_right col-md-8">
-      <?php home_page_generate_right(array(
-        "champion" => "FOUSSOUL Ayoub",
-        "myRank" => 22,
-        "afterMe" => "SLIMANI Adam",
-        "lastRank" => 203,
-        "lastOne" => "BOUTIHAL Achraf",
-        "done" => 12,
-        "numOfQuizes" => 19,
-        "success" => 13,
-        "mark" => 15,
-        )); ?>
+      <?php home_page_generate_right(); ?>
     </aside>
   </div>
 

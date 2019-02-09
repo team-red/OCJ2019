@@ -76,12 +76,33 @@
 
         public static function modifyData($dbh, $login, $data)
         {
-            $query = "UPDATE users SET surname=?, name=?, school=?, city=?, address=?, grade=?, birthday=? WHERE login=?;";
-            $sth = $dbh->prepare($query);
-            $success = $sth->execute(array(
-                $data["surname"], $data["name"], $data["school"], $data["city"], $data["address"], $data["grade"], $data["birthday"], $login
-            ));
+            $passChangedAttemp = false;
+            if($data["pwd"] === $data["pwd_conf"]){
+              if($data["pwd"] !== ""){
+                $query = "UPDATE users SET surname=?, name=?, pwd=?, school=?, city=?, address=?, grade=?, birthday=? WHERE login=?;";
+                $sth = $dbh->prepare($query);
+                $success = $sth->execute(array(
+                    $data["surname"], $data["name"], password_hash($data["pwd"], PASSWORD_DEFAULT), $data["school"], $data["city"], $data["address"], $data["grade"], $data["birthday"], $login
+                ));
+                if($sth->rowCount() === 0) {
+                  echo password_hash($data["old_pwd"], PASSWORD_DEFAULT);
+                  $passChangedAttemp =true;
+                }
+              }else{
+                $query = "UPDATE users SET surname=?, name=?, school=?, city=?, address=?, grade=?, birthday=? WHERE login=?";
+                $sth = $dbh->prepare($query);
+                $success = $sth->execute(array(
+                    $data["surname"], $data["name"],$data["school"], $data["city"], $data["address"], $data["grade"], $data["birthday"], $login
+                ));
+          }
             $sth->closeCursor();
+
+          }
+
+          if($passChangedAttemp){
+              echo "Erreur! verifiez votre ancien mot de passe et que les deux mots de passes sont bien identiques";
+            }
+
         }
 
         public static function getPhotoSource($login)
@@ -114,7 +135,7 @@
             if (move_uploaded_file($file["tmp_name"], $src) === false) {
                 return false;
             }
-            
+
         }
     }
 

@@ -10,6 +10,10 @@ Questionnaires fait et pas faits
     require_once("utils/quiz/attempt.php");
     require_once("utils/quiz/timestamp.php");
 
+    if(isset($_GET["qcm_del"])){
+      Qcm::del($dbh, htmlspecialchars($_GET["qcm_del"]));
+    }
+
     $valid_qcm = true; // always start with good intentions lol
     if (isset($_GET["qcm_id"]) === false){
         $valid_qcm = false;

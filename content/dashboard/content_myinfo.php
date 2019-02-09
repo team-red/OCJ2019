@@ -1,6 +1,5 @@
 <?php
 require_once("utils/helper/info_utils.php");
-
 ?>
 
 <main class="myinfo_main container-fluid">

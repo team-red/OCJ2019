@@ -13,7 +13,7 @@ require_once("utils/helper/chat_utils.php");
     <span class="chat_link msg_new" onclick="writeMsg()">Ecrire</span>
   </header>
 
-  <main>
+  <div id="chat_main_main">
     <div id="chat_largescreen">
       <span class="chat_link msg_from_admin" onclick="getSeeMore(1)">Important</span>
       <span  class="chat_link msg_in" onclick="getSeeMore(2)">Recu</span>
@@ -32,7 +32,7 @@ require_once("utils/helper/chat_utils.php");
       if(isset($_POST["check"])){
         require_once("utils/database.php");
         $dbh = Database::connect();
-        $user_email = "ayoubfoussoul@gmail.com"; // get this from the session ...
+        $user_email = $_SESSION["email"]; // get this from the session ...
         $date = date('Y-m-d H:i:s');
 
         $query = "SELECT role FROM users WHERE email=?;";
@@ -44,7 +44,7 @@ require_once("utils/helper/chat_utils.php");
         $query = "INSERT INTO chat (from_id, to_id, tag, title, core, date) VALUES (?, ?, ?, ?, ?, ?)";
         $sth = $dbh->prepare($query);
         try {
-          $sth->execute(array($user_email, $_POST["to"], ($role === "admin")? 1: 0, $_POST["title"], $_POST["core"], $date));
+          $sth->execute(array($user_email, htmlspecialchars($_POST["to"]), ($role === "admin")? 1: 0, htmlspecialchars($_POST["title"]), htmlspecialchars($_POST["core"]), $date));
           echo<<<flag
           <br>
           <h3>Message Envoyé</h3>
@@ -58,10 +58,14 @@ flag;
         }
         $sth->closeCursor();
       }else{
-        echo "<script> default_chat(); </script>";
+        if(isset($_GET['sendTo']))
+          echo "<script> default_chat("."'".$_GET['sendTo']."'"."); </script>";
+        else {
+          echo "<script> default_chat("."null"."); </script>";
+        }
       }
       ?>
     </div>
   </div>
-  </main>
+</div>
 </main>

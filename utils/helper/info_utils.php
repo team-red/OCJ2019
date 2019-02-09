@@ -1,5 +1,7 @@
 <?php
 require_once("utils/profile/user.php");
+require_once("utils/database.php");
+require_once("utils/profile/user_data.php");
 
 function myinfo_generate_pdp_pdp($user){
   $profilPhoto = htmlspecialchars(User::getPhotoSource($user->login));
@@ -23,7 +25,14 @@ function myinfo_generate_pdp_info($user){
 flag;
 }
 function myinfo_generate_options(){
-  echo "<span class='myinfo_options'><a href='#' OnClick='javascript:window.print()'><i class='icon-uni7D'></i></a><a href='dashboard.php?page=settings'><i class='icon-uni2E'></i></a><a href='#'><i class='icon-uni36'></i></a></span> ";
+  $dbh = Database::connect();
+  $query = "SELECT email FROM users WHERE role='admin';";
+  $sth = $dbh->prepare($query);
+  $sth->execute(array());
+  $adminEmail = $sth->fetch()[0];
+  $sth->closeCursor();
+  $dbh = null;
+  echo "<span class='myinfo_options'><a href='#' OnClick='javascript:window.print()'><i class='icon-uni7D'></i></a><a href='dashboard.php?page=settings'><i class='icon-uni2E'></i></a><a href='#' onclick=".'"contact('."'$adminEmail'".')"'." ><i class='icon-uni36'></i></a></span> ";
 }
 
 function myinfo_generate_personal_academic($user){
@@ -46,7 +55,7 @@ function myinfo_generate_personal_postal($user){
   $email = htmlspecialchars($user->email);
   $phone = "Non renseigné";
   $adress = htmlspecialchars($user->address);
-  $adress = $adress === "" ? $adress : "Non renseigné";
+  $adress = ($adress !== "") ? $adress : "Non renseigné";
 
   echo<<<flag
   <br>
@@ -71,36 +80,48 @@ function myinfo_generate_personal_personal($user){
 flag;
 }
 
-function myinfo_generate_rank_tab($quizInfo){
-  $rankData = "";
+function myinfo_generate_rank_tab(){
 
-  for($i=0; $i < 10; $i++){
+  $dbh = Database::connect();
+  $result = UserData::getAllScoresAndRanks($dbh);
+  $dbh = null; //todo
+
+  $rankData = "";
+  $i=1;
+  foreach ($result as $userData) {
+    $sendToEmail = $userData[1]->email; //todo
+    $fullName = $userData[1]->surname . " " . $userData[1]->name;
+
     $rankData = $rankData . "  <tr>
       <td class=' table_cell_rank_content'>
-      ".($i+1)."
+      ".($i++)."
       </td>
       <td class=' table_cell_rank_content'>
-      test
+      $fullName
       </td>
-      <td class=' table_cell_rank_content'>
-      test_test
+      <td class=' table_cell_rank_content table_cell_rank_content_contact' onclick=".'"contact('."'$sendToEmail'".')"'." >
+      <span class='icon-uni3E table_cell_rank_contact'></span>
       </td>
       </tr>";
   }
+
+  $champion = (sizeof($result) > 0) ? $result[0][1]->surname ." ". $result[0][1]->name : "NA";
+  $rank2 = (sizeof($result) > 1) ? $result[1][1]->surname ." ". $result[1][1]->name : "NA";
+  $rank3 = (sizeof($result) > 2) ? $result[2][1]->surname ." ". $result[2][1]->name : "NA";
 
     echo<<<flag
     <div class="row" id="myinfo_champions">
       <div class="col-md-4 myinfo_champions_cell">
       <img src="media/rank2.png" alt="classment 2" id="myinfo_rank2_photo"/>
-      <h>BELOUAFI Kamal</h>
+      <h>$rank2</h>
       </div>
       <div class="col-md-4 myinfo_champions_cell_first">
       <img src="media/rank1.png" alt="classement 1" id="myinfo_rank1_photo"/>
-      <h>FOUSSOUL Ayoub</h>
+      <h>$champion</h>
       </div>
       <div class="col-md-4 myinfo_champions_cell">
       <img src="media/rank3.png" alt="classement 3" id="myinfo_rank3_photo"/>
-      <h>ZHIRO Salma</h>
+      <h>$rank3</h>
       </div>
     </div>
     <diV class="row" id="myinfo_rank">
@@ -108,8 +129,8 @@ function myinfo_generate_rank_tab($quizInfo){
         <thead class="thead-dark">
           <tr>
             <th scope="col" class="table_cell_rank">Classement</th>
-            <th scope="col" class="table_cell_rank">Nom de l'éleve</th>
-            <th scope="col" class="table_cell_rank">De</th>
+            <th scope="col" class="table_cell_rank">Eleve</th>
+            <th scope="col" class="table_cell_rank">Contacter...</th>
           </tr>
         </thead>
         <tbody>
@@ -121,28 +142,38 @@ function myinfo_generate_rank_tab($quizInfo){
 flag;
 }
 
-function myinfo_generate_done_tab($quizInfo){
+function myinfo_generate_done_tab(){
+
+
+  $dbh = Database::connect();
+  $result = UserData::getAllQuizes($dbh, User::fromEmail($dbh, $_SESSION["email"]));
+
   $quizData = "";
   $showQuizes = "";
-  $numQuizes = 10;
-
-  for($i=0; $i < $numQuizes; $i++){
-    $quizData = $quizData . "  <tr onclick='showQuiz(".($i+1).")'>
+  $numQuizes = 15;
+  $i = 1;
+  foreach ($result as $qcmData) {
+    $scores = UserData::getScores($dbh, $qcmData[1]->id ,User::fromEmail($dbh, $_SESSION["email"]));
+    $qcm_score = 0;
+    foreach ($scores as $score) {
+        $qcm_score += $score["score"];
+    }
+    $quizData = $quizData . "  <tr onclick='showQuiz(".$i.")'>
       <td class=' table_cell_quiz_content'>
-      ".($i+1)."
+      ".$i."
       </td>
       <td class=' table_cell_quiz_content'>
-      test
+      {$qcmData[1]->title}
       </td>
       <td class=' table_cell_quiz_content'>
-      15
+      {$qcm_score}
       </td>
       </tr>";
     $showQuizes = $showQuizes . "
-    <div id='quiz_".($i+1)."'>
-    Quiz ".($i+1)."!
+    <div id='quiz_".($i++)."'>
+      {$qcmData[0]}
     <br>
-    <span style='cursor:pointer' onclick='unShowQuiz($numQuizes)'>< Revenir en arriere</span>
+    <span style='cursor:pointer' onclick='unShowQuiz()'>< Revenir en arriere</span>
     </div>
     ";
   }
@@ -163,6 +194,9 @@ function myinfo_generate_done_tab($quizInfo){
   </table>
   $showQuizes
 flag;
+
+$dbh = null; //todo
+
 }
 
 ?>

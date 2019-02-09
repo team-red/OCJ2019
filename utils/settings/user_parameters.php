@@ -6,19 +6,22 @@
         public static function createChangePhotoForm($login){
             $src = User::getPhotoSource($login);
             echo <<<flag
-            <img src='$src' alt='Photo de profil'/>
-            <form method="post" enctype="multipart/form-data">
-                Choisissez une photo de profil (type .jpg):
-                <input type="file" name="pdp" id="pdp" required>
+            <div class='change_pdp row'>
+            <div class='col-md-2'><img src='$src' alt='Photo de profil' style='max-width: 100%'/></div>
+            <form method="post" enctype="multipart/form-data" class="col-md-10">
+                Choisissez une photo de profil <br> (verifiez bien qu'elle est de type .jpg et ne dépasse pas 500Kb):
+                <br><br><input type="file" name="pdp" id="pdp" required>
+                <br><br><br>
+                <button type="submit" class="btn btn-primary">Valider</button>
                 <input type="text" name="action" value="change_photo" style="visibility: hidden;">
-                <input type="submit">
             </form>
+            </div>
 flag;
         }
 
         public static function createChangeInfoForm($user){
             echo <<<flag
-            <form class="form" method="post">
+            <form class="form settings_form" method="post">
 flag;
             $name = htmlspecialchars($user->name);
             $surname = htmlspecialchars($user->surname);
@@ -37,6 +40,16 @@ flag;
                 <div>
                     <label for="surname">Nom</label>
                     <input type="text" id="surname" class="form-control" name="surname" value="{$surname}" required>
+                </div>
+
+                <div>
+                    <label for="pwd">Nouveau mot de passe</label>
+                    <input type="password" id="pwd" class="form-control" name="pwd" value="">
+                </div>
+
+                <div>
+                    <label for="pwd_conf">Retapez le mot de passe</label>
+                    <input type="password" id="pwd_conf" class="form-control" name="pwd_conf" value="">
                 </div>
 
                 <div>
@@ -79,9 +92,9 @@ flag;
 
         public static function createDeleteAccountForm(){
             echo <<<flag
-            <form class="form" method="post" onsubmit="return confirm('Êtes-vous sûrs?');">
-                <input type="text" style="visibility: hidden;" name="action" value="delete_account">
+            <form class="form delete_account_form" method="post" onsubmit="return confirm('Êtes-vous sûrs?');">
                 <button type="submit" class="btn btn-danger" id="delete_account">Supprimer mon compte</button>
+                <input type="text" style="visibility: hidden;" name="action" value="delete_account">
             </form>
 flag;
         }

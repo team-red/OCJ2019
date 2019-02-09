@@ -41,7 +41,7 @@ flag;
         {
             $qcm = Qcm::fromId($dbh, $qcm_id);
             if ($qcm === false){
-                return false; 
+                return false;
             }
             $minutes = ($qcm->duration_seconds) / 60;
             $minutes = htmlspecialchars(filter_var($minutes, FILTER_VALIDATE_INT));
@@ -76,7 +76,7 @@ flag;
                     </div>
 flag;
                 }
-                echo "</div>";
+                echo "</div></div>";
 
             }
             echo <<<flag
