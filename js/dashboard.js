@@ -55,7 +55,7 @@ function contact(email){
 function getSeeMore(type){
   onNewMessage = false;
   var mobile = false;
-  $(".chat_main>main").css("background-color","");
+  $(".chat_main_main").css("background-color","");
   if (window.matchMedia("(max-width: 767.9px)").matches) {
     $("#chat_body_container").css("display","none");
     $("#chat_seemore_container").css("display","block");
@@ -110,13 +110,13 @@ function getMessage(id, type){
     $("#chat_body_container").css("display","table-cell");
     $("#chat_seemore_container").css("display","none");
     $("#chat_body_container").css("width","100%");
-    $(".chat_main>main").css("background-color","#f8f9fa");
+    $(".chat_main_main").css("background-color","#f8f9fa");
     mobile = true;
   } else {
     $("#chat_body_container").css("display","table-cell");
     $("#chat_seemore_container").css("display","");
     $("#chat_body_container").css("width","55%");
-    $(".chat_main>main").css("background-color","");
+    $(".chat_main_main").css("background-color","");
     mobile = false;
   }
   $("#chat_body").html("");
@@ -141,12 +141,12 @@ function writeMsg(){
   if (window.matchMedia("(max-width: 767.9px)").matches) {
     $("#chat_body_container").css("display","table-cell");
     $("#chat_body_container").css("width","100%");
-    $(".chat_main>main").css("background-color","#f8f9fa");
+    $(".chat_main_main").css("background-color","#f8f9fa");
     mobile = true;
   } else {
     $("#chat_body_container").css("display","table-cell");
     $("#chat_body_container").css("width","80%");
-    $(".chat_main>main").css("background-color","");
+    $(".chat_main_main").css("background-color","");
     mobile = false;
   }
     $("#chat_seemore_container").css("display","none");
@@ -173,7 +173,7 @@ function delete_default_value(object, value){
 }
 
 $( window ).resize(function(){
-  $(".chat_main>main").css("background-color","");
+  $(".chat_main_main").css("background-color","");
   if(onNewMessage){
     $("#chat_seemore_container").css("display","none");
     $("#chat_body_container").css("display","table-cell");

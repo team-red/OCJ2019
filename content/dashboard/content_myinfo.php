@@ -2,7 +2,7 @@
 require_once("utils/helper/info_utils.php");
 ?>
 
-<main class="myinfo_main container-fluid">
+<div class="myinfo_main container-fluid">
 
   <div class="myinfo_pdp_options row">
     <?php
@@ -24,7 +24,7 @@ require_once("utils/helper/info_utils.php");
   </div>
 
   <div class="myinfo_personal myinfo_container">
-    <h class="row"><h class="col-md-2">Details personelles</h><hr class="col-md-10 myinfo_hr"></h>
+    <div class="row myinfo_container_title"><span class="col-md-2">Details personelles</span><hr class="col-md-10 myinfo_hr"></div>
     <span class="myinfo_personal_academic">
       <?php
       myinfo_generate_personal_academic($user);
@@ -43,13 +43,13 @@ require_once("utils/helper/info_utils.php");
   </div>
 
   <div class="myinfo_quiz myinfo_container">
-    <h class="row"><h class="col-md-2">Questionnaires</h><hr class="col-md-10 myinfo_hr"></h>
+    <div class="row"><span class="col-md-2">Questionnaires</span><hr class="col-md-10 myinfo_hr"></div>
     <div class="myinfo_quiz_tabs">
-      <header>
+      <div class="myinfo_quiz_tabs_header">
         <span id="myinfo_quiz_tab_rank" onclick="rank_tab()">TOP10</span>
         <span id="myinfo_quiz_tab_done" onclick="done_tab()">Questionnaires</span>
-      </header>
-      <main>
+      </div>
+      <div>
         <div class="myinfo_quiz_tabs_content container-fluid" id="myinfo_quiz_tabs_rank">
           <?php
           myinfo_generate_rank_tab(array(
@@ -80,9 +80,9 @@ require_once("utils/helper/info_utils.php");
           ));
           ?>
         </div>
-      </main>
-    <div>
+      </div>
+    </div>
   </div>
 
-</main>
+</div>
 <?php generate_footer(); ?>

@@ -10,8 +10,8 @@ class UserData
 
 
     public static function numberOfQcmsTried($dbh, $user){
-        $query = "SELECT COUNT(DISTINCT qcm.id) FROM stamps 
-                  JOIN qcm ON qcm.id = stamps.id_qcm 
+        $query = "SELECT COUNT(DISTINCT qcm.id) FROM stamps
+                  JOIN qcm ON qcm.id = stamps.id_qcm
                   WHERE stamps.user_login=?;";
         $sth = $dbh->prepare($query);
         $sth->execute(array($user->login));
@@ -56,8 +56,8 @@ class UserData
     }
 
     public static function fromEmail($dbh, $user){
-        $query = "SELECT DISTINCT qcm.id, qcm.title, qcm.max_score, qcm.start_time FROM stamps 
-                  JOIN qcm ON qcm.id = stamps.id_qcm 
+        $query = "SELECT DISTINCT qcm.id, qcm.title, qcm.max_score, qcm.start_time FROM stamps
+                  JOIN qcm ON qcm.id = stamps.id_qcm
                   WHERE stamps.user_login=?;";
         $sth = $dbh->prepare($query);
         $sth->setFetchMode(PDO::FETCH_CLASS, 'Qcm');
@@ -160,7 +160,7 @@ public static function getAllQuizes($dbh, $user){
                 $sth->execute(array($user->login, $qcmData[0], $ans->id));
                 $answerData = $sth->fetch();
                 $checked = ($answerData) ? " checked" : " ";
-                $color = "";
+                $color = "unset";
                 if($checked === " checked") $color = ($answerData[1] == 1) ? "green" : "red";
                 $score = $ans->score;
                 $sth->closeCursor();

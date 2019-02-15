@@ -109,7 +109,7 @@ flag;
 
       $html = $html."
       <li>
-        <a class='sidebar_page".$selected."'id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
+        <a class='sidebar_page".$selected."' id='sidebar_".$valid_page["name"]."' href='dashboard.php?page=".$valid_page["name"]."'>
           <i class='icon-".$valid_page["icon_name"]." sidebar_icon'></i>
           ".$valid_page["title"]."
           <i class='icon-uniE04B sidebar_arrow'></i>
@@ -412,7 +412,7 @@ $dbh = null; //todo
 function showQcms($qcms, $user)
   {
     echo <<<flag
-    <main class="quiz_main container-fluid">
+    <div class="quiz_main container-fluid">
     <h1>Liste des questionnaires disponibles:</h1>
     <span style="color:red; margin-bottom:4rem; display:block;">Faites bien attention! une fois un questionnaire commencé il y aura plus la possibilité de le refaire!</span>
 
@@ -446,7 +446,7 @@ $isAdmin = ($user->role !== "admin") ? "none" : "block";
 flag;
     }
     echo <<<flag
-    </main>
+    </div>
 flag;
   }
 ?>

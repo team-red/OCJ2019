@@ -10,10 +10,12 @@ class AdminPanel
         echo <<<flag
         <table class="table">
             <thead class="thead-dark">
+              <tr>
                 <th scope="col">Nom Complet</th>
                 <th scope="col">Pseudo</th>
-                <th scope="col">Nombre de QCMs essayés</th> 
+                <th scope="col">Nombre de QCMs essayés</th>
                 <th scope="col">Actions</th>
+              </tr>
             </thead>
             <tbody>
 flag;

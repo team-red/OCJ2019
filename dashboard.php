@@ -56,14 +56,14 @@ generate_sidebar($active_page, $pages, $isAdmin);
 ?>
 
 <!-- Main -->
-<main class="app-main">
+<div class="app-main">
 <?php require_once("content/dashboard/content_".$active_page.".php"); ?>
-</main>
+</div>
 </div>
 
 
-<script type="text/javascript" src="js/popper.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
 <?php
 $dbh = null;

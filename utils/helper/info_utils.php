@@ -20,7 +20,7 @@ function myinfo_generate_pdp_info($user){
   echo<<<flag
   <h1>$last_name $first_name</h1>
   <h5>$school</h5>
-  <h>$accountStatus</h>
+  <span>$accountStatus</span>
 
 flag;
 }
@@ -113,15 +113,15 @@ function myinfo_generate_rank_tab(){
     <div class="row" id="myinfo_champions">
       <div class="col-md-4 myinfo_champions_cell">
       <img src="media/rank2.png" alt="classment 2" id="myinfo_rank2_photo"/>
-      <h>$rank2</h>
+      <span>$rank2</span>
       </div>
       <div class="col-md-4 myinfo_champions_cell_first">
       <img src="media/rank1.png" alt="classement 1" id="myinfo_rank1_photo"/>
-      <h>$champion</h>
+      <span>$champion</span>
       </div>
       <div class="col-md-4 myinfo_champions_cell">
       <img src="media/rank3.png" alt="classement 3" id="myinfo_rank3_photo"/>
-      <h>$rank3</h>
+      <span>$rank3</span>
       </div>
     </div>
     <diV class="row" id="myinfo_rank">
@@ -172,13 +172,13 @@ function myinfo_generate_done_tab(){
     $showQuizes = $showQuizes . "
     <div id='quiz_".($i++)."'>
       {$qcmData[0]}
-    <span class='back_quiz' onclick='unShowQuiz()'>< Revenir en arriere</span>
+    <span class='back_quiz' onclick='unShowQuiz()'> Revenir en arriere</span>
     </div>
     ";
   }
 
   echo<<<flag
-  <h>Liste des questionnaires que vous avez déjà fait:</h>
+  <span>Liste des questionnaires que vous avez déjà fait:</span>
   <table class="table" id="table_quiz">
       <thead class="thead-dark">
         <tr>

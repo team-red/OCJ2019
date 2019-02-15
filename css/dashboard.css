@@ -533,7 +533,7 @@ body{
   height: inherit;
   margin-top: 12px;
 }
-.myinfo_container>h{
+.myinfo_container_title{
   width: 100%;
   margin: 0;
 }
@@ -554,7 +554,7 @@ body{
   color: #4f5566;
   background-color: #fdfdfd;
 }
-.myinfo_quiz_tabs>header{
+.myinfo_quiz_tabs_header{
   margin-bottom: 1rem;
 }
 #myinfo_champions{
@@ -636,7 +636,7 @@ body{
   font-weight: 100;
   color: #6c757d;
 }
-.myinfo_pdp_info>h{
+.myinfo_pdp_info>span{
   font-size: small;
   color: #6c757d;
 }

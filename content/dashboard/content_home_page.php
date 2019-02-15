@@ -7,7 +7,6 @@ new qcms ouverts
 
  -->
 
-
 <?php
   require_once("utils/profile/user.php");
   if (isset($_SESSION["email"])){
@@ -22,7 +21,7 @@ new qcms ouverts
   }
 ?>
 
-<main class="home_page_main container-fluid">
+<div class="home_page_main container-fluid">
 
   <div class="home_page_main_row row">
     <aside class="home_page_left col-md-4">
@@ -34,5 +33,5 @@ new qcms ouverts
     </aside>
   </div>
 
-</main>
+</div>
 <?php generate_footer(); ?>

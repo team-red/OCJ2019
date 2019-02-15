@@ -4,7 +4,7 @@ require_once("utils/helper/chat_utils.php");
 
 ?>
 
-<main class="chat_main container-fluid">
+<div class="chat_main container-fluid">
   <h2>Messagerie</h2>
   <header id="chat_mobile">
     <span class="chat_link msg_from_admin" onclick="getSeeMore(1)">Important</span>
@@ -68,4 +68,4 @@ flag;
     </div>
   </div>
 </div>
-</main>
+</div>
