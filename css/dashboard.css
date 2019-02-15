@@ -331,6 +331,7 @@ body{
     color: #545b62;
   }
 
+
   /* right */
   @media (min-width: 1200px){
     .min_col_stat_content_main{
@@ -434,10 +435,54 @@ body{
   padding: 2rem;
 }
 .quiz_main_form{
-  padding: 3rem;
+  border: solid #dae0e5 1px;
+  margin-bottom: 3rem;
   background-color: white;
-  min-height: -webkit-fill-available;
+  padding-bottom: 3rem;
 }
+.quiz_main_form>div>button{
+  max-width: 10rem;
+  margin: auto;
+}
+.quiz_main_form>div{
+  padding: 3rem 3rem 0rem 3rem;
+}
+.quiz_main_form>span{
+  display: block;
+  background-color: #f8f9fa;
+  border-bottom: solid 1px #dee2e6;
+  padding: 2rem;
+}
+
+
+.quiz_container{
+  margin-top: 1rem !important;
+  border: solid #dae0e5 1px;
+  margin-bottom: 3rem;
+  background-color: white;
+  padding: 0 !important;
+  margin: 3rem;
+  position: relative;
+}
+.button_send_quiz>button{
+  max-width: 10rem;
+  margin: auto;
+}
+.button_send_quiz{
+  bottom: 2rem;
+}
+
+.quiz_container>div{
+  padding: 0rem 3rem 3rem 3rem;
+}
+.quiz_container>span{
+  margin-bottom: 3rem;
+  display: block;
+  background-color: #f8f9fa;
+  border-bottom: solid 1px #dee2e6;
+  padding: 2rem;
+}
+
 .quiz_main .quiz{
   text-decoration: none;
   margin: 1rem 0rem 0rem 0rem;
@@ -513,7 +558,6 @@ body{
 .myinfo_main{
   padding: 3rem;
   background-color: white;
-  /***/
 }
 #myinfo_profil_photo{
   width: 12rem;
@@ -629,6 +673,11 @@ body{
   }
 }
 
+.back_button{
+  background-color: #bd2130;
+  padding: 1rem;
+  color: white;
+}
 .myinfo_pdp_info>h1{
   font-weight: 100;
 }

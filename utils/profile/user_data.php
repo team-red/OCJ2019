@@ -134,17 +134,16 @@ public static function getAllQuizes($dbh, $user){
           $seconds = htmlspecialchars($qcm->duration_seconds);
           $title = htmlspecialchars($qcm->title);
           $result = "";
-          $result = $result. "<span style='visibility: hidden;' id='quiz-duration'>$seconds</span>
+          $result = $result. "<span style='visibility: hidden;' class='quiz-duration'>$seconds</span>
           <form method='post' class='quiz_main_form'>
               <span style='font-size: x-large;'><b>$title</b> ($minutes minutes)</span>
-              <br><br><br><br>";
+              ";
 
           $qsts = $qcm->questions;
           foreach ($qsts as $qkey => $qst) {
               $enum = $qkey + 1;
               $q_body = htmlspecialchars($qst->body);
               $result = $result. "<div><span style='font-size: large;'>Question $enum</span>
-              <br>
               <div><span>$q_body</span><br><br>";
 
               $answers = $qst->answers;
@@ -173,7 +172,7 @@ public static function getAllQuizes($dbh, $user){
                       <label class='custom-control-label' style='color: $color' for='qst{$enum}-ans$a_enum'>$a_body ($score pts)</label>
                   </div>";
               }
-              $result = $result."</div><br><br><br></div>";
+              $result = $result."</div><br></div>";
         }
           $result = $result. "</form>";
           array_push($finalResult,array($result, $qcm));
