@@ -183,7 +183,7 @@ function myinfo_generate_done_tab(){
       <thead class="thead-dark">
         <tr>
           <th scope="col" class="table_cell_quiz">#</th>
-          <th scope="col" class="table_cell_quiz">Titre du questionnaire</th>
+          <th scope="col" class="table_cell_quiz">Titre</th>
           <th scope="col" class="table_cell_quiz">Note obtenue</th>
         </tr>
       </thead>

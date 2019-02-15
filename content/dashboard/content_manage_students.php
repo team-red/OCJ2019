@@ -4,7 +4,7 @@ require_once("utils/profile/admin_panel.php");
 require_once("utils/profile/user.php");
 require_once("utils/quiz/qcm.php");
 
-echo "<div class='manage_students_main'><h1>Voici la liste des élèves inscrits sur le site : </h1><br>";
+echo "<div class='manage_students_main'><h1 class='manage_students_main_title'>Voici la liste des élèves inscrits sur le site : </h1><br>";
 if (!isset($_GET["action"])){
     AdminPanel::createUserManagerForm($dbh);
 } else if ($_GET["action"] === "view_activity"){

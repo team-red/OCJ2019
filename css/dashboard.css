@@ -29,7 +29,9 @@ body{
   /*height: 100%;
   display: inline-block;*/
 }
-
+.table>tbody>tr>td{
+  overflow: auto;
+}
 /********************* header css **********************/
 
 /* large screen */
@@ -350,10 +352,21 @@ body{
     }
   }
   @media (min-width: 768px){
+
   }
   @media (max-width: 767.9px){
     .min_chat_hide{
       display: none;
+    }
+    .manager_hide{
+      display: none;
+    }
+    .manage_students_main_title{
+      padding: 2rem;
+    }
+    .manage_students_main{
+      padding: 0 !important;
+      border: solid 30px white;
     }
   }
   .home_page_right{
@@ -804,6 +817,7 @@ body{
 }
 .chat_link{
   padding: 1rem;
+  cursor: pointer;
 }
 #chat_mobile{
   padding: 1rem 0rem 1rem 0rem;
@@ -823,6 +837,7 @@ body{
 .msg_min{
   display: block;
   padding: 1rem;
+  cursor: pointer;
 }
 .msg_min>span{
   display: block;
@@ -877,6 +892,7 @@ body{
 
 /* manage students */
 .manage_students_main{
+  overflow: auto;
   background-color: white;
   padding: 2rem;
   min-height: -webkit-fill-available;

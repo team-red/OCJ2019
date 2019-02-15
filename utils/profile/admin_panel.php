@@ -12,7 +12,7 @@ class AdminPanel
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Nom Complet</th>
-                <th scope="col">Pseudo</th>
+                <th scope="col" class="manager_hide">Pseudo</th>
                 <th scope="col">Nombre de QCMs essayés</th>
                 <th scope="col">Actions</th>
               </tr>
@@ -27,7 +27,7 @@ flag;
             echo <<<flag
             <tr>
                 <td>$full_name</td>
-                <td>$pseudo</td>
+                <td class="manager_hide">$pseudo</td>
                 <td>$num_qcms</td>
                 <td>
                     <a href="dashboard.php?page=manage_students&action=view_activity&value=$student->login">Voir Activité</a>
