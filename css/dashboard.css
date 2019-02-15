@@ -829,6 +829,7 @@ body{
   border: solid 1px #e9ecef;
   min-height: 100vh;
   margin-right: 1rem;
+  border-right: none;
 }
 #chat_seemore{
   width: 25%;
@@ -882,12 +883,16 @@ body{
   background-color: #f8f9fa;
   padding-top: 0;
   border: solid 1px #e9ecef;
+
 }
 .chat_main>h2{
   margin-bottom: 2rem;
 }
 #chat_body>h2,#chat_body>h5, #chat_body>span{
   display: block;
+}
+#chat_main_main>div{
+  vertical-align: top;
 }
 
 /* manage students */

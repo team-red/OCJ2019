@@ -231,7 +231,7 @@ flag;
   // getting stuff from db
 
   $user_email = $_SESSION["email"]; // get this from the session ...
-  $query = "SELECT id, from_id, title, date FROM chat WHERE to_id=? AND tag=1;";
+  $query = "SELECT id, from_id, title, date FROM chat WHERE to_id=?;";
   $sth = $dbh->prepare($query);
   $sth->execute(array($user_email));
   $result = array();
