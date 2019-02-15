@@ -432,7 +432,7 @@ $isAdmin = ($user->role !== "admin") ? "none" : "block";
         <div class="row">
           <div class="col-md-2 head"><span style="">Q{$key}</span></div>
             <div class="col-md-10 body">
-              <span style="font-size: large;font-weight: 400; text-transform:capitalize ;">$title</span>
+              <span class="quiz_title">$title</span>
               <br>
               <br>
               Durée : $duration

@@ -48,7 +48,7 @@ flag;
             $seconds = htmlspecialchars($qcm->duration_seconds);
             $title = htmlspecialchars($qcm->title);
             echo <<<flag
-            <span style="visibility: hidden;" class="quiz-duration">$seconds</span>
+            <span style="visibility: hidden;" id="quiz-duration-send">$seconds</span>
             <form method='post' class='quiz_main_form'>
 
                 <div style="font-size: medium;">
@@ -60,6 +60,7 @@ flag;
                 - Vous avez <b> $minutes minutes </b> pour valider vos réponses, dans le cas contraire
                 les réponses seront validés automatiquement!.
                 </div>
+                <br><br>
                 <div class="quiz_container">
                 <span style='font-size: large;'><b>Titre du questionnaire :</b> $title</span>
 

@@ -134,7 +134,7 @@ public static function getAllQuizes($dbh, $user){
           $seconds = htmlspecialchars($qcm->duration_seconds);
           $title = htmlspecialchars($qcm->title);
           $result = "";
-          $result = $result. "<span style='visibility: hidden;' class='quiz-duration'>$seconds</span>
+          $result = $result. "<span style='visibility: hidden;' id='quiz-duration-show'>$seconds</span>
           <form method='post' class='quiz_main_form'>
               <span style='font-size: x-large;'><b>$title</b> ($minutes minutes)</span>
               ";
@@ -168,7 +168,7 @@ public static function getAllQuizes($dbh, $user){
                   $a_body = htmlspecialchars($ans->body);
                   $result = $result. "
                   <div class='custom-control custom-radio'>
-                      <input disabled='disabled' type='radio' class='custom-control-input' id='qst{$enum}-ans$a_enum' name='ans[$qkey]' value='{$ans->id}'{$checked}>
+                      <input disabled='disabled' type='radio' class='custom-control-input' name='ans[$qkey]' value='{$ans->id}'{$checked}>
                       <label class='custom-control-label' style='color: $color' for='qst{$enum}-ans$a_enum'>$a_body ($score pts)</label>
                   </div>";
               }

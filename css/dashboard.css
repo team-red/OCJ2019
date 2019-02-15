@@ -471,7 +471,6 @@ body{
 .button_send_quiz{
   bottom: 2rem;
 }
-
 .quiz_container>div{
   padding: 0rem 3rem 3rem 3rem;
 }
@@ -482,7 +481,16 @@ body{
   border-bottom: solid 1px #dee2e6;
   padding: 2rem;
 }
-
+.quiz_title{
+   font-size: large;
+   font-weight: 400;
+   text-transform:capitalize;
+   width: 100%;
+   overflow: hidden;
+   display: inline-block;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
 .quiz_main .quiz{
   text-decoration: none;
   margin: 1rem 0rem 0rem 0rem;
