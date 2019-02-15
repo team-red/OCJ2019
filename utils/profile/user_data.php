@@ -7,8 +7,6 @@ require_once("utils/quiz/qst.php");
 class UserData
 {
 
-
-
     public static function numberOfQcmsTried($dbh, $user){
         $query = "SELECT COUNT(DISTINCT qcm.id) FROM stamps
                   JOIN qcm ON qcm.id = stamps.id_qcm

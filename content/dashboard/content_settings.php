@@ -1,6 +1,6 @@
 <?php
 
-require_once("utils/settings/user_parameters.php");
+require_once("utils/helper/settings_utils.php");
 require_once("utils/profile/user.php");
 
 if (isset($_POST["action"])){
