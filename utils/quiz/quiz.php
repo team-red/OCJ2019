@@ -63,6 +63,7 @@ flag;
                 <br><br>
                 <div class="quiz_container">
                 <span style='font-size: large;'><b>Titre du questionnaire :</b> $title</span>
+                <center><span id="timer"></span></center><br><br>
 
 flag;
             $qsts = $qcm->questions;
